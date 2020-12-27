@@ -33,7 +33,10 @@ public class LoginActivity extends AppCompatActivity {
     private Button buttonLogin;
     private Switch switchRemember;
     private ProgressDialog progressDialog;
+    FirebaseDatabase myDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef=myDatabase.getReference();
 
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,36 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         init();
+
+
+
+       /* Query sorgu = myRef.child("users").orderByChild("email").equalTo("email@gmail.com");
+        sorgu.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot d:dataSnapshot.getChildren()){
+                    User kisi=d.getValue(User.class);
+                    String key=d.getKey();
+
+                    kisi.setKey(key);
+                    Log.e("kisi.key",kisi.getKey());
+
+                    Map<String,Object> updateInfo = new HashMap<>();
+                    updateInfo.put("key", kisi.getKey());
+
+
+                    myRef.child(key).updateChildren(updateInfo);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });*/
+
+
+
     }
 
     public void init() {
@@ -92,38 +125,78 @@ public class LoginActivity extends AppCompatActivity {
             editTextPassword.setError("Şifreniz en az 1 büyük ve küçük harf ve sayı içermelidir!");
             editTextPassword.setText("");
             return;
-        }
+        } else {
+            //Database istek kontrolü
 
-        FirebaseDatabase myDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = myDatabase.getReference("users");
 
-        Query sorgu = myRef.orderByChild("email").equalTo(R.id.editTextEmail);
-        sorgu.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot d:dataSnapshot.getChildren()){
-                    User kisi=d.getValue(User.class);
-                    String key=d.getKey();
+            Query queryForEmail = myRef.child("users").orderByChild("email").equalTo(email);
+            queryForEmail.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                        currentUser=postSnapshot.getValue(User.class);
+                        currentUser.setKey(postSnapshot.getKey());
 
-                    kisi.setKey(key);
-                    Log.e("kisi.key",kisi.getKey());
+                        Map<String,Object> updateInfo = new HashMap<>();
+                        updateInfo.put("key", currentUser.getKey());
+                        myRef.child("users").child(currentUser.getKey()).updateChildren(updateInfo);
 
-                    Map<String,Object> updateInfo = new HashMap<>();
-                    updateInfo.put("key", kisi.getKey());
 
-                    FirebaseDatabase myDatabase = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = myDatabase.getReference("users");
-                    myRef.child(key).updateChildren(updateInfo);
+
+
+                        Query queryForPassword=myRef.child("users").child(currentUser.getKey()).equalTo(password);
+
+
+                        queryForPassword.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot snapshot) {
+
+
+                                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                                    Log.e("aa",postSnapshot.getValue()+" ");
+                                    Log.e("aa"," aaaaaaaaaaaaaaaaaaaaa");
+
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError error) {
+                                // Getting Post failed, log a message
+                                Log.w("TAG", "loadPost:onCancelled", error.toException());
+                                // ...
+                            }
+                        });
+
+
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Getting Post failed, log a message
+                    Log.w("TAG", "loadPost:onCancelled", databaseError.toException());
+                    // ...
+                }
+            });
 
-            }
-        });
 
-        progressDialog.show();
+
+
+
+
+
+
+
+
+
+            Intent next=new Intent(LoginActivity.this, SplashScreenActivity.class);
+            startActivity(next);
+            finish();
+
+
+       }
+      //  progressDialog.show();
     }
 
 }
