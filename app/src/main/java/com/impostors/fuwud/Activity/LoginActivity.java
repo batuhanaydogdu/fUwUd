@@ -83,51 +83,46 @@ public class LoginActivity extends AppCompatActivity {
         }
         boolean lowerCase = false, upperCase = false, digit = false;
         for (int i = 0; i < password.length(); i++) {
-            char charachter = password.charAt(i);
-            if (Character.isUpperCase(charachter)) upperCase = true;
-            if (Character.isLowerCase(charachter)) lowerCase = true;
-            if (Character.isDigit(charachter)) digit = true;
+            char character = password.charAt(i);
+            if (Character.isUpperCase(character)) upperCase = true;
+            if (Character.isLowerCase(character)) lowerCase = true;
+            if (Character.isDigit(character)) digit = true;
         }
         if (lowerCase == false || upperCase == false || digit == false) {
             editTextPassword.setError("Şifreniz en az 1 büyük ve küçük harf ve sayı içermelidir!");
             editTextPassword.setText("");
             return;
-        } else {
-            //Database istek kontrolü
-            FirebaseDatabase myDatabase = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = myDatabase.getReference("users");
-
-            Query sorgu = myRef.orderByChild("email").equalTo(R.id.editTextEmail);
-            sorgu.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for(DataSnapshot d:dataSnapshot.getChildren()){
-                        User kisi=d.getValue(User.class);
-                        String key=d.getKey();
-
-                        kisi.setKey(key);
-                        Log.e("kisi.key",kisi.getKey());
-
-                        Map<String,Object> updateInfo = new HashMap<>();
-                        updateInfo.put("key", kisi.getKey());
-
-                        FirebaseDatabase myDatabase = FirebaseDatabase.getInstance();
-                        DatabaseReference myRef = myDatabase.getReference("users");
-                        myRef.child(key).updateChildren(updateInfo);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-            Intent next=new Intent(LoginActivity.this, SplashScreenActivity.class);
-            startActivity(next);
-
-
         }
+
+        FirebaseDatabase myDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = myDatabase.getReference("users");
+
+        Query sorgu = myRef.orderByChild("email").equalTo(R.id.editTextEmail);
+        sorgu.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot d:dataSnapshot.getChildren()){
+                    User kisi=d.getValue(User.class);
+                    String key=d.getKey();
+
+                    kisi.setKey(key);
+                    Log.e("kisi.key",kisi.getKey());
+
+                    Map<String,Object> updateInfo = new HashMap<>();
+                    updateInfo.put("key", kisi.getKey());
+
+                    FirebaseDatabase myDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = myDatabase.getReference("users");
+                    myRef.child(key).updateChildren(updateInfo);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         progressDialog.show();
     }
 
