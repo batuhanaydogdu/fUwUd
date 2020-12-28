@@ -12,13 +12,14 @@
         android:id="@+id/editTextEmail"
         android:layout_width="342dp"
         android:layout_height="45dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="220dp"
         android:background="@drawable/background"
 
         android:hint="E-mail Giriniz"
         android:padding="10dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,8 +52,6 @@
         android:layout_height="40dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/background"
-
-        android:onClick="loginMethod"
         android:text="GİRİŞ"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
