@@ -14,7 +14,6 @@
         android:layout_height="45dp"
         android:layout_marginTop="220dp"
         android:background="@drawable/background"
-
         android:hint="E-mail Giriniz"
         android:padding="10dp"
         android:textSize="18sp"
@@ -27,35 +26,40 @@
         android:id="@+id/editTextPassword"
         android:layout_width="342dp"
         android:layout_height="45dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/background"
-
         android:hint="Şifre Giriniz"
         android:inputType="textPassword"
         android:padding="10dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switchRemember" />
-
-    <Switch
-        android:id="@+id/switchRemember"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextEmail"
         app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
 
     <Button
         android:id="@+id/buttonLogin"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="144dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/background"
         android:text="GİRİŞ"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonRegister"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="144dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/background"
+        android:text="KAYIT OL"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/buttonLogin"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
 
