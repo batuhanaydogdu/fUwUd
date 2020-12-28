@@ -40,6 +40,18 @@ public class LoginActivity extends AppCompatActivity {
 
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        // Check auth on Activity start
+        if (auth.getCurrentUser() != null) {
+            onAuthSuccess(auth.getCurrentUser());
+        }
+    }
+
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -70,12 +82,16 @@ public class LoginActivity extends AppCompatActivity {
 
     public void init() {
         auth = FirebaseAuth.getInstance();
+        currentUser = auth.getCurrentUser();
 
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
        /* register_link = findViewById(R.id.main_signup_button_text);
         txtForgotPassword = findViewById(R.id.main_text_forgot_password);*/
+
+
+
     }
 
     public void signInClicked() {
@@ -105,20 +121,30 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Intent main_intent = new Intent(LoginActivity.this, MainPageActivity.class);
-                    progressDialog = new ProgressDialog(LoginActivity.this);
-                    progressDialog.setMessage("Logging In...");
-                    progressDialog.setCancelable(false);
-                    progressDialog.show();
-                    startActivity(main_intent);
-                    finish(); // to stop Login Activity
+                    onAuthSuccess(task.getResult().getUser());
                 } else {
                     Toast.makeText(LoginActivity.this, "Email or password is wrong!", Toast.LENGTH_LONG).show();
                     return;
                 }
+
             }
         });
     }
+
+    private void onAuthSuccess(FirebaseUser user){
+        progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setMessage("Logging In...");
+        progressDialog.setCancelable(false);
+        Intent main_intent = new Intent(LoginActivity.this, MainPageActivity.class);
+        progressDialog.show();
+        startActivity(main_intent);
+        finish(); // to stop Login Activity
+
+    }
+
+
+
+
 
 
     private void clearStorage(SharedPreferences emailPref, String s, boolean b) {
