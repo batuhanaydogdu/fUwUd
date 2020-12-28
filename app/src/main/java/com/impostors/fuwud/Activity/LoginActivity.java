@@ -83,6 +83,7 @@ public class LoginActivity extends BaseActivity {
     public void init() {
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
+        
 
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
