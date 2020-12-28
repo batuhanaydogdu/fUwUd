@@ -1,50 +1,163 @@
 package com.impostors.fuwud.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.impostors.fuwud.Model.User;
+import com.google.firebase.auth.FirebaseUser;
 import com.impostors.fuwud.R;
+
+import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
 
-
-    private EditText editTextEmail,editTextPassword;
+    private EditText editTextEmail, editTextPassword;
     private Button buttonLogin;
-    private Switch switchRemember;
     private ProgressDialog progressDialog;
-    private DatabaseReference mDatabase;
-    private FirebaseAuth mAuth;
-    private User currentUser;
+    private Switch emailRemember;
+    private String rememberEmailKey = "switchEmail";
+
+
+    private TextView register_link, txtForgotPassword;
+
+    private FirebaseAuth auth;
+    private FirebaseUser currentUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         init();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mAuth = FirebaseAuth.getInstance();
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signInClicked();
+            }
+        });
 
+        /*register_link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signUpClicked();
+            }
+        });
 
-
+        txtForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                forgotpasswordClicked();
+            }
+        });*/
     }
 
     public void init() {
-        editTextEmail =  findViewById(R.id.editTextEmail);
-        editTextPassword =  findViewById(R.id.editTextPassword);
-        buttonLogin =  findViewById(R.id.buttonLogin);
-        switchRemember =  findViewById(R.id.switchRemember);
+        auth = FirebaseAuth.getInstance();
+        currentUser = auth.getCurrentUser();
+
+        editTextEmail = findViewById(R.id.editTextEmail);
+        editTextPassword = findViewById(R.id.editTextPassword);
+        buttonLogin = findViewById(R.id.buttonLogin);
+       /* register_link = findViewById(R.id.main_signup_button_text);
+        txtForgotPassword = findViewById(R.id.main_text_forgot_password);*/
+
+        if (currentUser != null) {
+            goToMain();
+            finish();
+        }
+
+    }
+
+    public void goToMain() {
+        if (currentUser.isEmailVerified()) {
+            Intent intent = new Intent(getApplicationContext(), MainPageActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    public void signInClicked() {
+        final String email = editTextEmail.getText().toString();
+        String password = editTextPassword.getText().toString();
+
+
+        /*if (emailRemember.isChecked()){ // Add Email To Storage
+            addToSharedPreferences(email);//Remember Email
+        }else{  // Clear Storage
+            clearStorage(getSharedPreferences("EmailPref", MODE_PRIVATE), "", false);
+        }*/
+
+        //Password Combination Controls
+        if (TextUtils.isEmpty(email)) {
+            editTextEmail.setError("Email field cannot be empty!");
+            if (TextUtils.isEmpty(password)) {
+                editTextPassword.setError("Password field cannot be empty!");
+            }
+            return;
+        }
+        if (TextUtils.isEmpty(password)) {
+            editTextPassword.setError("Password field cannot be empty!");
+            return;
+        }
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this,new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    progressDialog = new ProgressDialog(LoginActivity.this);
+                    progressDialog.setMessage("Logging In...");
+                    progressDialog.setCancelable(false);
+                    Intent main_intent = new Intent(LoginActivity.this, MainPageActivity.class);
+                    startActivity(main_intent);
+                    finish(); // to stop Login Activity
+                } else {
+                    Toast.makeText(LoginActivity.this, "Email or password is wrong!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                progressDialog.show();
+            }
+        });
     }
 
 
+    private void clearStorage(SharedPreferences emailPref, String s, boolean b) {
+        SharedPreferences sharedPreferences = emailPref;
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("email", s);
+        editor.putBoolean(rememberEmailKey, b);
+        editor.apply();
+    }
 
+    public void addToSharedPreferences(String email) {
+        clearStorage(getApplicationContext().getSharedPreferences("EmailPref", MODE_PRIVATE), email, emailRemember.isChecked());
+    }
+
+
+    /*public void signUpClicked(){
+        Intent register_page_intent= new Intent(LoginActivity.this, RegistrationActivity.class);
+        startActivity(register_page_intent);
+        finish();
+
+    }
+
+    public void forgotpasswordClicked(){
+        Intent register_page_intent= new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+        startActivity(register_page_intent);
+        finish();
+    }*/
 }
