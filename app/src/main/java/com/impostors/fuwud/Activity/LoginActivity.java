@@ -70,26 +70,12 @@ public class LoginActivity extends AppCompatActivity {
 
     public void init() {
         auth = FirebaseAuth.getInstance();
-        currentUser = auth.getCurrentUser();
 
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
        /* register_link = findViewById(R.id.main_signup_button_text);
         txtForgotPassword = findViewById(R.id.main_text_forgot_password);*/
-
-        if (currentUser != null) {
-            goToMain();
-            finish();
-        }
-
-    }
-
-    public void goToMain() {
-        if (currentUser.isEmailVerified()) {
-            Intent intent = new Intent(getApplicationContext(), MainPageActivity.class);
-            startActivity(intent);
-        }
     }
 
     public void signInClicked() {
@@ -119,17 +105,17 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    Intent main_intent = new Intent(LoginActivity.this, MainPageActivity.class);
                     progressDialog = new ProgressDialog(LoginActivity.this);
                     progressDialog.setMessage("Logging In...");
                     progressDialog.setCancelable(false);
-                    Intent main_intent = new Intent(LoginActivity.this, MainPageActivity.class);
+                    progressDialog.show();
                     startActivity(main_intent);
                     finish(); // to stop Login Activity
                 } else {
                     Toast.makeText(LoginActivity.this, "Email or password is wrong!", Toast.LENGTH_LONG).show();
                     return;
                 }
-                progressDialog.show();
             }
         });
     }
