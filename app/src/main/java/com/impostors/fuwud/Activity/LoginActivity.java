@@ -23,7 +23,7 @@ import com.impostors.fuwud.R;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText editTextEmail, editTextPassword;
-    private Button buttonLogin,buttonRegister;
+    private Button buttonLogin, buttonRegister;
     private ProgressDialog progressDialog;
 
     private FirebaseAuth auth;
@@ -108,12 +108,10 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.show();
         startActivity(to_main_intent);
         finish();
-
     }
 
-    public void signUpClicked(){
-        Intent register_page_intent= new Intent(LoginActivity.this, RegistrationActivity.class);
+    public void signUpClicked() {
+        Intent register_page_intent = new Intent(LoginActivity.this, RegistrationActivity.class);
         startActivity(register_page_intent);
-        finish();
     }
 }
