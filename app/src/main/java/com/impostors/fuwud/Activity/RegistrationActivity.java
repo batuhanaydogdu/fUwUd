@@ -89,7 +89,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                                 databaseReference = FirebaseDatabase.getInstance().getReference();
 
-                                User user = new User(email,name,surname,phoneNumber,user_id);
+                                User user = new User(email, name, surname, phoneNumber, user_id);
                                 databaseReference.child("users").child(user_id).setValue(user);
 
                                 progressDialog.dismiss();

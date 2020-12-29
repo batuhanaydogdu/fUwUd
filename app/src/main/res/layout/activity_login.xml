@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
+    android:background="@drawable/yellow_gradient"
 
     tools:context=".Activity.LoginActivity">
 
@@ -12,15 +12,16 @@
         android:id="@+id/editTextEmail"
         android:layout_width="342dp"
         android:layout_height="45dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="72dp"
         android:background="@drawable/background"
-        android:hint="E-mail Giriniz"
+        android:hint="E-mail"
+        android:fontFamily="@font/open_sans"
         android:padding="10dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewSplashScreenLogo" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -28,7 +29,8 @@
         android:layout_height="45dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/background"
-        android:hint="Şifre Giriniz"
+        android:hint="Şifre"
+        android:fontFamily="@font/open_sans"
         android:inputType="textPassword"
         android:padding="10dp"
         android:textSize="18sp"
@@ -38,28 +40,54 @@
 
     <Button
         android:id="@+id/buttonLogin"
-        android:layout_width="144dp"
+        android:layout_width="342dp"
         android:layout_height="41dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/background"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/primary_button"
         android:text="GİRİŞ"
+        android:fontFamily="@font/open_sans"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/buttonRegister"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
     <Button
         android:id="@+id/buttonRegister"
-        android:layout_width="144dp"
+        android:layout_width="342dp"
         android:layout_height="41dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/background"
-        android:text="KAYIT OL"
+        android:text="ÜYE OL"
+        android:fontFamily="@font/open_sans"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/buttonLogin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
+
+    <ImageView
+        android:id="@+id/imageViewSplashScreenLogo"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/open_sans"
+        android:text="Şifremi Unuttum"
+        android:textColor="@color/black"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.887"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
 

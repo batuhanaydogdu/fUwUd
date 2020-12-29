@@ -29,11 +29,11 @@ public class MainPageActivity extends AppCompatActivity {
         });
     }
 
-    public void init(){
-        buttonSignOut=findViewById(R.id.buttonSignOut);
+    public void init() {
+        buttonSignOut = findViewById(R.id.buttonSignOut);
     }
 
-    public void signOutClicked(){
+    public void signOutClicked() {
         FirebaseAuth.getInstance().signOut();
         Intent to_login_intent = new Intent(MainPageActivity.this, LoginActivity.class);
         startActivity(to_login_intent);
