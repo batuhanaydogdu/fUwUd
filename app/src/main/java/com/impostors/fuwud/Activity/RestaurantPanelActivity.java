@@ -3,11 +3,13 @@ package com.impostors.fuwud.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.impostors.fuwud.R;
 
 public class RestaurantPanelActivity extends AppCompatActivity {
@@ -37,6 +39,10 @@ public class RestaurantPanelActivity extends AppCompatActivity {
 
                 if(menuItem.getItemId() == R.id.actionComments){
                     tempFragment = new FragmentRestaurantComments();
+                    FirebaseAuth.getInstance().signOut();
+                    Intent to_login_intent = new Intent(RestaurantPanelActivity.this, LoginActivity.class);
+                    startActivity(to_login_intent);
+                    finish();
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHolder,tempFragment).commit();
 
@@ -46,6 +52,6 @@ public class RestaurantPanelActivity extends AppCompatActivity {
     }
 
     public void init() {
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation_panel);
     }
 }
