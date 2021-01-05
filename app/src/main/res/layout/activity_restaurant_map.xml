@@ -13,7 +13,7 @@
         tools:context=".Activity.RestaurantMapActivity" />
 
     <Button
-        android:id="@+id/buttonYerBildirimi"
+        android:id="@+id/buttonLocatePlace"
         android:layout_width="265dp"
         android:layout_height="38dp"
         android:layout_alignParentBottom="true"

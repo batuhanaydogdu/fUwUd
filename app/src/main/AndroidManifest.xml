@@ -45,6 +45,9 @@
             android:name=".Activity.RegistrationActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Activity.RegistrationRestaurantActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Activity.MainPageActivity"
             android:screenOrientation="portrait" />
         <activity
