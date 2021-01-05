@@ -33,6 +33,7 @@
         <activity
             android:name=".Activity.RestaurantMapActivity"
             android:label="@string/title_activity_restaurant_map"></activity>
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -54,8 +55,12 @@
             android:name=".Activity.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Activity.RestaurantPanelActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Activity.SplashScreenActivity"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
