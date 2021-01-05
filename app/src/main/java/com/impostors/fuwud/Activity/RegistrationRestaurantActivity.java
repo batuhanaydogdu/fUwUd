@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,7 +21,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.impostors.fuwud.Model.Restaurant;
-import com.impostors.fuwud.Model.User;
 import com.impostors.fuwud.R;
 
 public class RegistrationRestaurantActivity extends AppCompatActivity {
@@ -43,6 +41,7 @@ public class RegistrationRestaurantActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_registration);
 
         init();
+        getIntentExtras();
 
         buttonSignUpRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,8 +52,7 @@ public class RegistrationRestaurantActivity extends AppCompatActivity {
         buttonSelectLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+          selectLocationClicked();
             }
         });
 
@@ -64,7 +62,7 @@ public class RegistrationRestaurantActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
 
-        editTextRestaurantName=findViewById(R.id.editTextName);
+        editTextRestaurantName=findViewById(R.id.editTextRestaurantName);
         editTextRestaurantEmail=findViewById(R.id.editTextRestaurantEmail);
         editTextRestaurantPassword=findViewById(R.id.editTextRestaurantPassword);
         editTextBusinessPhoneNumber=findViewById(R.id.editTextBusinessPhoneNumber);
@@ -120,6 +118,27 @@ public class RegistrationRestaurantActivity extends AppCompatActivity {
 
 
     }
+    private void selectLocationClicked(){
+        Intent to_map_intent = new Intent(RegistrationRestaurantActivity.this, RestaurantMapActivity.class);
+        to_map_intent.putExtra("restaurantEmail",editTextRestaurantEmail.getText().toString());
+        to_map_intent.putExtra("restaurantName",editTextRestaurantName.getText().toString());
+        to_map_intent.putExtra("restaurantBusinessPhoneNumber",editTextBusinessPhoneNumber.getText().toString());
+        startActivity(to_map_intent);
+        finish();
+    }
+    private void getIntentExtras(){
+        editTextRestaurantEmail.setText(getIntent().getStringExtra("restaurantEmail"));
+        editTextRestaurantName.setText(getIntent().getStringExtra("restaurantName"));
+        editTextBusinessPhoneNumber.setText(getIntent().getStringExtra("restaurantBusinessPhoneNumber"));
+
+
+        Double longitude=getIntent().getDoubleExtra("longitude",0);
+        Double latitude=getIntent().getDoubleExtra("latitude",0);
+        if(latitude!=0&&longitude!=0){
+            buttonSelectLocation.setText(latitude+" "+longitude);
+        }
+
+    }
     public void toolbarClick() {
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +147,7 @@ public class RegistrationRestaurantActivity extends AppCompatActivity {
             }
         });
     }
+
 
     }
 

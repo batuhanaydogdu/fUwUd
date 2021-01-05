@@ -60,7 +60,7 @@ public class RegistrationActivity extends AppCompatActivity {
         textViewPageTitle = findViewById(R.id.textViewPageTitle);
         goBack = findViewById(R.id.goBack);
         editTextSurname = findViewById(R.id.editTextSurname);
-        editTextName = findViewById(R.id.editTextName);
+        editTextName = findViewById(R.id.editTextRestaurantName);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
