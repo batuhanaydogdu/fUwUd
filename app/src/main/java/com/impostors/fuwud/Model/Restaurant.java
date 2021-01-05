@@ -2,19 +2,18 @@ package com.impostors.fuwud.Model;
 
 public class Restaurant {
     private String restaurantName,password,email,latitude, longitude,phoneNumber;
+    private String restaurant_id;
 
 
     public Restaurant() {
     }
 
 
-    public Restaurant(String restaurantName, String password, String email, String latitude, String longitude, String phoneNumber) {
+    public Restaurant(String restaurantName,String email, String phoneNumber,String restaurant_id) {
         this.restaurantName = restaurantName;
-        this.password = password;
         this.email = email;
-        this.latitude = latitude;
-        this.longitude = longitude;
         this.phoneNumber = phoneNumber;
+        this.restaurant_id=restaurant_id;
     }
 
     public String getRestaurantName() {
