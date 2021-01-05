@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         buttonRegisterRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent register_restaurant_intent = new Intent(LoginActivity.this, RestaurantMapActivity.class);
+                Intent register_restaurant_intent = new Intent(LoginActivity.this, RegistrationRestaurantActivity.class);
                 startActivity(register_restaurant_intent);
             }
         });

@@ -2,7 +2,10 @@ package com.impostors.fuwud.Activity;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -19,6 +22,7 @@ public class RestaurantMapActivity extends FragmentActivity implements OnMapRead
     private GoogleMap mMap;
     private Marker marker;
     private LatLng currentPosition;
+    private Button buttonLocatePlace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +32,19 @@ public class RestaurantMapActivity extends FragmentActivity implements OnMapRead
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        buttonLocatePlace = findViewById(R.id.buttonLocatePlace);
+
+        buttonLocatePlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent registration_restaurant_intent = new Intent(RestaurantMapActivity.this, RegistrationRestaurantActivity.class);
+                registration_restaurant_intent.putExtra("Location",currentPosition);
+                startActivity(registration_restaurant_intent);
+                finish();
+            }
+        });
     }
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-
 
 
     @Override
@@ -47,13 +52,13 @@ public class RestaurantMapActivity extends FragmentActivity implements OnMapRead
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-         currentPosition = new LatLng(40.986883, 29.121839);
-        marker=mMap.addMarker(new MarkerOptions().position(currentPosition).draggable(true).title("Marker"));
+        currentPosition = new LatLng(40.986883, 29.121839);
+        marker = mMap.addMarker(new MarkerOptions().position(currentPosition).draggable(true).title("Marker"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentPosition));
         mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
             public void onMarkerDragStart(Marker marker) {
-                Toast.makeText(getApplicationContext(),"start",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "start", Toast.LENGTH_LONG).show();
 
             }
 
@@ -64,14 +69,12 @@ public class RestaurantMapActivity extends FragmentActivity implements OnMapRead
 
             @Override
             public void onMarkerDragEnd(Marker marker) {
-                currentPosition=marker.getPosition();
-                Toast.makeText(getApplicationContext(),currentPosition.toString(),Toast.LENGTH_LONG).show();
+                currentPosition = marker.getPosition();
+                Toast.makeText(getApplicationContext(), currentPosition.toString(), Toast.LENGTH_LONG).show();
 
             }
         });
     }
-
-
 
 
 }
