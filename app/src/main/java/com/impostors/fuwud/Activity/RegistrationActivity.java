@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +28,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
     EditText editTextSurname, editTextName, editTextEmail, editTextPassword, editTextPhoneNumber;
     Button buttonSignUp;
+    ImageView goBack;
+    TextView textViewPageTitle;
 
     FirebaseAuth auth;
     FirebaseUser firebaseUser;
@@ -38,19 +42,23 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         init();
-
+        toolbarClick();
+        textViewPageTitle.setText("Üye Ol");
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signUpClicked();
             }
         });
+
     }
 
     public void init() {
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
 
+        textViewPageTitle = findViewById(R.id.textViewPageTitle);
+        goBack = findViewById(R.id.goBack);
         editTextSurname = findViewById(R.id.editTextSurname);
         editTextName = findViewById(R.id.editTextName);
         editTextEmail = findViewById(R.id.editTextEmail);
@@ -104,5 +112,13 @@ public class RegistrationActivity extends AppCompatActivity {
                     });
         }
 
+    }
+    public void toolbarClick() {
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 }
