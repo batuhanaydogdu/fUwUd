@@ -74,6 +74,8 @@ public class RegistrationRestaurantActivity extends AppCompatActivity {
         final String password = editTextRestaurantPassword.getText().toString();
         final String name = editTextRestaurantName.getText().toString();
         final String phoneNumber = editTextBusinessPhoneNumber.getText().toString();
+        final Double longtitude=getIntent().getDoubleExtra("longitude",-1);
+        final Double latitude=getIntent().getDoubleExtra("latitude",-1);
 
         progressDialog = new ProgressDialog(RegistrationRestaurantActivity.this);
         if ( TextUtils.isEmpty(name)
@@ -98,7 +100,7 @@ public class RegistrationRestaurantActivity extends AppCompatActivity {
 
                                 databaseReference = FirebaseDatabase.getInstance().getReference();
 
-                                Restaurant restaurant = new Restaurant(name,email,phoneNumber,restaurant_id);
+                                Restaurant restaurant = new Restaurant(name,email,phoneNumber,restaurant_id,longtitude,latitude);
                                 databaseReference.child("restaurants").child(restaurant_id).setValue(restaurant);
 
                                 progressDialog.dismiss();

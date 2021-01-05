@@ -1,19 +1,23 @@
 package com.impostors.fuwud.Model;
 
 public class Restaurant {
-    private String restaurantName,password,email,latitude, longitude,phoneNumber;
+    private String restaurantName,password,email,phoneNumber;
     private String restaurant_id;
+    private Double longitude,latitude;
+
+
 
 
     public Restaurant() {
     }
 
-
-    public Restaurant(String restaurantName,String email, String phoneNumber,String restaurant_id) {
-        this.restaurantName = restaurantName;
+    public Restaurant(String restaurantName,String email, String phoneNumber, String restaurant_id, Double longitude, Double latitude) {
+        this.restaurantName=restaurantName;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.restaurant_id=restaurant_id;
+        this.restaurant_id = restaurant_id;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     public String getRestaurantName() {
@@ -28,12 +32,16 @@ public class Restaurant {
         return email;
     }
 
-    public String getLatitude() {
-        return latitude;
+    public String getRestaurant_id() {
+        return restaurant_id;
     }
 
-    public String getLongitude() {
+    public Double getLongitude() {
         return longitude;
+    }
+
+    public Double getLatitude() {
+        return latitude;
     }
 
     public String getPhoneNumber() {
@@ -52,27 +60,11 @@ public class Restaurant {
         this.email = email;
     }
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
 
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    @Override
-    public String toString() {
-        return "Restaurant{" +
-                "restaurantName='" + restaurantName + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", plane='" + longitude + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
-    }
+
 }
