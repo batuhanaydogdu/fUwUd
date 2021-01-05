@@ -23,7 +23,7 @@ import com.impostors.fuwud.R;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText editTextEmail, editTextPassword;
-    private Button buttonLogin, buttonRegister;
+    private Button buttonLogin, buttonRegister, buttonRegisterRestaurant;
     private ProgressDialog progressDialog;
 
     private FirebaseAuth auth;
@@ -58,6 +58,13 @@ public class LoginActivity extends AppCompatActivity {
                 signUpClicked();
             }
         });
+        buttonRegisterRestaurant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*Intent register_restaurant_intent = new Intent(LoginActivity.this, RestaurantRegistrationActivity.class);
+                startActivity(register_restaurant_intent);*/
+            }
+        });
     }
 
     public void init() {
@@ -68,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonRegister = findViewById(R.id.buttonRegister);
+        buttonRegisterRestaurant = findViewById(R.id.buttonRegisterRestaurant);
     }
 
     public void signInClicked() {
