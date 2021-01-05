@@ -43,10 +43,18 @@ public class RegistrationRestaurantActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_registration);
 
         init();
+
         buttonSignUpRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              signUpClicked();
+                signUpClicked();
+            }
+        });
+        buttonSelectLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
             }
         });
 
