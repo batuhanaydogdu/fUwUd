@@ -4,8 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
+    android:background="@drawable/yellow_gradient"
     tools:context=".Activity.RegistrationActivity">
+
+    <include
+        android:id="@+id/customToolbarRegistration"
+        layout="@layout/registration_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewHeader"
@@ -15,17 +22,21 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="258dp"
         android:text="E-posta ile Üye Ol"
+        android:textColor="@color/black"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/customToolbarRegistration" />
 
     <TextView
         android:id="@+id/textViewSurname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="50dp"
         android:text="Soyad:"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewName" />
@@ -34,9 +45,10 @@
         android:id="@+id/textViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="50dp"
         android:text="Ad:"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPassword" />
@@ -45,9 +57,10 @@
         android:id="@+id/textViewPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="50dp"
         android:text="Şifre:"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewEmail" />
@@ -56,9 +69,10 @@
         android:id="@+id/textViewEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="50dp"
         android:text="E-mail:"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewHeader" />
@@ -67,75 +81,76 @@
         android:id="@+id/textViewPhoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="50dp"
         android:text="Telefon No.:"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewSurname" />
 
     <EditText
         android:id="@+id/editTextPhoneNumber"
-        android:layout_width="199dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="41dp"
-        android:layout_marginEnd="64dp"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/background"
         android:hint="Telefon No. Giriniz"
         android:padding="10dp"
-        android:textSize="10sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextSurname" />
 
     <EditText
         android:id="@+id/editTextSurname"
-        android:layout_width="199dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="64dp"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/background"
         android:hint="Soyad Giriniz"
         android:padding="10dp"
-        android:textSize="10sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
     <EditText
         android:id="@+id/editTextName"
-        android:layout_width="199dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="64dp"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/background"
         android:hint="Ad Giriniz"
         android:padding="10dp"
-        android:textSize="10sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
     <EditText
         android:id="@+id/editTextPassword"
-        android:layout_width="199dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="64dp"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/background"
         android:hint="Şifre Giriniz"
         android:padding="10dp"
-        android:textSize="10sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
 
     <EditText
         android:id="@+id/editTextEmail"
-        android:layout_width="199dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="45dp"
-        android:layout_marginEnd="64dp"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/background"
         android:hint="E-mail Giriniz"
         android:padding="10dp"
-        android:textSize="10sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewHeader" />
 
