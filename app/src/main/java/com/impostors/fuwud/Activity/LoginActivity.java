@@ -61,8 +61,8 @@ public class LoginActivity extends AppCompatActivity {
         buttonRegisterRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent register_restaurant_intent = new Intent(LoginActivity.this, RestaurantRegistrationActivity.class);
-                startActivity(register_restaurant_intent);*/
+                Intent register_restaurant_intent = new Intent(LoginActivity.this, RestaurantMapActivity.class);
+                startActivity(register_restaurant_intent);
             }
         });
     }
@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
     public void init() {
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
+        
 
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
