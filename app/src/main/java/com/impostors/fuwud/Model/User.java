@@ -4,17 +4,15 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class User {
-    private String email,password,name,surname;
-    private long phoneNumber;
-    private String key;
+    private String email, password, name, surname,phoneNumber;
+    private String user_id;
 
-    public User(String email, String password, String name, String surname, long phoneNumber, String key) {
+    public User(String email, String name, String surname, String phoneNumber, String user_id) {
         this.email = email;
-        this.password = password;
         this.name = name;
         this.surname = surname;
         this.phoneNumber = phoneNumber;
-        this.key = key;
+        this.user_id = user_id;
     }
 
     public User() {
@@ -52,20 +50,20 @@ public class User {
         this.surname = surname;
     }
 
-    public long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getKey() {
-        return key;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     @Override
@@ -76,7 +74,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", phoneNumber=" + phoneNumber +
-                ", key='" + key + '\'' +
+                ", user_id='" + user_id + '\'' +
                 '}';
     }
 }
