@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.impostors.fuwud.R;
 
 
@@ -29,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseUser currentUser;
 
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     @Override
     public void onStart() {
@@ -70,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
     public void init() {
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
-        
+        databaseReference = firebaseDatabase.getReference();
 
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
