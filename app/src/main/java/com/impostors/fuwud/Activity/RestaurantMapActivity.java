@@ -27,7 +27,7 @@ public class RestaurantMapActivity extends FragmentActivity implements OnMapRead
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_map);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -56,7 +56,6 @@ public class RestaurantMapActivity extends FragmentActivity implements OnMapRead
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
         currentPosition = new LatLng(40.986883, 29.121839);
         marker = mMap.addMarker(new MarkerOptions().position(currentPosition).draggable(true).title("Marker"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentPosition));
