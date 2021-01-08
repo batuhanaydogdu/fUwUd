@@ -13,8 +13,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.impostors.fuwud.R;
 
 public class RestaurantPanelActivity extends AppCompatActivity {
-    BottomNavigationView bottomNavigationView;
-    Fragment tempFragment;
+    private BottomNavigationView bottomNavigationView;
+    private Fragment tempFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

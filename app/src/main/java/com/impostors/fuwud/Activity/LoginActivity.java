@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextEmail, editTextPassword;
     private Button buttonLogin, buttonRegister, buttonRegisterRestaurant;
     private ProgressDialog progressDialog;
+    private TextView textViewForgotPassword;
 
     private FirebaseAuth auth;
     private FirebaseUser currentUser;
@@ -74,6 +76,13 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(register_restaurant_intent);
             }
         });
+        textViewForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent register_restaurant_intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(register_restaurant_intent);
+            }
+        });
     }
 
     public void init() {
@@ -87,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonRegister = findViewById(R.id.buttonRegister);
         buttonRegisterRestaurant = findViewById(R.id.buttonRegisterRestaurant);
+        textViewForgotPassword = findViewById(R.id.textViewForgotPassword);
     }
 
     public void signInClicked() {
@@ -142,11 +152,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
         Query queryForCheckUser=databaseReference.child("users").orderByKey().equalTo(currentUser.getUid());
         queryForCheckUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -165,7 +170,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     public void signUpClicked() {
