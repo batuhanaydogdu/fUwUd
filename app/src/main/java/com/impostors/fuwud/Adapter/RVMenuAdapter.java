@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,24 +27,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.impostors.fuwud.Model.Product;
+
 import com.impostors.fuwud.R;
 
-import org.w3c.dom.Text;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class RVMenuAdapter extends FirebaseRecyclerAdapter<Product,RVMenuAdapter.cardMenuItemHolder> {
+public class RVMenuAdapter extends FirebaseRecyclerAdapter<Product, RVMenuAdapter.cardMenuItemHolder> {
     private Context context;
+    FirebaseAuth auth;
+    FirebaseUser firebaseUser;
 
-    public RVMenuAdapter(@NonNull FirebaseRecyclerOptions<Product> options) {
-        super(options);
-    }
-
-    @Override
-    public int getItemCount() {
-        return super.getItemCount();
+    public Context getContext() {
+        return context;
     }
 
     @NonNull
@@ -51,76 +48,132 @@ public class RVMenuAdapter extends FirebaseRecyclerAdapter<Product,RVMenuAdapter
         return super.getItem(position);
     }
 
+
+    public RVMenuAdapter(@NonNull FirebaseRecyclerOptions<Product> options) {
+
+        super(options);
+    }
+
     @NonNull
     @Override
     public cardMenuItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v=LayoutInflater.from(parent.getContext()).inflate(R.layout.update_alert, parent, false);
-        context = parent.getContext();
+        //card bağlantısı
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_menu_layout, parent, false);
         return new cardMenuItemHolder(itemView);
     }
 
 
     @Override
-    protected void onBindViewHolder(@NonNull cardMenuItemHolder cardMenuItemHolder, int i, @NonNull Product product) {
-        cardMenuItemHolder.productName.setText((product.name));
-        cardMenuItemHolder.productPrice.setText(String.valueOf(product.buyPrice));
+    protected void onBindViewHolder(@NonNull cardMenuItemHolder cardMenuItemHolder, final int i, @NonNull Product product) {
+        //current productın name ini price ını setleme
+        cardMenuItemHolder.productName.setText(product.getName());
+        cardMenuItemHolder.productPrice.setText(String.valueOf(product.getBuyPrice()));
+
+
     }
 
     public class cardMenuItemHolder extends RecyclerView.ViewHolder {
 
         public TextView productName;
-        public CardView CardView;
         public TextView productPrice;
         public ImageButton buttonEdit;
         public ImageButton buttonDelete;
-        FirebaseDatabase firebaseDatabase;
-        DatabaseReference databaseReference;
+        public CardView cardView;
 
-
+        //Constructor
         public cardMenuItemHolder(final View view) {
             super(view);
-            productPrice = view.findViewById(R.id.productPrice);
-            productName = view.findViewById(R.id.productName);
-            buttonEdit=view.findViewById(R.id.buttonEdit);
-            CardView = view.findViewById(R.id.CardView);
-            buttonDelete=view.findViewById(R.id.buttonDelete);
-            firebaseDatabase=FirebaseDatabase.getInstance();
-            databaseReference=firebaseDatabase.getReference();
-
-        buttonEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View view1=view.inflate(context,R.layout.insertion_alert,null);
-                AlertDialog.Builder ad=new AlertDialog.Builder(context);
-                ad.setMessage("Edit");
-                ad.setTitle("Edit product name");
-                final EditText UpdatedProductName=view1.findViewById(R.id.editTextUpdateName);
-                final EditText UpdatedProductPrice=view1.findViewById(R.id.editTextUpdatePrice);
-                ad.setView(view1);
-                ad.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+            auth = FirebaseAuth.getInstance();
+            firebaseUser = auth.getCurrentUser();
+            cardView = view.findViewById(R.id.CardView);
+            productPrice = (TextView) view.findViewById(R.id.productPrice);
+            productName = (TextView) view.findViewById(R.id.productName);
+            buttonEdit = (ImageButton) view.findViewById(R.id.buttonEdit);
+            buttonDelete = (ImageButton) view.findViewById(R.id.buttonDelete);
 
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+            buttonEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Alert dialog oluşturma
+                    AlertDialog.Builder ad = new AlertDialog.Builder(v.getRootView().getContext());
+                    //layout bağlama
+                    View editTextAlert = LayoutInflater.from(v.getRootView().getContext()).inflate(R.layout.update_alert, null);
+                    //Girilen değerleri edittext olarak al
+                    final EditText updateNameEdittext = editTextAlert.findViewById(R.id.editTextUpdateName);
+                    final EditText updatePriceEdittext = editTextAlert.findViewById(R.id.editTextUpdatePrice);
+                    //ad settings
+                    ad.setMessage("Edit");
+                    ad.setTitle("Edit Product");
+                    ad.setView(editTextAlert);
 
-                     Query query=databaseReference.child("products").orderByChild("name").equalTo(getItem(getAdapterPosition()).getName().toString());
+                    ad.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //firebase bağlantı
+                            FirebaseDatabase firebaseDatabase;
+                            DatabaseReference databaseReference;
+                            firebaseDatabase = FirebaseDatabase.getInstance();
+                            databaseReference = firebaseDatabase.getReference();
+
+                            //edittext olarak alınan değerleri stringe çevir
+                            final String updatedName = updateNameEdittext.getText().toString();
+                            final String updatedPrice = updatePriceEdittext.getText().toString();
+                            //basılan satırın nameini databasedeki name rowundan kontrol eden query
+                            Query query = databaseReference.child("restaurants")
+                                    .child(firebaseUser.getUid()).child("products").orderByChild("name").equalTo(getItem(getAdapterPosition()).getName());
+                            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    for (DataSnapshot appleSnapshot : snapshot.getChildren()) {
+                                        //Update
+                                        Map<String, Object> updateInfo = new HashMap<>();
+                                        updateInfo.put("name", updatedName);
+                                        appleSnapshot.getRef().updateChildren(updateInfo);
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+                    });
+                    ad.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+
+                    });
+                    ad.create().show();
+                }
+
+            });
 
 
-
+            buttonDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Firebase Bağlantısı
+                    FirebaseDatabase firebaseDatabase;
+                    DatabaseReference databaseReference;
+                    firebaseDatabase = FirebaseDatabase.getInstance();
+                    databaseReference = firebaseDatabase.getReference();
+                    //basılan itemı product a ya eşitleme
+                    Product a = getItem(getAdapterPosition());
+                    //basılan product ın name ine eşit olan satırın querysi
+                    Query query = databaseReference.child("restaurants").child(firebaseUser.getUid()).child("products").orderByChild("name").equalTo(a.getName());
+                    //satırı dinle sil
                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            Log.e("msg",getItem(getAdapterPosition()).getName());
-
-                            for (DataSnapshot appleSnapshot: snapshot.getChildren()) {
-                                Log.e("msg","ssssssss");
-                                final Map<String,Object> updateMap=new HashMap<>();
-                                updateMap.put("name",UpdatedProductName.getText().toString());
-                                appleSnapshot.getRef().updateChildren(updateMap);
-                                Log.e("msg",appleSnapshot.getRef().toString());
-
+                            for (DataSnapshot appleSnapshot : snapshot.getChildren()) {
+                                appleSnapshot.getRef().removeValue();
                             }
+
                         }
 
                         @Override
@@ -130,40 +183,8 @@ public class RVMenuAdapter extends FirebaseRecyclerAdapter<Product,RVMenuAdapter
                     });
 
 
-                    }
-                });
-                ad.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                ad.create().show();
-            }
-        });
-
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Product a =getItem(getAdapterPosition());
-                a.getName();
-                firebaseDatabase=FirebaseDatabase.getInstance();
-                databaseReference=firebaseDatabase.getReference();
-                Query query = databaseReference.child("products").orderByChild("name").equalTo(a.getName());
-                query.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot appleSnapshot: snapshot.getChildren()) {
-                            appleSnapshot.getRef().removeValue();
-                        }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
-            }
-        });
+                }
+            });
 
 
         }
