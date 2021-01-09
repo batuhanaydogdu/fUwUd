@@ -4,12 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.impostors.fuwud.Adapter.OrderAdapter;
+import com.impostors.fuwud.Adapter.RVOrderAdapter;
 import com.impostors.fuwud.Model.PrevOrder;
 import com.impostors.fuwud.R;
 
@@ -17,7 +16,7 @@ public class OtherPreviousOrdersActivity extends AppCompatActivity {
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-    OrderAdapter adapter;
+    RVOrderAdapter adapter;
     private RecyclerView recyclerView;
 
     @Override

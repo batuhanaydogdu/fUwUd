@@ -28,23 +28,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.impostors.fuwud.Adapter.OrderAdapter;
-import com.impostors.fuwud.Model.Restaurant;
+import com.impostors.fuwud.Adapter.RVOrderAdapter;
 import com.impostors.fuwud.R;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class FragmentOrder extends Fragment implements LocationListener {
 
     Activity context;
-    OrderAdapter adapter;
+    RVOrderAdapter adapter;
     private Button insertOrder;
     Switch switchSearch;
     Button buttonListRestaurants;
