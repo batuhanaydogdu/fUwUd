@@ -105,6 +105,9 @@ public class RVMenuAdapter extends FirebaseRecyclerAdapter<Product,RVMenuAdapter
                     public void onClick(DialogInterface dialog, int which) {
 
                      Query query=databaseReference.child("products").orderByChild("name").equalTo(getItem(getAdapterPosition()).getName().toString());
+
+
+
                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
