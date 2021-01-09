@@ -16,10 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.ListedRestaurantActivity"></activity>
-        <activity android:name=".Activity.ForgotPasswordActivity" />
-        <activity android:name=".Activity.ChangePasswordActivity"></activity>
-        <activity android:name=".Activity.ForgotPasswordActivity" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -76,6 +73,15 @@
         <activity
             android:name=".Activity.RestaurantPanelActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ListedRestaurantActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".Activity.ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ChangePasswordActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Activity.SplashScreenActivity"
             android:screenOrientation="portrait">
