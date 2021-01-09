@@ -6,6 +6,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 public class User {
     private String email, password, name, surname,phoneNumber;
     private String user_id;
+    private String role;
 
     public User(String email, String name, String surname, String phoneNumber, String user_id) {
         this.email = email;
@@ -13,9 +14,11 @@ public class User {
         this.surname = surname;
         this.phoneNumber = phoneNumber;
         this.user_id = user_id;
+        this.role = "user";
     }
 
     public User() {
+        this.role = "user";
     }
 
     public String getEmail() {
@@ -66,6 +69,14 @@ public class User {
         this.user_id = user_id;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -73,8 +84,9 @@ public class User {
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", phoneNumber=" + phoneNumber +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", user_id='" + user_id + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

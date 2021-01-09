@@ -4,9 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.impostors.fuwud.R;
 
 
@@ -25,10 +33,13 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextEmail, editTextPassword;
     private Button buttonLogin, buttonRegister, buttonRegisterRestaurant;
     private ProgressDialog progressDialog;
+    private TextView textViewForgotPassword;
 
     private FirebaseAuth auth;
     private FirebaseUser currentUser;
 
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     @Override
     public void onStart() {
@@ -65,18 +76,27 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(register_restaurant_intent);
             }
         });
+        textViewForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent register_restaurant_intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(register_restaurant_intent);
+            }
+        });
     }
 
     public void init() {
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
-        
+        firebaseDatabase=FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference();
 
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonRegister = findViewById(R.id.buttonRegister);
         buttonRegisterRestaurant = findViewById(R.id.buttonRegisterRestaurant);
+        textViewForgotPassword = findViewById(R.id.textViewForgotPassword);
     }
 
     public void signInClicked() {
@@ -112,10 +132,44 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(LoginActivity.this);
         progressDialog.setMessage("Logging In...");
         progressDialog.setCancelable(false);
-        Intent to_main_intent = new Intent(LoginActivity.this, MainPageActivity.class);
-        progressDialog.show();
-        startActivity(to_main_intent);
-        finish();
+        currentUser=auth.getCurrentUser();
+        Query queryForCheckRestaurant=databaseReference.child("restaurants").orderByKey().equalTo(currentUser.getUid());
+        queryForCheckRestaurant.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        Intent to_main_intent = new Intent(LoginActivity.this, RestaurantPanelActivity.class);
+                        progressDialog.show();
+                        startActivity(to_main_intent);
+                        finish();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        Query queryForCheckUser=databaseReference.child("users").orderByKey().equalTo(currentUser.getUid());
+        queryForCheckUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        Intent to_main_intent = new Intent(LoginActivity.this, MainPageActivity.class);
+                        progressDialog.show();
+                        startActivity(to_main_intent);
+                        finish();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void signUpClicked() {

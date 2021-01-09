@@ -16,9 +16,9 @@ import com.impostors.fuwud.R;
 public class SplashScreenActivity extends AppCompatActivity {
 
     private static int SPLASH_SCREEN = 2500;
-    Animation topAnim,bottomAnim;
-    ImageView image;
-    TextView logo, slogan;
+    private Animation topAnim,bottomAnim;
+    private ImageView image;
+    private TextView logo, slogan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

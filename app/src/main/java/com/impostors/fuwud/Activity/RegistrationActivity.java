@@ -26,15 +26,15 @@ import com.impostors.fuwud.R;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    EditText editTextSurname, editTextName, editTextEmail, editTextPassword, editTextPhoneNumber;
-    Button buttonSignUp;
-    ImageView goBack;
-    TextView textViewPageTitle;
+    private EditText editTextSurname, editTextName, editTextEmail, editTextPassword, editTextPhoneNumber;
+    private Button buttonSignUp;
+    private ImageView goBack;
+    private TextView textViewPageTitle;
 
     FirebaseAuth auth;
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
-    ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class RegistrationActivity extends AppCompatActivity {
         textViewPageTitle = findViewById(R.id.textViewPageTitle);
         goBack = findViewById(R.id.goBack);
         editTextSurname = findViewById(R.id.editTextSurname);
-        editTextName = findViewById(R.id.editTextName);
+        editTextName = findViewById(R.id.editTextRestaurantName);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
