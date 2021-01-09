@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="224dp"
+        android:background="@color/koyusari"
+        android:backgroundTint="#FFFFFF"
+        app:cardBackgroundColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/productPrice1"
+        android:layout_width="114dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="2dp"
+        android:text="ProductPrice"
+        app:layout_constraintStart_toEndOf="@+id/Date1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/restaurantName1"
+        android:layout_width="157dp"
+        android:layout_height="47dp"
+        android:text="Rest"
+        app:layout_constraintStart_toEndOf="@+id/productPrice1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Date1"
+        android:layout_width="132dp"
+        android:layout_height="49dp"
+        android:text="date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

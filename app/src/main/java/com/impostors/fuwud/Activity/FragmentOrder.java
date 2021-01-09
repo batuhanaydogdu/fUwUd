@@ -1,6 +1,7 @@
 package com.impostors.fuwud.Activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,6 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +34,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.impostors.fuwud.Adapter.OrderAdapter;
 import com.impostors.fuwud.Model.Restaurant;
 import com.impostors.fuwud.R;
 
@@ -39,6 +42,10 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FragmentOrder extends Fragment implements LocationListener {
+
+    Activity context;
+    OrderAdapter adapter;
+    private Button insertOrder;
     Switch switchSearch;
     Button buttonListRestaurants;
     private LocationManager locationManager;
@@ -47,6 +54,8 @@ public class FragmentOrder extends Fragment implements LocationListener {
     private String locationProvider = "gps";
     Location loc;
     TextView textViewCoordinate;
+    private RecyclerView recyclerView;
+
 
 
 
@@ -63,6 +72,10 @@ public class FragmentOrder extends Fragment implements LocationListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_order, container, false);
         init(view);
+
+        //FirebaseRecyclerOptions<PrevOrder> options =
+        //new FirebaseRecyclerOptions.Builder<PrevOrder>().setQuery
+        // (FirebaseDatabase.getInstance().getReference().child("PrevOrder").limitToFirst(5), PrevOrder.class).build();
 
 
         switchSearch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -117,16 +130,16 @@ public class FragmentOrder extends Fragment implements LocationListener {
 
 
     private void init(View view){
-    switchSearch=view.findViewById(R.id.switchSearch);
-    buttonListRestaurants=view.findViewById(R.id.buttonListRestaurants);
-    locationManager=(LocationManager)getContext().getSystemService(getContext().LOCATION_SERVICE);
-    textViewCoordinate=view.findViewById(R.id.textViewCoordinate);
+        switchSearch=view.findViewById(R.id.switchSearch);
+        buttonListRestaurants=view.findViewById(R.id.buttonListRestaurants);
+        locationManager=(LocationManager)getContext().getSystemService(getContext().LOCATION_SERVICE);
+        textViewCoordinate=view.findViewById(R.id.textViewCoordinate);
 
 
-    auth = FirebaseAuth.getInstance();
-    currentUser = auth.getCurrentUser();
-    firebaseDatabase=FirebaseDatabase.getInstance();
-    databaseReference=firebaseDatabase.getReference();
+        auth = FirebaseAuth.getInstance();
+        currentUser = auth.getCurrentUser();
+        firebaseDatabase=FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference();
     }
 
 
@@ -144,35 +157,35 @@ public class FragmentOrder extends Fragment implements LocationListener {
         if(checkForPermission != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
         }else
-            {
-                locationManager = (LocationManager) getContext()
-                        .getSystemService(Context.LOCATION_SERVICE);
-                boolean checkGPS = locationManager
-                        .isProviderEnabled(LocationManager.GPS_PROVIDER);
-                if (checkGPS) {
-                    if (loc == null) { // eğer bir kere loc aldıysak 2.ye gerek yok o kadar hızlı yer değiştiremez çünkü değişmeme sebebi bu
-                        try {
+        {
+            locationManager = (LocationManager) getContext()
+                    .getSystemService(Context.LOCATION_SERVICE);
+            boolean checkGPS = locationManager
+                    .isProviderEnabled(LocationManager.GPS_PROVIDER);
+            if (checkGPS) {
+                if (loc == null) { // eğer bir kere loc aldıysak 2.ye gerek yok o kadar hızlı yer değiştiremez çünkü değişmeme sebebi bu
+                    try {
 
-                            locationManager.requestLocationUpdates(
-                                    LocationManager.GPS_PROVIDER,
-                                    10,// locationu değiştirmek için kaç ms gerek
-                                    10, this);//locationu update etmek için kaç metre uzaklık gerek
-                            Log.d("GPS Enabled", "GPS Enabled");
-                            if (locationManager != null) {
-                                loc = locationManager
-                                        .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        locationManager.requestLocationUpdates(
+                                LocationManager.GPS_PROVIDER,
+                                10,// locationu değiştirmek için kaç ms gerek
+                                10, this);//locationu update etmek için kaç metre uzaklık gerek
+                        Log.d("GPS Enabled", "GPS Enabled");
+                        if (locationManager != null) {
+                            loc = locationManager
+                                    .getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                                if (loc != null) {
-                                    onLocationChanged(loc);
+                            if (loc != null) {
+                                onLocationChanged(loc);
 
 
-                                }
                             }
-                        } catch (SecurityException e) {
-
                         }
+                    } catch (SecurityException e) {
+
                     }
                 }
+            }
         }
     }
 
@@ -209,47 +222,57 @@ public class FragmentOrder extends Fragment implements LocationListener {
 
 
 
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Toast.makeText(getContext(), "izin kabul edildi.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "izin kabul edildi.", Toast.LENGTH_LONG).show();
 
-                    locationManager = (LocationManager) getContext()
-                            .getSystemService(Context.LOCATION_SERVICE);
-                    boolean checkGPS = locationManager
-                            .isProviderEnabled(LocationManager.GPS_PROVIDER);
-                    if (checkGPS) {
-                        if (loc == null) { // eğer bir kere loc aldıysak 2.ye gerek yok o kadar hızlı yer değiştiremez çünkü değişmeme sebebi bu
-                            try {
+                locationManager = (LocationManager) getContext()
+                        .getSystemService(Context.LOCATION_SERVICE);
+                boolean checkGPS = locationManager
+                        .isProviderEnabled(LocationManager.GPS_PROVIDER);
+                if (checkGPS) {
+                    if (loc == null) { // eğer bir kere loc aldıysak 2.ye gerek yok o kadar hızlı yer değiştiremez çünkü değişmeme sebebi bu
+                        try {
 
-                                locationManager.requestLocationUpdates(
-                                        LocationManager.GPS_PROVIDER,
-                                        10, // locationu değiştirmek için kaç ms gerek
-                                        10, this);//locationu update etmek için kaç metre uzaklık gerek
-                                Log.d("GPS Enabled", "GPS Enabled");
-                                if (locationManager != null) {
-                                    loc = locationManager
-                                            .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                            locationManager.requestLocationUpdates(
+                                    LocationManager.GPS_PROVIDER,
+                                    10, // locationu değiştirmek için kaç ms gerek
+                                    10, this);//locationu update etmek için kaç metre uzaklık gerek
+                            Log.d("GPS Enabled", "GPS Enabled");
+                            if (locationManager != null) {
+                                loc = locationManager
+                                        .getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                                    if (loc != null) {
-                                        onLocationChanged(loc);
+                                if (loc != null) {
+                                    onLocationChanged(loc);
 
 
-                                    }
                                 }
-                            } catch (SecurityException e) {
-
                             }
+                        } catch (SecurityException e) {
+
                         }
                     }
-
-                } else {
-                    Log.e("location", "izin reddedildi");
-                    Toast.makeText(getContext(), "İzin reddedildi.", Toast.LENGTH_LONG).show();
                 }
+
+            } else {
+                Log.e("location", "izin reddedildi");
+                Toast.makeText(getContext(), "İzin reddedildi.", Toast.LENGTH_LONG).show();
+            }
 
         }
     }
+     /*public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+
+    }*/
 }
 
 
