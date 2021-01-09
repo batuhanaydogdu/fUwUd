@@ -111,7 +111,7 @@
         android:id="@+id/buttonSignOut"
         android:layout_width="412dp"
         android:layout_height="47dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="104dp"
         android:background="@drawable/button_others"
         android:fontFamily="@font/open_sans"
         android:padding="8dp"
