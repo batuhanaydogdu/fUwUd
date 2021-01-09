@@ -46,7 +46,7 @@ public class ListedRestaurantActivity extends AppCompatActivity {
         init();
 
 
-        adapterRestaurant=new RVRestaurantAdapter(this,listOfRestaurants);
+        adapterRestaurant=new RVRestaurantAdapter(this,listOfRestaurants,this);
 
 
     }

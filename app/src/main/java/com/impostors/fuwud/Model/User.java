@@ -2,12 +2,15 @@ package com.impostors.fuwud.Model;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.util.HashMap;
+
 @IgnoreExtraProperties
 public class User {
     private String email, password, name, surname,phoneNumber;
     private String user_id;
     private String role;
     private Double longitude,latitude;
+    private HashMap<String,Restaurant> favoritedRestaurant;
 
     public User(String email, String name, String surname, String phoneNumber, String user_id) {
         this.email = email;
@@ -44,6 +47,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public HashMap<String, Restaurant> getFavoritedRestaurant() {
+        return favoritedRestaurant;
+    }
+
+    public void setFavoritedRestaurant(HashMap<String, Restaurant> favoritedRestaurant) {
+        this.favoritedRestaurant = favoritedRestaurant;
     }
 
     public String getPassword() {

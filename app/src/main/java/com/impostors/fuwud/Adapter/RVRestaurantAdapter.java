@@ -1,15 +1,20 @@
 package com.impostors.fuwud.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.impostors.fuwud.Activity.RestaurantDetailActivity;
 import com.impostors.fuwud.Model.Restaurant;
 import com.impostors.fuwud.R;
 
@@ -18,10 +23,13 @@ import java.util.List;
 public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapter.ViewHolderForRestaurant> {
     private List<Restaurant> listOfRestaurants;
     private Context mContext;
+    private Activity activity;
 
-    public RVRestaurantAdapter(Context mContext, List<Restaurant> listOfRestaurants) {
+
+    public RVRestaurantAdapter(Context mContext, List<Restaurant> listOfRestaurants, Activity activity) {
         this.mContext = mContext;
         this.listOfRestaurants = listOfRestaurants;
+        this.activity = activity;
         Log.e("listofrest",listOfRestaurants.toString());
     }
 
@@ -32,6 +40,7 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
                 .inflate(R.layout.card_restaurant_layout,parent,false);
 
         return new RVRestaurantAdapter.ViewHolderForRestaurant(itemView);
+
     }
 
     @Override
@@ -70,6 +79,7 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
 
     class ViewHolderForRestaurant extends RecyclerView.ViewHolder{
     TextView email,phoneNumber,restaurantName;
+    private ImageButton buttonGoToRestaurantRV;
 
 
     public ViewHolderForRestaurant(@NonNull View itemView){
@@ -77,7 +87,16 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
         email=itemView.findViewById(R.id.emailRV);
         phoneNumber=itemView.findViewById(R.id.phoneNumberRV);
         restaurantName=itemView.findViewById(R.id.restaurantNameRV);
+        buttonGoToRestaurantRV= itemView.findViewById(R.id.buttonGoToRestaurantRV);
 
+        buttonGoToRestaurantRV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
+                mContext.startActivity(intent);
+                ((Activity)mContext).finish();
+            }
+        });
     }
 
     }

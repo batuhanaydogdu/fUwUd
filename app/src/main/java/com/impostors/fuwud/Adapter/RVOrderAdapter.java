@@ -15,9 +15,9 @@ import com.impostors.fuwud.Model.PrevOrder;
 
 import com.impostors.fuwud.R;
 
-public class OrderAdapter extends FirebaseRecyclerAdapter<PrevOrder, OrderAdapter.viewholder> {
+public class RVOrderAdapter extends FirebaseRecyclerAdapter<PrevOrder, RVOrderAdapter.viewholder> {
 
-    public OrderAdapter(@NonNull FirebaseRecyclerOptions<PrevOrder> options) {
+    public RVOrderAdapter(@NonNull FirebaseRecyclerOptions<PrevOrder> options) {
         super(options);
 
 
