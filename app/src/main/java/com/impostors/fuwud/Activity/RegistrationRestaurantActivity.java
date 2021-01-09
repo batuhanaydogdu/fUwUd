@@ -105,7 +105,7 @@ public class RegistrationRestaurantActivity extends AppCompatActivity {
                                 databaseReference.child("restaurants").child(restaurant_id).setValue(restaurant);
 
                                 progressDialog.dismiss();
-                                Intent to_main_intent = new Intent(RegistrationRestaurantActivity.this, MainPageActivity.class);
+                                Intent to_main_intent = new Intent(RegistrationRestaurantActivity.this, RestaurantPanelActivity.class);
                                 startActivity(to_main_intent);
                                 finish();
                             } else {
