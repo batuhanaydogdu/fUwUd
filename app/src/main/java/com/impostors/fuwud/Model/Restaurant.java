@@ -1,10 +1,14 @@
 package com.impostors.fuwud.Model;
 
+import java.util.HashMap;
+import java.util.List;
+
 public class Restaurant {
     private String restaurantName,password,email,phoneNumber;
     private String restaurant_id;
     private Double longitude,latitude;
     private String role;
+    private HashMap<String,Product> products;
 
     public Restaurant() {
         this.role = "restaurant";
@@ -18,6 +22,14 @@ public class Restaurant {
         this.longitude = longitude;
         this.latitude = latitude;
         this.role = "restaurant";
+    }
+
+    public void setProducts(HashMap<String, Product> products) {
+        this.products = products;
+    }
+
+    public HashMap<String, Product> getProducts() {
+        return products;
     }
 
     public String getRestaurantName() {
