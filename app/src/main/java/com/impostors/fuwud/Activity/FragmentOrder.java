@@ -123,7 +123,6 @@ public class FragmentOrder extends Fragment implements LocationListener {
                 else{
 
                     Query queryForLoc=databaseReference.child("users").child(currentUser.getUid()).orderByKey();
-                    Query queryForLoc2=databaseReference.child("users").child(currentUser.getUid()).child("latitude");
 
 
 
@@ -294,6 +293,7 @@ public class FragmentOrder extends Fragment implements LocationListener {
                                         intent_to_ListedRestaurant.putExtra("latitude", currentLatitude);
                                         intent_to_ListedRestaurant.putExtra("longitude", currentLongitude);
                                         startActivity(intent_to_ListedRestaurant);
+                                        getActivity().finish();
 
                                     }
                                 }

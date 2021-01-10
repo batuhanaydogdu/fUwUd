@@ -18,10 +18,11 @@ public class RestaurantDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_detail);
-
+        tempFragment = new FragmentRDMenu();
         init();
 
-        getSupportFragmentManager().beginTransaction().add(R.id.fragmentHolderRestaurantDetail,new FragmentOrder()).commit();
+
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentHolderRestaurantDetail,new FragmentRDMenu()).commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

@@ -89,16 +89,17 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
         restaurantName=itemView.findViewById(R.id.restaurantNameRV);
         buttonGoToRestaurantRV= itemView.findViewById(R.id.buttonGoToRestaurantRV);
 
-        buttonGoToRestaurantRV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
-                setListOfRestaurants(null);
-                mContext.startActivity(intent);
-                ((Activity)mContext).finish();
-            }
-        });
-    }
+            buttonGoToRestaurantRV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
+                    intent.putExtra("restaurant_id",listOfRestaurants.get(getLayoutPosition()).getRestaurant_id());
+                    setListOfRestaurants(null);
+                    mContext.startActivity(intent);
+                    activity.finish();
+                }
+            });
+        }
 
     }
 

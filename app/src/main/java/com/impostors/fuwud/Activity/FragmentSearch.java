@@ -1,20 +1,119 @@
 package com.impostors.fuwud.Activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.impostors.fuwud.Adapter.RVSearchAdapter;
+import com.impostors.fuwud.Model.Product;
+import com.impostors.fuwud.Model.Restaurant;
 import com.impostors.fuwud.R;
 
 public class FragmentSearch extends Fragment {
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    RecyclerView recyclerView;
+    RVSearchAdapter searchAdapter;
 
-        return inflater.inflate(R.layout.fragment_search, container, false);
+
+
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.fragment_search, container, false);
+
+        FirebaseDatabase firebaseDatabase;
+        DatabaseReference databaseReference;
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("restaurants");
+
+        recyclerView=view.findViewById(R.id.recyclersearch);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        FirebaseRecyclerOptions<Restaurant> options = new FirebaseRecyclerOptions.Builder<Restaurant>()
+                .setQuery(FirebaseDatabase.getInstance().getReference(), Restaurant.class)
+                .build();
+        searchAdapter=new RVSearchAdapter(options);
+        recyclerView.setAdapter(searchAdapter);
+        return view;
+
+
     }
+    public void onStart() {
+        super.onStart();
+        searchAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        searchAdapter.stopListening();
+
+    }
+
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+
+        inflater.inflate(R.menu.search_menu, menu);
+        MenuItem item=menu.findItem(R.id.action_search);
+        android.widget.SearchView searchView=(android.widget.SearchView)item.getActionView();
+       searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+           @Override
+           public boolean onQueryTextSubmit(String query) {
+               processSearch( query);
+               return false;
+           }
+
+           @Override
+           public boolean onQueryTextChange(String newText) {
+               processSearch( newText);
+               return false;
+           }
+       });
+
+        super.onCreateOptionsMenu(menu, inflater);
+
+    }
+
+    private void processSearch(String search) {
+        FirebaseDatabase firebaseDatabase;
+        DatabaseReference databaseReference;
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
+        FirebaseRecyclerOptions<Restaurant> options = new FirebaseRecyclerOptions.Builder<Restaurant>()
+                .setQuery(databaseReference.child("restaurants").orderByChild("restaurantName").startAt(search).endAt(search + "\uf8ff"), Restaurant.class)
+                .build();
+        searchAdapter = new RVSearchAdapter(options);
+        searchAdapter.startListening();
+        recyclerView.setAdapter(searchAdapter);
+    }
+
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+
+
+
+
+
+
+
 }
