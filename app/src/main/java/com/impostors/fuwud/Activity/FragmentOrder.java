@@ -26,8 +26,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.denzcoskun.imageslider.ImageSlider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +39,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.impostors.fuwud.Adapter.RVOrderAdapter;
 import com.impostors.fuwud.Model.User;
 import com.impostors.fuwud.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FragmentOrder extends Fragment implements LocationListener {
 
@@ -52,7 +55,6 @@ public class FragmentOrder extends Fragment implements LocationListener {
     Double currentLatitude=0.0,currentLongitude=0.0;
     private String locationProvider = "gps";
     Location loc;
-    TextView textViewCoordinate;
     private RecyclerView recyclerView;
     private ImageSlider sliderRestaurant;
 
@@ -73,26 +75,26 @@ public class FragmentOrder extends Fragment implements LocationListener {
         //FirebaseRecyclerOptions<PrevOrder> options =
         //new FirebaseRecyclerOptions.Builder<PrevOrder>().setQuery
         // (FirebaseDatabase.getInstance().getReference().child("PrevOrder").limitToFirst(5), PrevOrder.class).build();
-        List<SlideModel> slideModels = new ArrayList<>();
-        slideModels.add(new SlideModel("https://upload.wikimedia.org/wikipedia/tr/thumb/2/2e/Burger_King_logo_2020.png/200px-Burger_King_logo_2020.png","Restaurant 1"));
-        slideModels.add(new SlideModel("https://www.mcdonalds.com.tr/assets/img/ogimage.jpg","Restaurant 2"));
-        slideModels.add(new SlideModel("https://upload.wikimedia.org/wikipedia/tr/b/b8/KFC_logo.png","Restaurant 3"));
-        slideModels.add(new SlideModel("https://ubf.com.tr/blog/wp-content/uploads/2014/11/Pizza-Hut-Yeni-Logo.jpg","Restaurant 4"));
-        sliderRestaurant.setImageList(slideModels,true);
 
 
         switchSearch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    switchSearch.setText("Yakınımdaki restaurantları");
+                    switchSearch.setText("Listelerken güncel adresimi al");
                 }
                 else{
-                    switchSearch.setText("Kayıtlı adresime göre");
+                    switchSearch.setText("Listelerken kayıtlı adresimi al");
                 }
             }
         });
 
+        List<SlideModel> slideModels = new ArrayList<>();
+        slideModels.add(new SlideModel("https://cdn.yemeksepeti.com/adm/Web-529r77.jpg","Fırsat 1"));
+        slideModels.add(new SlideModel("https://cdn.yemeksepeti.com/adm/Web-0n7dwf.jpg","Fırsat 2"));
+        slideModels.add(new SlideModel("https://cdn.yemeksepeti.com/adm/Web-brm2a7.jpg","Fırsat 3"));
+        slideModels.add(new SlideModel("https://cdn.yemeksepeti.com/adm/Web-gn77x4.jpg","Fırsat 4"));
+        sliderRestaurant.setImageList(slideModels,true);
 
         buttonListRestaurants.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,10 +147,10 @@ public class FragmentOrder extends Fragment implements LocationListener {
                             }
 
                             if(currentLatitude!=0.0&&currentLongitude!=0.0){
-                            Intent intent_to_ListedRestaurant = new Intent(getActivity().getApplication(), ListedRestaurantActivity.class);
-                            intent_to_ListedRestaurant.putExtra("latitude", currentLatitude);
-                            intent_to_ListedRestaurant.putExtra("longitude", currentLongitude);
-                            startActivity(intent_to_ListedRestaurant);}
+                                Intent intent_to_ListedRestaurant = new Intent(getActivity().getApplication(), ListedRestaurantActivity.class);
+                                intent_to_ListedRestaurant.putExtra("latitude", currentLatitude);
+                                intent_to_ListedRestaurant.putExtra("longitude", currentLongitude);
+                                startActivity(intent_to_ListedRestaurant);}
                             else{
                                 Toast.makeText(getContext(),"ADRES KAYDETMEMİŞSİN ABİ",Toast.LENGTH_LONG).show();
                             }
@@ -158,22 +160,10 @@ public class FragmentOrder extends Fragment implements LocationListener {
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
 
-
-
                         }
                     });
 
-
-
-
-
-
-
-
-
                 }
-
-
 
             }
         });
@@ -187,7 +177,6 @@ public class FragmentOrder extends Fragment implements LocationListener {
         switchSearch=view.findViewById(R.id.switchSearch);
         buttonListRestaurants=view.findViewById(R.id.buttonListRestaurants);
         locationManager=(LocationManager)getContext().getSystemService(getContext().LOCATION_SERVICE);
-        textViewCoordinate=view.findViewById(R.id.textViewCoordinate);*/
         sliderRestaurant = (ImageSlider) view.findViewById(R.id.sliderRestaurant);
 
         auth = FirebaseAuth.getInstance();
@@ -248,7 +237,6 @@ public class FragmentOrder extends Fragment implements LocationListener {
 
         currentLatitude = location.getLatitude();
         currentLongitude = location.getLongitude();
-        textViewCoordinate.setText(currentLatitude+" q "+currentLongitude);
     }
 
     @Override
@@ -308,11 +296,6 @@ public class FragmentOrder extends Fragment implements LocationListener {
                                         startActivity(intent_to_ListedRestaurant);
 
                                     }
-
-
-
-
-
                                 }
                             }
                         } catch (SecurityException e) {
@@ -332,7 +315,6 @@ public class FragmentOrder extends Fragment implements LocationListener {
         super.onStart();
         adapter.startListening();
     }
-
     @Override
     public void onStop() {
         super.onStop();

@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,12 +30,13 @@ public class RegistrationRestaurantActivity extends AppCompatActivity {
 
     private EditText editTextRestaurantEmail, editTextRestaurantPassword, editTextRestaurantName, editTextBusinessPhoneNumber;
     private Button buttonSelectLocation, buttonSignUpRestaurant;
+    private Spinner spinnerCuisine;
+    private String cuisine;
 
     FirebaseAuth auth;
     FirebaseUser firebaseUser;
     private ProgressDialog progressDialog;
     DatabaseReference databaseReference;
-    private ImageView goBack;
 
 
     @Override
@@ -56,18 +60,25 @@ public class RegistrationRestaurantActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     public void init() {
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
 
+        spinnerCuisine = findViewById(R.id.spinnerCuisine);
         editTextRestaurantName = findViewById(R.id.editTextRestaurantName);
         editTextRestaurantEmail = findViewById(R.id.editTextRestaurantEmail);
         editTextRestaurantPassword = findViewById(R.id.editTextRestaurantPassword);
         editTextBusinessPhoneNumber = findViewById(R.id.editTextBusinessPhoneNumber);
         buttonSelectLocation = findViewById(R.id.buttonSelectLocation);
         buttonSignUpRestaurant = findViewById(R.id.buttonSignUpRestaurant);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this,
+                R.array.mutfaklar  , R.layout.spinner_item);
+
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spinnerCuisine.setAdapter(adapter);
     }
 
     public void signUpClicked() {
@@ -77,6 +88,8 @@ public class RegistrationRestaurantActivity extends AppCompatActivity {
         final String phoneNumber = editTextBusinessPhoneNumber.getText().toString();
         final Double longtitude = getIntent().getDoubleExtra("longitude", -1);
         final Double latitude = getIntent().getDoubleExtra("latitude", -1);
+        cuisine = spinnerCuisine.getSelectedItem().toString();
+
 
         progressDialog = new ProgressDialog(RegistrationRestaurantActivity.this);
         if (TextUtils.isEmpty(name)
@@ -101,7 +114,7 @@ public class RegistrationRestaurantActivity extends AppCompatActivity {
 
                                 databaseReference = FirebaseDatabase.getInstance().getReference();
 
-                                Restaurant restaurant = new Restaurant(name, email, phoneNumber, restaurant_id, longtitude, latitude);
+                                Restaurant restaurant = new Restaurant(name, email, phoneNumber, restaurant_id, longtitude, latitude, cuisine);
                                 databaseReference.child("restaurants").child(restaurant_id).setValue(restaurant);
 
                                 progressDialog.dismiss();
@@ -144,14 +157,6 @@ public class RegistrationRestaurantActivity extends AppCompatActivity {
 
     }
 
-    public void toolbarClick() {
-        goBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-    }
 
 
 }

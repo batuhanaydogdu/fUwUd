@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">fUwUd</string>
     <string name="title_activity_login2">LoginActivity2</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -11,4 +10,15 @@
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_restaurant_registration">Map</string>
     <string name="title_activity_restaurant_map">Map</string>
+
+    <string name="app_name">fUwUd</string>
+    <string-array name="mutfaklar">
+        <item>Balık</item>
+        <item>Burger</item>
+        <item>Çiğ Köfte</item>
+        <item>Ev Yemekleri</item>
+        <item>Kahvaltı</item>
+        <item>Pizza</item>
+        <item>Tatlı</item>
+    </string-array>
 </resources>

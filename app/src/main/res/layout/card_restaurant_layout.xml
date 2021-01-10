@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="80dp"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -22,55 +22,49 @@
                 android:id="@+id/phoneNumberRV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="62dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="3dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="8dp"
                 android:text="phoneNumberRV"
+                android:fontFamily="@font/open_sans"
                 android:textColor="@color/grey"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/restaurantNameRV"
-                app:layout_constraintTop_toBottomOf="@+id/emailRV" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cuisineRV" />
 
             <TextView
-                android:id="@+id/emailRV"
+                android:id="@+id/cuisineRV"
                 android:layout_width="wrap_content"
                 android:layout_height="19dp"
-                android:layout_marginStart="200dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="3dp"
-                android:text="emailRV"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="2dp"
+                android:text="cuisineRV"
                 android:textColor="@color/black"
-                android:textStyle="italic"
-                app:layout_constraintBottom_toTopOf="@+id/phoneNumberRV"
+                android:fontFamily="@font/open_sans"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/restaurantNameRV" />
 
             <ImageButton
                 android:id="@+id/buttonGoToRestaurantRV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="12dp"
                 android:background="@color/lightlightyellow"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0"
-                app:srcCompat="@drawable/edit_asset" />
+                app:srcCompat="@drawable/icon_right" />
 
             <TextView
                 android:id="@+id/restaurantNameRV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="22dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/open_sans"
                 android:text="restaurantNameRV"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
