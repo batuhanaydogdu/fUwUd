@@ -1,14 +1,15 @@
 package com.impostors.fuwud.Activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,13 +21,15 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.impostors.fuwud.Adapter.RVSearchAdapter;
-import com.impostors.fuwud.Model.Product;
 import com.impostors.fuwud.Model.Restaurant;
 import com.impostors.fuwud.R;
 
 public class FragmentSearch extends Fragment {
     RecyclerView recyclerView;
     RVSearchAdapter searchAdapter;
+    ImageButton imageButtonPizza,imageButtonBurger,imageButtonDessert,imageButtonFish,imageButtonKebab;
+    TextView textViewPizza,textViewBurger,textViewDessert,textViewFish,textViewKebab;
+
 
 
 
@@ -34,13 +37,32 @@ public class FragmentSearch extends Fragment {
         View view=inflater.inflate(R.layout.fragment_search, container, false);
 
         FirebaseDatabase firebaseDatabase;
-        DatabaseReference databaseReference;
+        final DatabaseReference databaseReference;
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("restaurants");
 
         recyclerView=view.findViewById(R.id.recyclersearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        imageButtonBurger=view.findViewById(R.id.imageButtonBurger);
+        imageButtonDessert=view.findViewById(R.id.imageButtonDessert);
+        imageButtonFish=view.findViewById(R.id.imageButtonFish);
+        imageButtonKebab=view.findViewById(R.id.imageButtonKebab);
+        imageButtonPizza=view.findViewById(R.id.imageButtonPizza);
+
+        textViewBurger=view.findViewById(R.id.textViewBurger);
+
+        imageButtonBurger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseRecyclerOptions<Restaurant> options = new FirebaseRecyclerOptions.Builder<Restaurant>()
+                        .setQuery(databaseReference.orderByChild("cuisine").equalTo(textViewBurger.getText().toString()), Restaurant.class)
+                        .build();
+                searchAdapter=new RVSearchAdapter(options);
+                recyclerView.setAdapter(searchAdapter);
+
+            }
+        });
 
         FirebaseRecyclerOptions<Restaurant> options = new FirebaseRecyclerOptions.Builder<Restaurant>()
                 .setQuery(FirebaseDatabase.getInstance().getReference(), Restaurant.class)
@@ -48,8 +70,6 @@ public class FragmentSearch extends Fragment {
         searchAdapter=new RVSearchAdapter(options);
         recyclerView.setAdapter(searchAdapter);
         return view;
-
-
     }
     public void onStart() {
         super.onStart();
@@ -71,25 +91,28 @@ public class FragmentSearch extends Fragment {
         inflater.inflate(R.menu.search_menu, menu);
         MenuItem item=menu.findItem(R.id.action_search);
         android.widget.SearchView searchView=(android.widget.SearchView)item.getActionView();
-       searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-           @Override
-           public boolean onQueryTextSubmit(String query) {
-               processSearch( query);
-               return false;
-           }
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchRestaurant( query);
+                return false;
+            }
 
-           @Override
-           public boolean onQueryTextChange(String newText) {
-               processSearch( newText);
-               return false;
-           }
-       });
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchRestaurant( newText);
+                return false;
+            }
+        });
+
 
         super.onCreateOptionsMenu(menu, inflater);
 
     }
 
-    private void processSearch(String search) {
+
+
+    private void searchRestaurant(String search) {
         FirebaseDatabase firebaseDatabase;
         DatabaseReference databaseReference;
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -102,6 +125,7 @@ public class FragmentSearch extends Fragment {
         searchAdapter.startListening();
         recyclerView.setAdapter(searchAdapter);
     }
+
 
 
     public void onCreate(Bundle savedInstanceState) {

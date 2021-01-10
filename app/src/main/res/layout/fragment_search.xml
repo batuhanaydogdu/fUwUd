@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclersearch"
@@ -11,4 +20,119 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButtonPizza"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageButtonDessert"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPizza"
+        app:srcCompat="@drawable/icon_orders" />
+
+    <TextView
+        android:id="@+id/textViewPizza"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="47dp"
+        android:text="Pizza"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclersearch" />
+
+    <ImageButton
+        android:id="@+id/imageButtonDessert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="18dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageButtonBurger"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonPizza"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDessert"
+        app:srcCompat="@drawable/dessert_icon" />
+
+    <TextView
+        android:id="@+id/textViewDessert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
+        android:text="Dessert"
+        app:layout_constraintEnd_toStartOf="@+id/textViewBurger"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewPizza"
+        app:layout_constraintTop_toBottomOf="@+id/recyclersearch" />
+
+    <ImageButton
+        android:id="@+id/imageButtonBurger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="36dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageButtonFish"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonDessert"
+        app:layout_constraintTop_toBottomOf="@+id/textViewBurger"
+        app:srcCompat="@drawable/icon_order" />
+
+    <TextView
+        android:id="@+id/textViewBurger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
+        android:text="Burger"
+        app:layout_constraintEnd_toStartOf="@+id/textViewFish"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewDessert"
+        app:layout_constraintTop_toBottomOf="@+id/recyclersearch" />
+
+    <ImageButton
+        android:id="@+id/imageButtonFish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonBurger"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFish"
+        app:srcCompat="@drawable/ic_baseline_opacity_24" />
+
+    <TextView
+        android:id="@+id/textViewFish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginBottom="16dp"
+        android:text="Fish"
+        app:layout_constraintBottom_toTopOf="@+id/imageButtonFish"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclersearch" />
+
+    <ImageButton
+        android:id="@+id/imageButtonKebab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewKebab"
+        app:srcCompat="@drawable/ic_baseline_food_bank_24" />
+
+    <TextView
+        android:id="@+id/textViewKebab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
+        android:text="Kebab"
+        app:layout_constraintBottom_toTopOf="@+id/imageButtonKebab"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonPizza" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
