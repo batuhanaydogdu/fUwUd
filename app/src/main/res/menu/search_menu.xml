@@ -4,11 +4,8 @@
 
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/search_asset"
+        android:icon="@drawable/icon_search"
         android:title="Search Restaurant"
-
-        
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
-
 </menu>
