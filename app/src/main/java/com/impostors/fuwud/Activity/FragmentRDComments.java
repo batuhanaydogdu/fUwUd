@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.impostors.fuwud.Adapter.RVCommentAdapter;
 
+import com.impostors.fuwud.Adapter.RVMenuAdapter;
 import com.impostors.fuwud.Model.Comment;
 import com.impostors.fuwud.Model.Restaurant;
 import com.impostors.fuwud.R;
@@ -38,7 +40,7 @@ public class FragmentRDComments extends Fragment {
     private RVCommentAdapter adapter;
     FirebaseAuth auth;
     FirebaseUser User;
-    private Button sendButton;
+    private ImageButton sendButton;
     EditText commentSection;
 
 
@@ -61,36 +63,57 @@ public class FragmentRDComments extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
+        final String restaurantId=getActivity().getIntent().getStringExtra("restaurant_id");
+
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-               commentSection.getText().toString();
+
+
                 Comment comment = new Comment();
                 comment.setOwnerId(User.getUid());
-                
+                comment.setComments(commentSection.getText().toString());
                 comment.setOwnerName(User.getDisplayName());
+
+
+                databaseReference.child("restaurants").child(restaurantId).child("comments").push().setValue(comment);
+
+
 
 
 
 
             }
-            FirebaseRecyclerOptions<Comment>options = new FirebaseRecyclerOptions.Builder<Comment>()
-                    .setQuery(FirebaseDatabase.getInstance().getReference("Comment").child(User.getUid())
-                            .child("Comment"), Comment.class).build();
+
+
+
 
 
 
         });
 
+        FirebaseRecyclerOptions<Comment>options = new FirebaseRecyclerOptions.Builder<Comment>()
+                .setQuery(FirebaseDatabase.getInstance().getReference("restaurants").child(restaurantId).child("comments"),(Comment.class)).build();
 
 
 
-
-
+        adapter = new RVCommentAdapter(options);
+        recyclerView.setAdapter(adapter);
 
 
         return view;
+    }
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+
     }
 }

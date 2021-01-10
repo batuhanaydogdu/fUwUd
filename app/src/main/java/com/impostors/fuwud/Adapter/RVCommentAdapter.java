@@ -15,6 +15,7 @@ import com.impostors.fuwud.Model.Comment;
 import com.impostors.fuwud.Model.PrevOrder;
 import com.impostors.fuwud.R;
 
+import java.util.List;
 
 
 public class RVCommentAdapter extends FirebaseRecyclerAdapter<Comment, RVCommentAdapter.viewholder> {
@@ -32,23 +33,30 @@ public class RVCommentAdapter extends FirebaseRecyclerAdapter<Comment, RVComment
 
 
 
+
+
+
+
+
     @Override
     protected void onBindViewHolder(@NonNull RVCommentAdapter.viewholder viewholder, int i, @NonNull Comment comment) {
 
-       // viewholder.owner.setText(comment.getOwner());
+        viewholder.comment.setText(comment.getComments());
+        //viewholder.ownerName.setText(comment.getOwnerName());
 
-
-        viewholder.comment.setText(comment.getComments().toString());
-        viewholder.ownerName.setText(comment.getOwnerName());
 
 
     }
+
 
     @NonNull
     @Override
     public RVCommentAdapter.viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_card,parent,false);
+
+
         return new viewholder(view);
+
     }
 
     class viewholder extends RecyclerView.ViewHolder{
@@ -58,7 +66,7 @@ public class RVCommentAdapter extends FirebaseRecyclerAdapter<Comment, RVComment
         public viewholder(@NonNull View itemView) {
             super(itemView);
 
-            ownerName = (TextView)itemView.findViewById(R.id.OwnerRV);
+            //ownerId = (TextView)itemView.findViewById(R.id.OwnerRV);
 
             comment = (TextView)itemView.findViewById(R.id.ownerComment);
 

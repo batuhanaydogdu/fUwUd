@@ -10,6 +10,15 @@ public class Restaurant {
     private String role;
     private HashMap<String,Product> products;
     private String cuisine;
+    private HashMap<String, Comment> comments;
+
+    public HashMap<String, Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(HashMap<String, Comment> comments) {
+        this.comments = comments;
+    }
 
     public Restaurant() {
         this.role = "restaurant";

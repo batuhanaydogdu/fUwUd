@@ -8,7 +8,7 @@ public class Comment {
     private String ownerId;
     private String ownerName;
 
-    private HashMap<String,Comment> comments;
+    private String comments;
     private String restaurantName;
     private String restaurantId;
 
@@ -47,11 +47,11 @@ public class Comment {
         this.ownerName = ownerName;
     }
 
-    public HashMap<String, Comment> getComments() {
+    public String getComments() {
         return comments;
     }
 
-    public void setComments(HashMap<String, Comment> comments) {
+    public void setComments(String comments) {
         this.comments = comments;
     }
 
