@@ -1,104 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/insertOrder"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
-    <Button
-        android:id="@+id/RestListButton"
-        android:layout_width="184dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="3dp"
-        android:background="@color/turuncu"
-        android:fontFamily="@font/open_sans"
-        android:text="Restaurantlar"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.943"
-        app:layout_constraintStart_toEndOf="@+id/AddressButton" />
-
-    <ImageButton
-        android:id="@+id/AddressButton"
-        android:layout_width="67dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/icon_home" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="150dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginBottom="364dp"
-        android:background="#1088E8"
-        android:text="Adres Sec"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:visibility="visible"
-        app:autoSizeTextType="uniform"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".Activity.FragmentOrder">
+
+        <com.denzcoskun.imageslider.ImageSlider
+            android:id="@+id/sliderRestaurant"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            app:auto_cycle="true"
+            app:corner_radius="5"
+            app:delay="0"
+            app:error_image="@drawable/grey_background"
+            app:period="10000"
+            app:placeholder="@drawable/grey_background" />
+
+        <Switch
+            android:id="@+id/switchSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"
+            android:text="Listelerken kayıtlı adresimi al" />
+
+        <Button
+            android:id="@+id/buttonListRestaurants"
+            android:layout_width="342dp"
+            android:layout_height="41dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/button_order"
+            android:fontFamily="@font/open_sans"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="32dp"
+            android:text="Restaurant Listele"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewPreviousOrders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/open_sans"
+            android:text="Önceki Siparişlerim"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="409dp"
-        android:layout_height="355dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="330dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/buttonListRestaurants"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="94dp"
-        android:layout_marginEnd="121dp"
-        android:layout_marginBottom="340dp"
-        android:text="Restaurantları Listele"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Switch
-        android:id="@+id/switchSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="111dp"
-        android:layout_marginEnd="121dp"
-        android:layout_marginBottom="41dp"
-        android:text="Kayıtlı adresime göre"
-        app:layout_constraintBottom_toTopOf="@+id/buttonListRestaurants"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewCoordinate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="191dp"
-        android:layout_marginBottom="208dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/buttonSaveLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="63dp"
-        android:layout_marginTop="54dp"
-        android:layout_marginEnd="211dp"
-        android:text="Konumu kaydet"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

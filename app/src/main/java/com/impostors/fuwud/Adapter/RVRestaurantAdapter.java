@@ -48,7 +48,7 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
 
         final Restaurant restaurant=listOfRestaurants.get(position);
         holder.restaurantName.setText(restaurant.getRestaurantName());
-        holder.email.setText(restaurant.getEmail());
+        holder.cuisine.setText(restaurant.getCuisine());
         holder.phoneNumber.setText(restaurant.getPhoneNumber());
 
     }
@@ -78,26 +78,28 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
     }*/
 
     class ViewHolderForRestaurant extends RecyclerView.ViewHolder{
-    TextView email,phoneNumber,restaurantName;
+    TextView cuisine,phoneNumber,restaurantName;
     private ImageButton buttonGoToRestaurantRV;
 
 
     public ViewHolderForRestaurant(@NonNull View itemView){
         super(itemView);
-        email=itemView.findViewById(R.id.emailRV);
+        cuisine=itemView.findViewById(R.id.cuisineRV);
         phoneNumber=itemView.findViewById(R.id.phoneNumberRV);
         restaurantName=itemView.findViewById(R.id.restaurantNameRV);
         buttonGoToRestaurantRV= itemView.findViewById(R.id.buttonGoToRestaurantRV);
 
-        buttonGoToRestaurantRV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
-                mContext.startActivity(intent);
-                ((Activity)mContext).finish();
-            }
-        });
-    }
+            buttonGoToRestaurantRV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
+                    intent.putExtra("restaurant_id",listOfRestaurants.get(getLayoutPosition()).getRestaurant_id());
+                    setListOfRestaurants(null);
+                    mContext.startActivity(intent);
+                    activity.finish();
+                }
+            });
+        }
 
     }
 

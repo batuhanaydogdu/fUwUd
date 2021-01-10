@@ -7,13 +7,6 @@
     android:background="@drawable/yellow_gradient"
     tools:context=".Activity.RegistrationActivity">
 
-    <include
-        android:id="@+id/customToolbarRegistration"
-        layout="@layout/registration_toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textViewRestaurantHeader"
         android:layout_width="wrap_content"
@@ -28,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customToolbarRegistration" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewLocation"
@@ -155,14 +148,14 @@
         android:id="@+id/buttonSignUpRestaurant"
         android:layout_width="144dp"
         android:layout_height="41dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/background"
         android:fontFamily="@font/open_sans"
         android:text="BAŞVUR"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextBusinessPhoneNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCuisine" />
 
     <Button
         android:id="@+id/buttonSelectLocation"
@@ -176,6 +169,32 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextRestaurantName" />
+
+    <Spinner
+        android:id="@+id/spinnerCuisine"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="127dp"
+        android:background="@drawable/round_button"
+        android:entries="@array/mutfaklar"
+        android:gravity="center"
+        android:textSize="2sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextBusinessPhoneNumber" />
+
+    <TextView
+        android:id="@+id/textViewCuisine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/open_sans"
+        android:text="Mutfak :"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewBusinessPhoneNumber" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,18 +9,20 @@ public class Restaurant {
     private Double longitude,latitude;
     private String role;
     private HashMap<String,Product> products;
+    private String cuisine;
 
     public Restaurant() {
         this.role = "restaurant";
     }
 
-    public Restaurant(String restaurantName,String email, String phoneNumber, String restaurant_id, Double longitude, Double latitude) {
+    public Restaurant(String restaurantName,String email, String phoneNumber, String restaurant_id, Double longitude, Double latitude, String cuisine) {
         this.restaurantName=restaurantName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.restaurant_id = restaurant_id;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.cuisine = cuisine;
         this.role = "restaurant";
     }
 
@@ -54,6 +56,14 @@ public class Restaurant {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCuisine() {
+        return cuisine;
+    }
+
+    public void setCuisine(String cuisine) {
+        this.cuisine = cuisine;
     }
 
     public String getPhoneNumber() {

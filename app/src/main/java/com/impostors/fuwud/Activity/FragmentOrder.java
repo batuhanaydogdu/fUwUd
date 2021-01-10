@@ -26,12 +26,22 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.denzcoskun.imageslider.models.SlideModel;
+import com.denzcoskun.imageslider.ImageSlider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.impostors.fuwud.Adapter.RVOrderAdapter;
+import com.impostors.fuwud.Model.User;
 import com.impostors.fuwud.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FragmentOrder extends Fragment implements LocationListener {
 
@@ -45,11 +55,8 @@ public class FragmentOrder extends Fragment implements LocationListener {
     Double currentLatitude=0.0,currentLongitude=0.0;
     private String locationProvider = "gps";
     Location loc;
-    TextView textViewCoordinate;
     private RecyclerView recyclerView;
-
-
-
+    private ImageSlider sliderRestaurant;
 
     private FirebaseAuth auth;
     private FirebaseUser currentUser;
@@ -74,14 +81,20 @@ public class FragmentOrder extends Fragment implements LocationListener {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    switchSearch.setText("Yakınımdaki restaurantları");
+                    switchSearch.setText("Listelerken güncel adresimi al");
                 }
                 else{
-                    switchSearch.setText("Kayıtlı adresime göre");
+                    switchSearch.setText("Listelerken kayıtlı adresimi al");
                 }
             }
         });
 
+        List<SlideModel> slideModels = new ArrayList<>();
+        slideModels.add(new SlideModel("https://cdn.yemeksepeti.com/adm/Web-529r77.jpg","Fırsat 1"));
+        slideModels.add(new SlideModel("https://cdn.yemeksepeti.com/adm/Web-0n7dwf.jpg","Fırsat 2"));
+        slideModels.add(new SlideModel("https://cdn.yemeksepeti.com/adm/Web-brm2a7.jpg","Fırsat 3"));
+        slideModels.add(new SlideModel("https://cdn.yemeksepeti.com/adm/Web-gn77x4.jpg","Fırsat 4"));
+        sliderRestaurant.setImageList(slideModels,true);
 
         buttonListRestaurants.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,12 +106,13 @@ public class FragmentOrder extends Fragment implements LocationListener {
 
                     checkForPermission = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION);
 
-                    if(checkForPermission == PackageManager.PERMISSION_GRANTED) {
+                    if(checkForPermission == PackageManager.PERMISSION_GRANTED && currentLatitude!=0.0&&currentLongitude!=0.0) {
 
                         Intent intent_to_ListedRestaurant = new Intent(getActivity().getApplication(), ListedRestaurantActivity.class);
                         intent_to_ListedRestaurant.putExtra("latitude", currentLatitude);
                         intent_to_ListedRestaurant.putExtra("longitude", currentLongitude);
                         startActivity(intent_to_ListedRestaurant);
+
                     }
 
 
@@ -108,10 +122,47 @@ public class FragmentOrder extends Fragment implements LocationListener {
 
                 else{
 
+                    Query queryForLoc=databaseReference.child("users").child(currentUser.getUid()).orderByKey();
+
+
+
+
+                    queryForLoc.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            if (snapshot.exists()) {
+                                for (DataSnapshot issue : snapshot.getChildren()) {
+                                    if(issue.getKey().equals("longitude")){
+                                        currentLongitude= Double.parseDouble(issue.getValue().toString());
+                                    }
+                                    if(issue.getKey().equals("latitude")){
+                                        currentLatitude=Double.parseDouble(issue.getValue().toString());
+                                    }
+
+
+
+                                }
+                            }
+
+                            if(currentLatitude!=0.0&&currentLongitude!=0.0){
+                                Intent intent_to_ListedRestaurant = new Intent(getActivity().getApplication(), ListedRestaurantActivity.class);
+                                intent_to_ListedRestaurant.putExtra("latitude", currentLatitude);
+                                intent_to_ListedRestaurant.putExtra("longitude", currentLongitude);
+                                startActivity(intent_to_ListedRestaurant);}
+                            else{
+                                Toast.makeText(getContext(),"ADRES KAYDETMEMİŞSİN ABİ",Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
 
                 }
-
-
 
             }
         });
@@ -125,8 +176,7 @@ public class FragmentOrder extends Fragment implements LocationListener {
         switchSearch=view.findViewById(R.id.switchSearch);
         buttonListRestaurants=view.findViewById(R.id.buttonListRestaurants);
         locationManager=(LocationManager)getContext().getSystemService(getContext().LOCATION_SERVICE);
-        textViewCoordinate=view.findViewById(R.id.textViewCoordinate);
-
+        sliderRestaurant = (ImageSlider) view.findViewById(R.id.sliderRestaurant);
 
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
@@ -186,7 +236,6 @@ public class FragmentOrder extends Fragment implements LocationListener {
 
         currentLatitude = location.getLatitude();
         currentLongitude = location.getLongitude();
-        textViewCoordinate.setText(currentLatitude+" q "+currentLongitude);
     }
 
     @Override
@@ -238,8 +287,15 @@ public class FragmentOrder extends Fragment implements LocationListener {
 
                                 if (loc != null) {
                                     onLocationChanged(loc);
+                                    if(checkForPermission == PackageManager.PERMISSION_GRANTED && currentLatitude!=0.0&&currentLongitude!=0.0) {
 
+                                        Intent intent_to_ListedRestaurant = new Intent(getActivity().getApplication(), ListedRestaurantActivity.class);
+                                        intent_to_ListedRestaurant.putExtra("latitude", currentLatitude);
+                                        intent_to_ListedRestaurant.putExtra("longitude", currentLongitude);
+                                        startActivity(intent_to_ListedRestaurant);
+                                        getActivity().finish();
 
+                                    }
                                 }
                             }
                         } catch (SecurityException e) {
