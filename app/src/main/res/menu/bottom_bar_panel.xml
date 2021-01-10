@@ -13,5 +13,9 @@
         android:id="@+id/actionComments"
         android:icon="@drawable/icon_comment"
         android:title="Yorumlar" />
+    <item
+        android:id="@+id/actionExit"
+        android:icon="@drawable/icon_exit"
+        android:title="Çıkış" />
 
 </menu>

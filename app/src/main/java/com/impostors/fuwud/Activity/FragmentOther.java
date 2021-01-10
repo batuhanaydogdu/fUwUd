@@ -44,12 +44,12 @@ public class FragmentOther extends Fragment {
             }
         });
 
-        buttonPreviousOrders.setOnClickListener(new View.OnClickListener() {
+       /* buttonPreviousOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToPreviousOrdersPage();
             }
-        });
+        });*/
 
         buttonFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,10 +93,10 @@ public class FragmentOther extends Fragment {
         startActivity(intent);
     }
 
-    public void goToPreviousOrdersPage() {
+    /*public void goToPreviousOrdersPage() {
         Intent intent = new Intent(getActivity(), OtherPreviousOrdersActivity.class);
         startActivity(intent);
-    }
+    }*/
 
     public void goToFavoritesPage() {
         Intent intent = new Intent(getActivity(), OtherFavoritesActivity.class);
