@@ -29,8 +29,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText editTextSurname, editTextName, editTextEmail, editTextPassword, editTextPhoneNumber;
     private Button buttonSignUp;
 
-
-
     FirebaseAuth auth;
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
@@ -42,8 +40,6 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         init();
-
-
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,5 +107,4 @@ public class RegistrationActivity extends AppCompatActivity {
         }
 
     }
-
 }

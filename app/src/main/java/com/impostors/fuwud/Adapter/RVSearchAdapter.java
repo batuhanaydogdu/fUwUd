@@ -13,34 +13,34 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.impostors.fuwud.Model.Restaurant;
 import com.impostors.fuwud.R;
 
-public class RVSearchAdapter extends FirebaseRecyclerAdapter<Restaurant,RVSearchAdapter.myviewholder> {
+public class RVSearchAdapter extends FirebaseRecyclerAdapter<Restaurant,RVSearchAdapter.ViewHolderForSearch> {
 
     public RVSearchAdapter(@NonNull FirebaseRecyclerOptions<Restaurant> options) {
         super(options);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull myviewholder myviewholder, int i, @NonNull Restaurant restaurant) {
-        myviewholder.searchedName.setText(restaurant.getRestaurantName());
-        myviewholder.searchedPhone.setText(restaurant.getPhoneNumber());
-        myviewholder.searchedEmail.setText(restaurant.getEmail());
+    protected void onBindViewHolder(@NonNull ViewHolderForSearch viewHolderForSearch, int i, @NonNull Restaurant restaurant) {
+        viewHolderForSearch.textViewSearchedName.setText(restaurant.getRestaurantName());
+        viewHolderForSearch.textViewSearchedPhoneNumber.setText(restaurant.getPhoneNumber());
+        viewHolderForSearch.textViewSearchedCuisine.setText(restaurant.getCuisine());
 
     }
 
     @NonNull
     @Override
-    public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderForSearch onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.card_search,parent,false);
-        return new myviewholder(view);
+        return new ViewHolderForSearch(view);
     }
 
-    class myviewholder extends RecyclerView.ViewHolder {
-        TextView searchedName,searchedEmail,searchedPhone;
-        public myviewholder(@NonNull View itemView) {
+    class ViewHolderForSearch extends RecyclerView.ViewHolder {
+        TextView textViewSearchedName,textViewSearchedCuisine,textViewSearchedPhoneNumber;
+        public ViewHolderForSearch(@NonNull View itemView) {
             super(itemView);
-            searchedName=itemView.findViewById(R.id.textViewSearchedName);
-            searchedEmail=itemView.findViewById(R.id.textViewSearchedEmail);
-            searchedPhone=itemView.findViewById(R.id.textViewSearchedPhoneNumber);
+            textViewSearchedName=itemView.findViewById(R.id.textViewSearchedName);
+            textViewSearchedCuisine=itemView.findViewById(R.id.textViewSearchedCuisine);
+            textViewSearchedPhoneNumber=itemView.findViewById(R.id.textViewSearchedPhoneNumber);
         }
     }
 
