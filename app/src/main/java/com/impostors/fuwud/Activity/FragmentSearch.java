@@ -43,7 +43,7 @@ public class FragmentSearch extends Fragment {
 
 
         FirebaseRecyclerOptions<Restaurant> options = new FirebaseRecyclerOptions.Builder<Restaurant>()
-                .setQuery(FirebaseDatabase.getInstance().getReference(), Restaurant.class)
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("restaurants").limitToFirst(5), Restaurant.class)
                 .build();
         searchAdapter=new RVSearchAdapter(options);
         recyclerView.setAdapter(searchAdapter);

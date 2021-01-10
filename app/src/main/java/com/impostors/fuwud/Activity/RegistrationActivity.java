@@ -28,8 +28,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private EditText editTextSurname, editTextName, editTextEmail, editTextPassword, editTextPhoneNumber;
     private Button buttonSignUp;
-    private ImageView goBack;
-    private TextView textViewPageTitle;
+
+
 
     FirebaseAuth auth;
     FirebaseUser firebaseUser;
@@ -42,8 +42,8 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         init();
-        toolbarClick();
-        textViewPageTitle.setText("Üye Ol");
+
+
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,8 +57,6 @@ public class RegistrationActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
 
-        textViewPageTitle = findViewById(R.id.textViewPageTitle);
-        goBack = findViewById(R.id.goBack);
         editTextSurname = findViewById(R.id.editTextSurname);
         editTextName = findViewById(R.id.editTextRestaurantName);
         editTextEmail = findViewById(R.id.editTextEmail);
@@ -113,12 +111,5 @@ public class RegistrationActivity extends AppCompatActivity {
         }
 
     }
-    public void toolbarClick() {
-        goBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-    }
+
 }

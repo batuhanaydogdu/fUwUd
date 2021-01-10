@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.impostors.fuwud.Activity.MainPageActivity;
 import com.impostors.fuwud.Model.Product;
 import com.impostors.fuwud.R;
 
@@ -72,6 +73,13 @@ public class RVRDMenuAdapter extends FirebaseRecyclerAdapter<Product,RVRDMenuAda
             textViewProductRDPrice = (TextView) view.findViewById(R.id.textViewProductRDPrice);
             textViewProductRDName = (TextView) view.findViewById(R.id.textViewProductRDName);
             imageButtonRDBuy = (ImageButton) view.findViewById(R.id.imageButtonRDBuy);
+
+            imageButtonRDBuy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                MainPageActivity.addToBasket(getItem(getAdapterPosition()));
+                }
+            });
 
 
         }
