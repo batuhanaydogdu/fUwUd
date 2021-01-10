@@ -69,7 +69,6 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
         viewHolderForRestaurant.email.setText(restaurant.getEmail());
         viewHolderForRestaurant.phoneNumber.setText(restaurant.getPhoneNumber());
     }
-
     @NonNull
     @Override
     public ViewHolderForRestaurant onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -78,26 +77,28 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
     }*/
 
     class ViewHolderForRestaurant extends RecyclerView.ViewHolder{
-    TextView email,phoneNumber,restaurantName;
-    private ImageButton buttonGoToRestaurantRV;
+        TextView email,phoneNumber,restaurantName;
+        private ImageButton buttonGoToRestaurantRV;
 
 
-    public ViewHolderForRestaurant(@NonNull View itemView){
-        super(itemView);
-        email=itemView.findViewById(R.id.emailRV);
-        phoneNumber=itemView.findViewById(R.id.phoneNumberRV);
-        restaurantName=itemView.findViewById(R.id.restaurantNameRV);
-        buttonGoToRestaurantRV= itemView.findViewById(R.id.buttonGoToRestaurantRV);
+        public ViewHolderForRestaurant(@NonNull View itemView){
+            super(itemView);
+            email=itemView.findViewById(R.id.emailRV);
+            phoneNumber=itemView.findViewById(R.id.phoneNumberRV);
+            restaurantName=itemView.findViewById(R.id.restaurantNameRV);
+            buttonGoToRestaurantRV= itemView.findViewById(R.id.buttonGoToRestaurantRV);
 
-        buttonGoToRestaurantRV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
-                mContext.startActivity(intent);
-                ((Activity)mContext).finish();
-            }
-        });
-    }
+            buttonGoToRestaurantRV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
+                    intent.putExtra("restaurant_id",listOfRestaurants.get(getLayoutPosition()).getRestaurant_id());
+                    setListOfRestaurants(null);
+                    mContext.startActivity(intent);
+                    activity.finish();
+                }
+            });
+        }
 
     }
 

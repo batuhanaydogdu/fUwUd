@@ -28,9 +28,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.impostors.fuwud.Adapter.RVOrderAdapter;
+import com.impostors.fuwud.Model.User;
 import com.impostors.fuwud.R;
 
 public class FragmentOrder extends Fragment implements LocationListener {
@@ -93,12 +98,13 @@ public class FragmentOrder extends Fragment implements LocationListener {
 
                     checkForPermission = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION);
 
-                    if(checkForPermission == PackageManager.PERMISSION_GRANTED) {
+                    if(checkForPermission == PackageManager.PERMISSION_GRANTED && currentLatitude!=0.0&&currentLongitude!=0.0) {
 
                         Intent intent_to_ListedRestaurant = new Intent(getActivity().getApplication(), ListedRestaurantActivity.class);
                         intent_to_ListedRestaurant.putExtra("latitude", currentLatitude);
                         intent_to_ListedRestaurant.putExtra("longitude", currentLongitude);
                         startActivity(intent_to_ListedRestaurant);
+
                     }
 
 
@@ -107,6 +113,55 @@ public class FragmentOrder extends Fragment implements LocationListener {
                 }
 
                 else{
+
+                    Query queryForLoc=databaseReference.child("users").child(currentUser.getUid()).orderByKey();
+
+
+
+
+                    queryForLoc.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            if (snapshot.exists()) {
+                                for (DataSnapshot issue : snapshot.getChildren()) {
+                                    if(issue.getKey().equals("longitude")){
+                                        currentLongitude= Double.parseDouble(issue.getValue().toString());
+                                    }
+                                    if(issue.getKey().equals("latitude")){
+                                        currentLatitude=Double.parseDouble(issue.getValue().toString());
+                                    }
+
+
+
+                                }
+                            }
+
+                            if(currentLatitude!=0.0&&currentLongitude!=0.0){
+                            Intent intent_to_ListedRestaurant = new Intent(getActivity().getApplication(), ListedRestaurantActivity.class);
+                            intent_to_ListedRestaurant.putExtra("latitude", currentLatitude);
+                            intent_to_ListedRestaurant.putExtra("longitude", currentLongitude);
+                            startActivity(intent_to_ListedRestaurant);}
+                            else{
+                                Toast.makeText(getContext(),"ADRES KAYDETMEMİŞSİN ABİ",Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+
+
+                        }
+                    });
+
+
+
+
+
+
+
 
 
                 }
@@ -238,6 +293,18 @@ public class FragmentOrder extends Fragment implements LocationListener {
 
                                 if (loc != null) {
                                     onLocationChanged(loc);
+                                    if(checkForPermission == PackageManager.PERMISSION_GRANTED && currentLatitude!=0.0&&currentLongitude!=0.0) {
+
+                                        Intent intent_to_ListedRestaurant = new Intent(getActivity().getApplication(), ListedRestaurantActivity.class);
+                                        intent_to_ListedRestaurant.putExtra("latitude", currentLatitude);
+                                        intent_to_ListedRestaurant.putExtra("longitude", currentLongitude);
+                                        startActivity(intent_to_ListedRestaurant);
+                                        getActivity().finish();
+
+                                    }
+
+
+
 
 
                                 }

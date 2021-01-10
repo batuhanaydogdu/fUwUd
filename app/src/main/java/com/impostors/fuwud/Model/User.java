@@ -9,7 +9,7 @@ public class User {
     private String email, password, name, surname,phoneNumber;
     private String user_id;
     private String role;
-    private Double longitude,latitude;
+    private String longitude,latitude;
     private HashMap<String,Restaurant> favoritedRestaurant;
 
     public User(String email, String name, String surname, String phoneNumber, String user_id) {
@@ -21,19 +21,19 @@ public class User {
         this.role = "user";
     }
 
-    public Double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public Double getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLatitude(Double latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public void setLongitude(Double longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
