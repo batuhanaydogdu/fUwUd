@@ -39,6 +39,10 @@ public class RestaurantPanelActivity extends AppCompatActivity {
 
                 if(menuItem.getItemId() == R.id.actionComments){
                     tempFragment = new FragmentRestaurantComments();
+                }
+
+                if(menuItem.getItemId() == R.id.actionExit){
+                    tempFragment = new FragmentRestaurantComments();
                     FirebaseAuth.getInstance().signOut();
                     Intent to_login_intent = new Intent(RestaurantPanelActivity.this, LoginActivity.class);
                     startActivity(to_login_intent);
