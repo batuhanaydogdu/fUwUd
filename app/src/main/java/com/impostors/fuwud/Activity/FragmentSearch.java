@@ -1,5 +1,6 @@
 package com.impostors.fuwud.Activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,61 +31,42 @@ public class FragmentSearch extends Fragment {
     RVSearchAdapter searchAdapter;
 
 
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_search, container, false);
-
-        FirebaseDatabase firebaseDatabase;
-        DatabaseReference databaseReference;
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("restaurants");
-
-        recyclerView=view.findViewById(R.id.recyclersearch);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-        FirebaseRecyclerOptions<Restaurant> options = new FirebaseRecyclerOptions.Builder<Restaurant>()
-                .setQuery(FirebaseDatabase.getInstance().getReference(), Restaurant.class)
-                .build();
-        searchAdapter=new RVSearchAdapter(options);
-        recyclerView.setAdapter(searchAdapter);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        recyclerView = view.findViewById(R.id.recyclersearch);
         return view;
-
-
     }
+
     public void onStart() {
         super.onStart();
-        searchAdapter.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        searchAdapter.stopListening();
-
     }
-
 
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
 
         inflater.inflate(R.menu.search_menu, menu);
-        MenuItem item=menu.findItem(R.id.action_search);
-        android.widget.SearchView searchView=(android.widget.SearchView)item.getActionView();
-       searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-           @Override
-           public boolean onQueryTextSubmit(String query) {
-               processSearch( query);
-               return false;
-           }
+        MenuItem item = menu.findItem(R.id.action_search);
+        android.widget.SearchView searchView = (android.widget.SearchView) item.getActionView();
+        searchView.setBackgroundColor(Color.BLACK);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                processSearch(query);
+                return false;
+            }
 
-           @Override
-           public boolean onQueryTextChange(String newText) {
-               processSearch( newText);
-               return false;
-           }
-       });
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                processSearch(newText);
+                return false;
+            }
+        });
 
         super.onCreateOptionsMenu(menu, inflater);
 
@@ -94,6 +77,8 @@ public class FragmentSearch extends Fragment {
         DatabaseReference databaseReference;
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
 
         FirebaseRecyclerOptions<Restaurant> options = new FirebaseRecyclerOptions.Builder<Restaurant>()
                 .setQuery(databaseReference.child("restaurants").orderByChild("restaurantName").startAt(search).endAt(search + "\uf8ff"), Restaurant.class)
@@ -108,12 +93,5 @@ public class FragmentSearch extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
-
-
-
-
-
-
-
 
 }
