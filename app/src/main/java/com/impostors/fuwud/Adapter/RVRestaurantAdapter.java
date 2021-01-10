@@ -93,6 +93,7 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
+                setListOfRestaurants(null);
                 mContext.startActivity(intent);
                 ((Activity)mContext).finish();
             }
