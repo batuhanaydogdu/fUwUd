@@ -7,7 +7,6 @@ public class Restaurant {
     private String restaurantName,password,email,phoneNumber;
     private String restaurant_id;
     private Double longitude,latitude;
-    private String role;
     private HashMap<String,Product> products;
     private String cuisine;
     private HashMap<String, Comment> comments;
@@ -21,7 +20,7 @@ public class Restaurant {
     }
 
     public Restaurant() {
-        this.role = "restaurant";
+
     }
 
     public Restaurant(String restaurantName,String email, String phoneNumber, String restaurant_id, Double longitude, Double latitude, String cuisine) {
@@ -32,7 +31,7 @@ public class Restaurant {
         this.longitude = longitude;
         this.latitude = latitude;
         this.cuisine = cuisine;
-        this.role = "restaurant";
+
     }
 
     public void setProducts(HashMap<String, Product> products) {
@@ -107,13 +106,9 @@ public class Restaurant {
         this.latitude = latitude;
     }
 
-    public String getRole() {
-        return role;
-    }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+
+
 
     @Override
     public String toString() {
@@ -125,7 +120,7 @@ public class Restaurant {
                 ", restaurant_id='" + restaurant_id + '\'' +
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
-                ", role='" + role + '\'' +
+
                 '}';
     }
 }
