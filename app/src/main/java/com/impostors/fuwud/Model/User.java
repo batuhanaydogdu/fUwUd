@@ -11,6 +11,7 @@ public class User {
     private String role;
     private String longitude,latitude;
     private HashMap<String,Restaurant> favoritedRestaurant;
+    private HashMap<String,Product> currentBasket;
 
     public User(String email, String name, String surname, String phoneNumber, String user_id) {
         this.email = email;
@@ -19,6 +20,14 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.user_id = user_id;
         this.role = "user";
+    }
+
+    public HashMap<String, Product> getCurrentBasket() {
+        return currentBasket;
+    }
+
+    public void setCurrentBasket(HashMap<String, Product> currentBasket) {
+        this.currentBasket = currentBasket;
     }
 
     public String getLatitude() {
