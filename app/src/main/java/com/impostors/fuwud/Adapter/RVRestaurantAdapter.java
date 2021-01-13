@@ -10,10 +10,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.impostors.fuwud.Activity.RestaurantDetailActivity;
 import com.impostors.fuwud.Model.Restaurant;
 import com.impostors.fuwud.R;
@@ -24,20 +33,20 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
     private List<Restaurant> listOfRestaurants;
     private Context mContext;
     private Activity activity;
+    boolean flag = true;
 
 
     public RVRestaurantAdapter(Context mContext, List<Restaurant> listOfRestaurants, Activity activity) {
         this.mContext = mContext;
         this.listOfRestaurants = listOfRestaurants;
         this.activity = activity;
-        Log.e("listofrest",listOfRestaurants.toString());
     }
 
     @NonNull
     @Override
     public ViewHolderForRestaurant onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_restaurant_layout,parent,false);
+                .inflate(R.layout.card_restaurant_layout, parent, false);
 
         return new RVRestaurantAdapter.ViewHolderForRestaurant(itemView);
 
@@ -46,7 +55,7 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolderForRestaurant holder, int position) {
 
-        final Restaurant restaurant=listOfRestaurants.get(position);
+        final Restaurant restaurant = listOfRestaurants.get(position);
         holder.restaurantName.setText(restaurant.getRestaurantName());
         holder.cuisine.setText(restaurant.getCuisine());
         holder.phoneNumber.setText(restaurant.getPhoneNumber());
@@ -77,33 +86,93 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
         return new ViewHolderForRestaurant(view);
     }*/
 
-    class ViewHolderForRestaurant extends RecyclerView.ViewHolder{
-    TextView cuisine,phoneNumber,restaurantName;
-    private ImageButton buttonGoToRestaurantRV;
+    class ViewHolderForRestaurant extends RecyclerView.ViewHolder {
+        TextView cuisine, phoneNumber, restaurantName;
+        private ImageButton buttonGoToRestaurantRV;
+        private ImageButton addToFavorites;
+
+        FirebaseDatabase firebaseDatabase;
+        DatabaseReference databaseReference;
 
 
-    public ViewHolderForRestaurant(@NonNull View itemView){
-        super(itemView);
-        cuisine=itemView.findViewById(R.id.cuisineRV);
-        phoneNumber=itemView.findViewById(R.id.phoneNumberRV);
-        restaurantName=itemView.findViewById(R.id.restaurantNameRV);
-        buttonGoToRestaurantRV= itemView.findViewById(R.id.buttonGoToRestaurantRV);
+        public ViewHolderForRestaurant(@NonNull View itemView) {
+            super(itemView);
+            cuisine = itemView.findViewById(R.id.cuisineRV);
+            phoneNumber = itemView.findViewById(R.id.phoneNumberRV);
+            restaurantName = itemView.findViewById(R.id.restaurantNameRV);
+            buttonGoToRestaurantRV = itemView.findViewById(R.id.buttonGoToRestaurantRV);
+            addToFavorites = itemView.findViewById(R.id.addToFav);
+            FirebaseAuth auth;
+            final FirebaseUser currentUser;
+            auth = FirebaseAuth.getInstance();
+            currentUser = auth.getCurrentUser();
+
 
             buttonGoToRestaurantRV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
-                    intent.putExtra("restaurant_id",listOfRestaurants.get(getLayoutPosition()).getRestaurant_id());
+                    intent.putExtra("restaurant_id", listOfRestaurants.get(getLayoutPosition()).getRestaurant_id());
                     setListOfRestaurants(null);
                     mContext.startActivity(intent);
                     activity.finish();
                 }
             });
+
+            addToFavorites.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    firebaseDatabase = FirebaseDatabase.getInstance();
+                    databaseReference = firebaseDatabase.getReference();
+                    FirebaseAuth auth;
+                    final FirebaseUser currentUser;
+                    auth = FirebaseAuth.getInstance();
+                    currentUser = auth.getCurrentUser();
+
+                    Restaurant favoriteTemp = listOfRestaurants.get(getAdapterPosition());
+                    Toast.makeText(mContext,"Restoran favorilere eklendi",Toast.LENGTH_SHORT).show();
+//                    check();
+
+
+                    databaseReference.child("users").child(currentUser.getUid()).child("favorites").push().setValue(favoriteTemp);
+
+                }
+            });
+
+
         }
 
+   /*     public boolean check() {
+            FirebaseAuth auth;
+            final FirebaseUser currentUser;
+            auth = FirebaseAuth.getInstance();
+            currentUser = auth.getCurrentUser();
+            Restaurant favoriteTemp = listOfRestaurants.get(getAdapterPosition());
+
+
+            Query query = databaseReference.child("users").child(currentUser.getUid()).child("favorites");
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot d : snapshot.getChildren()) {
+                        Restaurant r = d.getValue(Restaurant.class);
+                        if (r.getRestaurant_id().equals(listOfRestaurants.get(getAdapterPosition()).getRestaurant_id())) ;
+                        flag=false;
+
+                        Log.e("yar", listOfRestaurants.get(getAdapterPosition()).getRestaurant_id());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+            return flag;
+        }*/
     }
-
-
-
-
 }
+
+
