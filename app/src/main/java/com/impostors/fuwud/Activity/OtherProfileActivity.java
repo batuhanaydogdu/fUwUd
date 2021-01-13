@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.impostors.fuwud.Model.Restaurant;
 import com.impostors.fuwud.Model.User;
 import com.impostors.fuwud.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class OtherProfileActivity extends AppCompatActivity {
 
@@ -56,10 +60,11 @@ public class OtherProfileActivity extends AppCompatActivity {
     }
 
     public void init() {
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
+        firebaseDatabase=FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference();
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
+
         editTextProfileName = findViewById(R.id.editTextProfileName);
         editTextProfileSurname = findViewById(R.id.editTextProfileSurname);
         editTextProfileBirth = findViewById(R.id.editTextProfileBirth);
@@ -67,7 +72,7 @@ public class OtherProfileActivity extends AppCompatActivity {
         buttonChangePassword = findViewById(R.id.buttonChangePassword);
         buttonProfileUpdate = findViewById(R.id.buttonProfileUpdate);
 
-        Query queryForProfile = databaseReference.child("users").child(currentUser.getUid());
+        Query queryForProfile = databaseReference.child("users").orderByKey().equalTo(currentUser.getUid());
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -77,10 +82,12 @@ public class OtherProfileActivity extends AppCompatActivity {
                         String name = user.getName();
                         String surname = user.getSurname();
                         String email = user.getEmail();
+                        String birthday = user.getBirthday();
 
                         editTextProfileEmail.setText(email);
                         editTextProfileSurname.setText(surname);
                         editTextProfileName.setText(name);
+                        editTextProfileBirth.setText(birthday);
                     }
                 }
             }
@@ -122,6 +129,12 @@ public class OtherProfileActivity extends AppCompatActivity {
     }
 
     public void updateUserInformation() {
+        Map<String,Object> updateInfo = new HashMap<>();
+        updateInfo.put("name", editTextProfileName.getText().toString());
+        updateInfo.put("surname", editTextProfileSurname.getText().toString());
+        updateInfo.put("email", editTextProfileEmail.getText().toString());
+        databaseReference.child("users").child(currentUser.getUid()).updateChildren(updateInfo);
 
+        databaseReference.child("users").child(currentUser.getUid()).child("birthday").setValue(editTextProfileBirth.getText().toString());
     }
 }

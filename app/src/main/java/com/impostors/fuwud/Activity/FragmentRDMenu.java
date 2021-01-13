@@ -37,8 +37,6 @@ public class FragmentRDMenu extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_r_d_menu, container, false);
@@ -69,15 +67,7 @@ public class FragmentRDMenu extends Fragment {
         recyclerViewRDMenu=view.findViewById(R.id.recyclerViewRDMenu);
         recyclerViewRDMenu.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
-
-
-
-
-
     }
-
-
 
     //adapter için start, stop
     public void onStart() {
