@@ -8,10 +8,10 @@ import java.util.HashMap;
 public class User {
     private String email, password, name, surname,phoneNumber;
     private String user_id;
-    private String role;
-    private String longitude,latitude;
+    private double longitude,latitude;
     private HashMap<String,Restaurant> favoritedRestaurant;
     private HashMap<String,Product> currentBasket;
+    private String birthday;
 
     public User(String email, String name, String surname, String phoneNumber, String user_id) {
         this.email = email;
@@ -19,7 +19,6 @@ public class User {
         this.surname = surname;
         this.phoneNumber = phoneNumber;
         this.user_id = user_id;
-        this.role = "user";
     }
 
     public HashMap<String, Product> getCurrentBasket() {
@@ -30,24 +29,23 @@ public class User {
         this.currentBasket = currentBasket;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
     public User() {
-        this.role = "user";
     }
 
     public String getEmail() {
@@ -106,12 +104,12 @@ public class User {
         this.user_id = user_id;
     }
 
-    public String getRole() {
-        return role;
+    public String getBirthday() {
+        return birthday;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
     @Override
@@ -123,7 +121,6 @@ public class User {
                 ", surname='" + surname + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", user_id='" + user_id + '\'' +
-                ", role='" + role + '\'' +
                 '}';
     }
 }

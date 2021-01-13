@@ -91,9 +91,7 @@ public class RVRDMenuAdapter extends FirebaseRecyclerAdapter<Product,RVRDMenuAda
             imageButtonRDBuy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                MainPageActivity.addToBasket(getItem(getAdapterPosition()));
                     addToBasket(getItem(getAdapterPosition()));
-
                 }
             });
 

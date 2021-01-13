@@ -35,8 +35,6 @@ public class RVBasketAdapter extends FirebaseRecyclerAdapter<Product,RVBasketAda
     protected void onBindViewHolder(@NonNull RVBasketHolder rvBasketHolder, int i, @NonNull Product product) {
         rvBasketHolder.textViewProductNameB.setText(product.getName());
         rvBasketHolder.textViewProductPriceB.setText(product.getBuyPrice()+"");
-
-
     }
 
     @NonNull
@@ -74,14 +72,8 @@ public class RVBasketAdapter extends FirebaseRecyclerAdapter<Product,RVBasketAda
                 public void onClick(View v) {
                     getRef(getAdapterPosition()).removeValue();
 
-
-
-
                 }
             });
-
-
-
         }
     }
 }
