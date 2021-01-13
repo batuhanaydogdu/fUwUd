@@ -94,6 +94,7 @@ public class FragmentRestaurantMenu extends Fragment {
                                     final double productPrice = Double.parseDouble(InsertedPrice.getText().toString());
                                     //create, push
                                     final Product product = new Product(productName, productPrice);
+                                    product.setRestaurant_id(firebaseUser.getUid());
                                     query.getRef().child(firebaseUser.getUid()).child("products").push().setValue(product);
                                 }
 

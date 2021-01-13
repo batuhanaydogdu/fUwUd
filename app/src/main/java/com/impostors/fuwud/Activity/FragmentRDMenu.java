@@ -55,7 +55,7 @@ public class FragmentRDMenu extends Fragment {
                 .setQuery(queryForR, Product.class)
                 .build();
 
-        rvRdAdapter = new RVRDMenuAdapter(options);
+        rvRdAdapter = new RVRDMenuAdapter(options,restaurantId,getContext());
         recyclerViewRDMenu.setAdapter(rvRdAdapter);
 
         return view;

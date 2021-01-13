@@ -3,9 +3,16 @@ package com.impostors.fuwud.Model;
 public class Product {
     public String name;
     public double buyPrice;
+    private String restaurant_id;
 
 
+    public String getRestaurant_id() {
+        return restaurant_id;
+    }
 
+    public void setRestaurant_id(String restaurant_id) {
+        this.restaurant_id = restaurant_id;
+    }
 
     public Product() {
     }
@@ -21,11 +28,9 @@ public class Product {
         return "Product{" +
                 "name='" + name + '\'' +
                 ", buyPrice=" + buyPrice +
-                ", product_id='"  + '\'' +
+                ", restaurant_id='" + restaurant_id + '\'' +
                 '}';
     }
-
-
 
     public String getName() {
         return name;

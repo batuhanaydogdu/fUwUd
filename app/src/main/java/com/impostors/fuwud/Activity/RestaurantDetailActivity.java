@@ -14,10 +14,12 @@ public class RestaurantDetailActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private Fragment tempFragment;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_detail);
+
         tempFragment = new FragmentRDMenu();
         init();
 
