@@ -7,9 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 
 import com.firebase.ui.database.FirebaseListOptions;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -46,15 +43,10 @@ public class ListedRestaurantActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listed_restaurant);
-
         init();
 
         adapterRestaurant=new RVRestaurantAdapter(this,listOfRestaurants,this);
-
-
-
     }
-
 
     private void init(){
         auth = FirebaseAuth.getInstance();
@@ -69,14 +61,6 @@ public class ListedRestaurantActivity extends AppCompatActivity {
 
         recyclerViewRestaurants=findViewById(R.id.RecyclerViewRestaurants);
         recyclerViewRestaurants.setLayoutManager(new LinearLayoutManager(this));
-
-
-
-
-
-
-
-
 
          Query queryForRestaurantAddresses =databaseReference.child("restaurants").orderByKey();
 
@@ -108,15 +92,6 @@ public class ListedRestaurantActivity extends AppCompatActivity {
              }
          };
          queryForRestaurantAddresses.addListenerForSingleValueEvent(listener);
-
-
-
-
-
-
-
-
-
 
     }
 

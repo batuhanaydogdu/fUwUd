@@ -44,8 +44,6 @@ public class FragmentRDComments extends Fragment {
     EditText commentSection;
 
 
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_r_d_comments, container, false);
@@ -58,8 +56,6 @@ public class FragmentRDComments extends Fragment {
         User = auth.getCurrentUser();
         commentSection = view.findViewById(R.id.commentSec);
 
-
-
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
@@ -68,23 +64,13 @@ public class FragmentRDComments extends Fragment {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-
                 Comment comment = new Comment();
                 comment.setOwnerId(User.getUid());
                 comment.setComments(commentSection.getText().toString());
                 comment.setOwnerName(User.getDisplayName());
 
-
                 databaseReference.child("restaurants").child(restaurantId).child("comments").push().setValue(comment);
-
-
-
-
-
-
+                commentSection.setText(null);
             }
 
 
@@ -96,7 +82,6 @@ public class FragmentRDComments extends Fragment {
 
         FirebaseRecyclerOptions<Comment>options = new FirebaseRecyclerOptions.Builder<Comment>()
                 .setQuery(FirebaseDatabase.getInstance().getReference("restaurants").child(restaurantId).child("comments"),(Comment.class)).build();
-
 
 
         adapter = new RVCommentAdapter(options);
@@ -114,6 +99,5 @@ public class FragmentRDComments extends Fragment {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
-
     }
 }

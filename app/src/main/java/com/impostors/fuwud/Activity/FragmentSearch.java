@@ -1,5 +1,7 @@
 package com.impostors.fuwud.Activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -83,7 +85,7 @@ public class FragmentSearch extends Fragment {
         FirebaseRecyclerOptions<Restaurant> options = new FirebaseRecyclerOptions.Builder<Restaurant>()
                 .setQuery(databaseReference.child("restaurants").orderByChild("restaurantName").startAt(search).endAt(search + "\uf8ff"), Restaurant.class)
                 .build();
-        searchAdapter = new RVSearchAdapter(options);
+        searchAdapter = new RVSearchAdapter(options, getContext(), getActivity());
         searchAdapter.startListening();
         recyclerView.setAdapter(searchAdapter);
     }

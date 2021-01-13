@@ -4,11 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.impostors.fuwud.Model.Product;
 import com.impostors.fuwud.R;
+
+import java.util.ArrayList;
 
 public class MainPageActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
