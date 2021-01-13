@@ -45,12 +45,8 @@ public class ListedRestaurantActivity extends AppCompatActivity {
         setContentView(R.layout.activity_listed_restaurant);
         init();
 
-
         adapterRestaurant=new RVRestaurantAdapter(this,listOfRestaurants,this);
-
-
     }
-
 
     private void init(){
         auth = FirebaseAuth.getInstance();
@@ -65,12 +61,6 @@ public class ListedRestaurantActivity extends AppCompatActivity {
 
         recyclerViewRestaurants=findViewById(R.id.RecyclerViewRestaurants);
         recyclerViewRestaurants.setLayoutManager(new LinearLayoutManager(this));
-
-
-
-
-
-
 
          Query queryForRestaurantAddresses =databaseReference.child("restaurants").orderByKey();
 
@@ -102,15 +92,6 @@ public class ListedRestaurantActivity extends AppCompatActivity {
              }
          };
          queryForRestaurantAddresses.addListenerForSingleValueEvent(listener);
-
-
-
-
-
-
-
-
-
 
     }
 

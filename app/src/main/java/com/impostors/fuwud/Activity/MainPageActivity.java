@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class MainPageActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private Fragment tempFragment;
-    private static ArrayList<Product> basket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,15 +56,5 @@ public class MainPageActivity extends AppCompatActivity {
 
     public void init() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        basket=new ArrayList();
     }
-
-
-    public static void addToBasket(Product product){
-        basket.add(product);
-        Log.e("product",product.toString());
-    }
-
-
-
 }

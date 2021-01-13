@@ -31,8 +31,6 @@ public class FragmentBasket extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
-
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_basket, container, false);
         init(view);
@@ -46,12 +44,6 @@ public class FragmentBasket extends Fragment {
         rvBasketAdapter = new RVBasketAdapter(options);
         recyclerViewBasket.setAdapter(rvBasketAdapter);
 
-
-
-
-
-
-
         return view;
     }
 
@@ -63,15 +55,7 @@ public class FragmentBasket extends Fragment {
         recyclerViewBasket=view.findViewById(R.id.RecyclerViewBasket);
         recyclerViewBasket.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
-
-
-
-
-
     }
-
-
 
     public void onStart() {
         super.onStart();
@@ -82,6 +66,5 @@ public class FragmentBasket extends Fragment {
     public void onStop() {
         super.onStop();
         rvBasketAdapter.stopListening();
-
     }
 }
