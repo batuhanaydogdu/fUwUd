@@ -157,32 +157,7 @@ public class RVMenuAdapter extends FirebaseRecyclerAdapter<Product, RVMenuAdapte
             buttonDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Firebase Bağlantısı
-                    FirebaseDatabase firebaseDatabase;
-                    DatabaseReference databaseReference;
-                    firebaseDatabase = FirebaseDatabase.getInstance();
-                    databaseReference = firebaseDatabase.getReference();
-                    //basılan itemı product a ya eşitleme
-                    Product a = getItem(getAdapterPosition());
-                    //basılan product ın name ine eşit olan satırın querysi
-                    Query query = databaseReference.child("restaurants").child(firebaseUser.getUid()).child("products").orderByChild("name").equalTo(a.getName());
-                    //satırı dinle sil
-                    query.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (DataSnapshot appleSnapshot : snapshot.getChildren()) {
-                                appleSnapshot.getRef().removeValue();
-                            }
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
-
+                    getRef(getAdapterPosition()).removeValue();
                 }
             });
 
