@@ -67,7 +67,6 @@ public class FragmentRDComments extends Fragment {
                 Comment comment = new Comment();
                 comment.setOwnerId(User.getUid());
                 comment.setComments(commentSection.getText().toString());
-                comment.setOwnerName(User.getDisplayName());
 
                 databaseReference.child("restaurants").child(restaurantId).child("comments").push().setValue(comment);
                 commentSection.setText(null);

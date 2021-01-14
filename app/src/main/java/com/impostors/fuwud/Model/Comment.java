@@ -6,7 +6,6 @@ import java.util.HashMap;
 public class Comment {
 
     private String ownerId;
-    private String ownerName;
 
     private String comments;
     private String restaurantName;
@@ -37,14 +36,6 @@ public class Comment {
 
     public void setOwnerId(String ownerId) {
         this.ownerId = ownerId;
-    }
-
-    public String getOwnerName() {
-        return ownerName;
-    }
-
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
     }
 
     public String getComments() {
