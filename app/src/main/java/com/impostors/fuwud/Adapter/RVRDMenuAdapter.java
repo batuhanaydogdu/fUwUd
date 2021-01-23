@@ -1,19 +1,18 @@
 package com.impostors.fuwud.Adapter;
 
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -26,12 +25,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.impostors.fuwud.Activity.MainPageActivity;
+import com.impostors.fuwud.Activity.LoginActivity;
 import com.impostors.fuwud.Model.Product;
 import com.impostors.fuwud.R;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RVRDMenuAdapter extends FirebaseRecyclerAdapter<Product,RVRDMenuAdapter.RDcardMenuItemHolder> {
     private FirebaseAuth auth;
@@ -42,9 +38,6 @@ public class RVRDMenuAdapter extends FirebaseRecyclerAdapter<Product,RVRDMenuAda
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-
-
-
 
     public RVRDMenuAdapter(@NonNull FirebaseRecyclerOptions<Product> options,String restaurant_id, Context context) {
 
@@ -69,16 +62,12 @@ public class RVRDMenuAdapter extends FirebaseRecyclerAdapter<Product,RVRDMenuAda
         return new RVRDMenuAdapter.RDcardMenuItemHolder(itemView);
     }
 
-
-
-
     public class RDcardMenuItemHolder extends RecyclerView.ViewHolder {
 
-        public TextView textViewProductRDName;
-        public TextView textViewProductRDPrice;
+        public TextView textViewProductRDName, textViewProductRDPrice;
         public ImageButton imageButtonRDBuy;
         public CardView cardView;
-
+        int count = 1;
         //Constructor
         public RDcardMenuItemHolder(final View view) {
             super(view);
@@ -87,19 +76,64 @@ public class RVRDMenuAdapter extends FirebaseRecyclerAdapter<Product,RVRDMenuAda
             textViewProductRDPrice = (TextView) view.findViewById(R.id.textViewProductRDPrice);
             textViewProductRDName = (TextView) view.findViewById(R.id.textViewProductRDName);
             imageButtonRDBuy = (ImageButton) view.findViewById(R.id.imageButtonRDBuy);
-
             imageButtonRDBuy.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    addToBasket(getItem(getAdapterPosition()));
+                public void onClick(View view) {
+                    final Dialog dialog = new Dialog(context);
+                    dialog.setContentView(R.layout.product_dialog_box);
+                    dialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.dialog_box_background));
+                    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                    dialog.setCancelable(false);
+                    dialog.getWindow().getAttributes().windowAnimations = R.style.animationDialog;
+
+                    Button buttonDialogCancel= dialog.findViewById(R.id.buttonDialogCancel);
+                    Button buttonDialogAddToBasket = dialog.findViewById(R.id.buttonDialogAddToBasket);
+                    final TextView textViewDialogProductNumber = dialog.findViewById(R.id.textViewDialogProductNumber);
+                    ImageButton imageButtonDialogRemove = dialog.findViewById(R.id.imageButtonDialogRemove);
+                    ImageButton imageButtonDialogAdd = dialog.findViewById(R.id.imageButtonDialogAdd);
+
+                    imageButtonDialogAdd.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (count >= 1){
+                                count++;
+                                textViewDialogProductNumber.setText(String.valueOf(count));
+                            }
+                        }
+                    });
+
+                    imageButtonDialogRemove.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (count > 1){
+                                count--;
+                                textViewDialogProductNumber.setText(String.valueOf(count));
+                            }
+                        }
+                    });
+
+                    dialog.show();
+
+                    buttonDialogAddToBasket.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            addToBasket(getItem(getAdapterPosition()));
+                            Toast.makeText(context, "Ürün Sepete Eklendi", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                    });
+
+                    buttonDialogCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
                 }
             });
-
-
         }
-
-
     }
+
     private void addToBasket(final Product product){
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
@@ -112,10 +146,8 @@ public class RVRDMenuAdapter extends FirebaseRecyclerAdapter<Product,RVRDMenuAda
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot d:snapshot.getChildren()){
                     Product p=d.getValue(Product.class);
-                    Log.e("aa",p.toString());
                     if(!p.getRestaurant_id().equals(restaurant_id)){
                         flag =false;
-                        Log.e("bb","bb");
                     }
 
                 }
@@ -132,17 +164,6 @@ public class RVRDMenuAdapter extends FirebaseRecyclerAdapter<Product,RVRDMenuAda
 
             }
         });
-
-
-
-
-
-
-
-
-
-
-
     }
 
 }

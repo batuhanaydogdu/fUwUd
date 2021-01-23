@@ -1,9 +1,14 @@
 package com.impostors.fuwud.Activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,6 +50,15 @@ public class FragmentBasket extends Fragment {
         recyclerViewBasket.setAdapter(rvBasketAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+
+        inflater.inflate(R.menu.delete_all_menu, menu);
+        MenuItem item = menu.findItem(R.id.action_delete);
+        super.onCreateOptionsMenu(menu, inflater);
+
     }
 
     private void init(View view){
