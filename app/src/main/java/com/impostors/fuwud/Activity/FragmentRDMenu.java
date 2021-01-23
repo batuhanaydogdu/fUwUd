@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,19 +15,14 @@ import android.view.ViewGroup;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.impostors.fuwud.Adapter.RVMenuAdapter;
 import com.impostors.fuwud.Adapter.RVRDMenuAdapter;
 import com.impostors.fuwud.Model.Product;
 import com.impostors.fuwud.R;
 
 public class FragmentRDMenu extends Fragment {
-
 
     RecyclerView recyclerViewRDMenu;
     private RVRDMenuAdapter rvRdAdapter;
@@ -44,8 +38,6 @@ public class FragmentRDMenu extends Fragment {
         init(view);
 
         String restaurantId=getActivity().getIntent().getStringExtra("restaurant_id");
-        Log.e("sadece intent",restaurantId);
-
 
         Query queryForR=databaseReference.child("restaurants").child(restaurantId).child("products");
         //adapter bağlantısı, FirebaseRecyclerOptions özel yapısı
@@ -66,7 +58,6 @@ public class FragmentRDMenu extends Fragment {
         databaseReference=firebaseDatabase.getReference();
         recyclerViewRDMenu=view.findViewById(R.id.recyclerViewRDMenu);
         recyclerViewRDMenu.setLayoutManager(new LinearLayoutManager(getContext()));
-
     }
 
     //adapter için start, stop
