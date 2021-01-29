@@ -1,14 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclersearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/cuisineDiet"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="150dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/diet"
+        android:padding="2dp"
+        android:scaleType="fitCenter"
+        android:text="Ev Yemekleri"
+        android:textAllCaps="true"
+        android:textColor="@color/aciksari"
+        android:textSize="0sp"
+        app:layout_constraintBottom_toTopOf="@+id/cuisinePizza"
+        app:layout_constraintEnd_toStartOf="@+id/cuisineDonut"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclersearch" />
+
+    <Button
+        android:id="@+id/cuisineFish"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="150dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/fish"
+        android:padding="2dp"
+        android:scaleType="fitCenter"
+        android:text="Balık"
+        android:textSize="0sp"
+        app:layout_constraintBottom_toTopOf="@+id/cuisineBurger"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cuisineDonut"
+        app:layout_constraintTop_toBottomOf="@+id/recyclersearch" />
+
+    <Button
+        android:id="@+id/cuisineKöfte"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/shish_kebab"
+        android:padding="2dp"
+        android:scaleType="fitCenter"
+        android:text="Çiğ Köfte"
+        android:textSize="0sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cuisineBurger"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cuisinePizza"
+        app:layout_constraintTop_toBottomOf="@+id/cuisineDonut" />
+
+    <Button
+        android:id="@+id/cuisinePizza"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/pizza"
+        android:padding="2dp"
+        android:scaleType="fitCenter"
+        android:text="Pizza"
+        android:textSize="0sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cuisineKöfte"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cuisineDiet" />
+
+    <Button
+        android:id="@+id/cuisineBurger"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/hamburger"
+        android:padding="2dp"
+        android:scaleType="fitCenter"
+        android:text="Burger"
+        android:textSize="0sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cuisineKöfte"
+        app:layout_constraintTop_toBottomOf="@+id/cuisineFish" />
+
+    <Button
+        android:id="@+id/cuisineDonut"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="150dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/donut"
+        android:padding="2dp"
+        android:scaleType="fitCenter"
+        android:text="Tatlı"
+        android:textSize="0sp"
+        app:layout_constraintBottom_toTopOf="@+id/cuisineKöfte"
+        app:layout_constraintEnd_toStartOf="@+id/cuisineFish"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cuisineDiet"
+        app:layout_constraintTop_toBottomOf="@+id/recyclersearch" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

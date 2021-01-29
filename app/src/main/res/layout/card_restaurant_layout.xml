@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="39dp"
-                android:background="@drawable/button_order"
+                android:background="@drawable/background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/buttonGoToRestaurantRV"
                 app:layout_constraintTop_toTopOf="parent"
