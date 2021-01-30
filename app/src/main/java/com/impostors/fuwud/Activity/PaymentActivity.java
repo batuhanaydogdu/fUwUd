@@ -22,6 +22,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.impostors.fuwud.Model.PrevOrder;
 import com.impostors.fuwud.Model.Product;
+import com.impostors.fuwud.Model.User;
 import com.impostors.fuwud.R;
 
 import java.text.SimpleDateFormat;
@@ -78,7 +79,6 @@ public class PaymentActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot d:snapshot.getChildren()){
                     prevOrder.getProducts().put(d.getKey(),d.getValue(Product.class));
-                    Log.e("abisi","neden yoksun?");
 
                 }
                 databaseReference.child("restaurants").child(restaurantId).child("orders").push().setValue(prevOrder);
