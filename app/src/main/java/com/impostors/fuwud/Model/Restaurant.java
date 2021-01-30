@@ -10,6 +10,7 @@ public class Restaurant {
     private HashMap<String,Product> products;
     private String cuisine;
     private HashMap<String, Comment> comments;
+    private HashMap<String, PrevOrder> orders;
 
 
 
@@ -25,6 +26,16 @@ public class Restaurant {
         this.latitude = latitude;
         this.cuisine = cuisine;
     }
+
+    public HashMap<String, PrevOrder> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(HashMap<String, PrevOrder> orders) {
+        this.orders = orders;
+    }
+
+
 
     public void setProducts(HashMap<String, Product> products) {
         this.products = products;

@@ -70,7 +70,7 @@ public class ListedRestaurantActivity extends AppCompatActivity {
              public void onDataChange(@NonNull DataSnapshot snapshot) {
                  if (snapshot.exists()) {
                      for (DataSnapshot issue : snapshot.getChildren()) {
-                         /*Log.e("debug",issue.getValue()+"");*/
+                         Log.e("debug",issue.getValue()+"");
                          Restaurant restaurant=issue.getValue(Restaurant.class);
                          String id=issue.getKey();
                          restaurant.setRestaurant_id(id);

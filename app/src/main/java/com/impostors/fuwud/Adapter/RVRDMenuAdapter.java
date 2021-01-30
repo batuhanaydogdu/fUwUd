@@ -27,6 +27,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.impostors.fuwud.Activity.LoginActivity;
 import com.impostors.fuwud.Model.Product;
+import com.impostors.fuwud.Model.User;
 import com.impostors.fuwud.R;
 
 public class RVRDMenuAdapter extends FirebaseRecyclerAdapter<Product,RVRDMenuAdapter.RDcardMenuItemHolder> {
@@ -35,6 +36,8 @@ public class RVRDMenuAdapter extends FirebaseRecyclerAdapter<Product,RVRDMenuAda
     private String restaurant_id;
     private Boolean flag;
     Context context;
+
+
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -67,7 +70,8 @@ public class RVRDMenuAdapter extends FirebaseRecyclerAdapter<Product,RVRDMenuAda
         public TextView textViewProductRDName, textViewProductRDPrice;
         public ImageButton imageButtonRDBuy;
         public CardView cardView;
-        int count = 1;
+        int count=1;
+
         //Constructor
         public RDcardMenuItemHolder(final View view) {
             super(view);
@@ -117,8 +121,8 @@ public class RVRDMenuAdapter extends FirebaseRecyclerAdapter<Product,RVRDMenuAda
                     buttonDialogAddToBasket.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            addToBasket(getItem(getAdapterPosition()));
-                            Toast.makeText(context, "Ürün Sepete Eklendi", Toast.LENGTH_SHORT).show();
+                            addToBasket(getItem(getAdapterPosition()),count);
+
                             dialog.dismiss();
                         }
                     });
@@ -134,7 +138,7 @@ public class RVRDMenuAdapter extends FirebaseRecyclerAdapter<Product,RVRDMenuAda
         }
     }
 
-    private void addToBasket(final Product product){
+    private void addToBasket(final Product product, final int count){
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
         firebaseDatabase=FirebaseDatabase.getInstance();
@@ -146,13 +150,17 @@ public class RVRDMenuAdapter extends FirebaseRecyclerAdapter<Product,RVRDMenuAda
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot d:snapshot.getChildren()){
                     Product p=d.getValue(Product.class);
+
                     if(!p.getRestaurant_id().equals(restaurant_id)){
                         flag =false;
                     }
 
                 }
                 if(flag) {
+                    product.setCount(count); // modified
                     databaseReference.child("users").child(currentUser.getUid()).child("currentBasket").push().setValue(product);
+                    Toast.makeText(context, "Ürün Sepete Eklendi", Toast.LENGTH_SHORT).show();
+
                 }
                 else{
                     Toast.makeText(context, "Sadece 1 restauranttan sipariş verebilirsin", Toast.LENGTH_SHORT).show();
@@ -165,5 +173,6 @@ public class RVRDMenuAdapter extends FirebaseRecyclerAdapter<Product,RVRDMenuAda
             }
         });
     }
+
 
 }

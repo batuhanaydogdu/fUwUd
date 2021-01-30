@@ -31,7 +31,7 @@ public class RVOrderAdapter extends FirebaseRecyclerAdapter<PrevOrder, RVOrderAd
     @Override
     protected void onBindViewHolder(@NonNull viewholder viewholder, int i, @NonNull PrevOrder prevOrder) {
 
-        viewholder.restaurantName1.setText(prevOrder.getRestaurantName());
+        viewholder.restaurantName1.setText("a bc");
         viewholder.productPrice1.setText(prevOrder.getPrice()+ " ");
         viewholder.Date1.setText(prevOrder.getDate().toString());
 

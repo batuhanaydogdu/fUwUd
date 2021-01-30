@@ -4,6 +4,7 @@ public class Product {
     public String name;
     public double buyPrice;
     private String restaurant_id;
+    public int count;
 
 
     public String getRestaurant_id() {
@@ -46,5 +47,13 @@ public class Product {
 
     public void setBuyPrice(double buyPrice) {
         this.buyPrice = buyPrice;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public int getCount() {
+        return count;
     }
 }
