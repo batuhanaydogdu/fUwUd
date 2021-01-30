@@ -1,5 +1,8 @@
 package com.impostors.fuwud.Adapter;
 
+import android.app.Activity;
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.impostors.fuwud.Activity.FragmentBasket;
 import com.impostors.fuwud.Model.Product;
 import com.impostors.fuwud.R;
 
@@ -22,6 +26,7 @@ import com.impostors.fuwud.R;
 public class RVBasketAdapter extends FirebaseRecyclerAdapter<Product,RVBasketAdapter.RVBasketHolder> {
     private FirebaseAuth auth;
     private FirebaseUser currentUser;
+    private double totalPrice=0;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -29,13 +34,23 @@ public class RVBasketAdapter extends FirebaseRecyclerAdapter<Product,RVBasketAda
     public RVBasketAdapter(@NonNull FirebaseRecyclerOptions<Product> options) {
 
             super(options);
+
+
             }
 
     @Override
     protected void onBindViewHolder(@NonNull RVBasketHolder rvBasketHolder, int i, @NonNull Product product) {
         rvBasketHolder.textViewProductNameB.setText(product.getName());
         rvBasketHolder.textViewProductPriceB.setText(product.getBuyPrice()+"");
+        rvBasketHolder.textViewProductNumber.setText(product.getCount()+"");
+
+
+
+
+
     }
+
+
 
     @NonNull
     @Override
@@ -52,6 +67,7 @@ public class RVBasketAdapter extends FirebaseRecyclerAdapter<Product,RVBasketAda
         public TextView textViewProductNameB;
         public TextView textViewProductPriceB;
         public ImageButton imageButtonDeleteFromBasket;
+        public TextView textViewProductNumber;
 
 
         //Constructor
@@ -66,6 +82,7 @@ public class RVBasketAdapter extends FirebaseRecyclerAdapter<Product,RVBasketAda
 
             textViewProductPriceB = view.findViewById(R.id.textViewProductPriceB);
             textViewProductNameB = view.findViewById(R.id.textViewProductNameB);
+            textViewProductNumber=view.findViewById(R.id.textViewProductNumber);
             imageButtonDeleteFromBasket =  view.findViewById(R.id.imageButtonDeleteFromBasket);
             imageButtonDeleteFromBasket.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,5 +93,6 @@ public class RVBasketAdapter extends FirebaseRecyclerAdapter<Product,RVBasketAda
             });
         }
     }
+
 }
 

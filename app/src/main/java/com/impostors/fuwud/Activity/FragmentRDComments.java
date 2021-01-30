@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -43,7 +44,6 @@ public class FragmentRDComments extends Fragment {
     private ImageButton sendButton;
     EditText commentSection;
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_r_d_comments, container, false);
@@ -67,7 +67,6 @@ public class FragmentRDComments extends Fragment {
                 Comment comment = new Comment();
                 comment.setOwnerId(User.getUid());
                 comment.setComments(commentSection.getText().toString());
-                comment.setOwnerName(User.getDisplayName());
 
                 databaseReference.child("restaurants").child(restaurantId).child("comments").push().setValue(comment);
                 commentSection.setText(null);
@@ -99,5 +98,11 @@ public class FragmentRDComments extends Fragment {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
 }
