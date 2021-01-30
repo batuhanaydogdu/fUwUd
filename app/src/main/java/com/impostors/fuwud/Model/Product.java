@@ -26,11 +26,11 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "name='" + name + '\'' +
-                ", buyPrice=" + buyPrice +
-                ", restaurant_id='" + restaurant_id + '\'' +
-                '}';
+        return
+                "adı='" + name + '\'' +
+                ", fiyatı=" + buyPrice +
+                        ", adeti= "+count+"\n";
+
     }
 
     public String getName() {

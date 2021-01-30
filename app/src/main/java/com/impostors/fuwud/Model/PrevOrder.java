@@ -12,6 +12,7 @@ public class PrevOrder {
     private Date date;
     private String ownerUid;
 
+
     public PrevOrder() {
         products=new HashMap();
     }
@@ -55,4 +56,6 @@ public class PrevOrder {
     public void setOwnerUid(String ownerUid) {
         this.ownerUid = ownerUid;
     }
+
+
 }
