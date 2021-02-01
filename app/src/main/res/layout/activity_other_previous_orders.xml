@@ -7,7 +7,7 @@
     tools:context=".Activity.OtherPreviousOrdersActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
+        android:id="@+id/rvOtherPrev"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

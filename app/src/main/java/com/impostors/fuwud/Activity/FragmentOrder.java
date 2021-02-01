@@ -78,7 +78,7 @@ public class FragmentOrder extends Fragment implements LocationListener {
 
         recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
         FirebaseRecyclerOptions<PrevOrder> options = new FirebaseRecyclerOptions.Builder<PrevOrder>()
-                .setQuery(databaseReference.child("users").child(currentUser.getUid()).child("completedOrders").limitToFirst(3), PrevOrder.class)
+                .setQuery(databaseReference.child("users").child(currentUser.getUid()).child("completedOrders").limitToLast(3), PrevOrder.class)
                 .build();
             adapter = new RVOrderAdapter(options);
             adapter.startListening();
@@ -196,7 +196,7 @@ public class FragmentOrder extends Fragment implements LocationListener {
     private void init(View view){
         switchSearch=view.findViewById(R.id.switchSearch);
         buttonListRestaurants=view.findViewById(R.id.buttonListRestaurants);
-        recyclerView2=(RecyclerView) view.findViewById(R.id.rv);
+        recyclerView2=(RecyclerView) view.findViewById(R.id.rvOtherPrev);
         locationManager=(LocationManager)getContext().getSystemService(getContext().LOCATION_SERVICE);
         sliderRestaurant = (ImageSlider) view.findViewById(R.id.sliderRestaurant);
 
