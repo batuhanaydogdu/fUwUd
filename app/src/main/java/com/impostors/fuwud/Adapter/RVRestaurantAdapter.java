@@ -33,7 +33,7 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
     private List<Restaurant> listOfRestaurants;
     private Context mContext;
     private Activity activity;
-    boolean flag = true;
+    private boolean flag=false;
 
 
     public RVRestaurantAdapter(Context mContext, List<Restaurant> listOfRestaurants, Activity activity) {
@@ -54,11 +54,13 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderForRestaurant holder, int position) {
-
         final Restaurant restaurant = listOfRestaurants.get(position);
         holder.restaurantName.setText(restaurant.getRestaurantName());
         holder.cuisine.setText(restaurant.getCuisine());
         holder.phoneNumber.setText(restaurant.getPhoneNumber());
+
+
+
 
     }
 
@@ -95,17 +97,16 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
         DatabaseReference databaseReference;
 
 
-        public ViewHolderForRestaurant(@NonNull View itemView) {
+
+
+        public ViewHolderForRestaurant(@NonNull final View itemView) {
             super(itemView);
             cuisine = itemView.findViewById(R.id.cuisineRV);
             phoneNumber = itemView.findViewById(R.id.phoneNumberRV);
             restaurantName = itemView.findViewById(R.id.restaurantNameRV);
             buttonGoToRestaurantRV = itemView.findViewById(R.id.buttonGoToRestaurantRV);
             addToFavorites = itemView.findViewById(R.id.addToFav);
-            FirebaseAuth auth;
-            final FirebaseUser currentUser;
-            auth = FirebaseAuth.getInstance();
-            currentUser = auth.getCurrentUser();
+
 
 
             buttonGoToRestaurantRV.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +123,6 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
             addToFavorites.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     firebaseDatabase = FirebaseDatabase.getInstance();
                     databaseReference = firebaseDatabase.getReference();
                     FirebaseAuth auth;
@@ -130,48 +130,46 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
                     auth = FirebaseAuth.getInstance();
                     currentUser = auth.getCurrentUser();
 
-                    Restaurant favoriteTemp = listOfRestaurants.get(getAdapterPosition());
-                    Toast.makeText(mContext,"Restoran favorilere eklendi",Toast.LENGTH_SHORT).show();
-//                    check();
 
 
-                    databaseReference.child("users").child(currentUser.getUid()).child("favorites").push().setValue(favoriteTemp);
+
+                        Restaurant favoriteTemp = listOfRestaurants.get(getAdapterPosition());
+                        Toast.makeText(mContext, "Restoran favorilere eklendi", Toast.LENGTH_SHORT).show();
+
+                        databaseReference.child("users").child(currentUser.getUid()).child("favorites").push().setValue(favoriteTemp);
 
                 }
             });
 
-
         }
-
-   /*     public boolean check() {
+/*        public boolean check() {
             FirebaseAuth auth;
             final FirebaseUser currentUser;
             auth = FirebaseAuth.getInstance();
             currentUser = auth.getCurrentUser();
-            Restaurant favoriteTemp = listOfRestaurants.get(getAdapterPosition());
-
-
-            Query query = databaseReference.child("users").child(currentUser.getUid()).child("favorites");
+            Query query =databaseReference.child("users").child(currentUser.getUid()).child("favorites");
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot d : snapshot.getChildren()) {
-                        Restaurant r = d.getValue(Restaurant.class);
-                        if (r.getRestaurant_id().equals(listOfRestaurants.get(getAdapterPosition()).getRestaurant_id())) ;
-                        flag=false;
+                    for(DataSnapshot d:snapshot.getChildren()){
+                        Restaurant r= d.getValue(Restaurant.class);
+                        Log.e("databasedeki",r.getRestaurant_id());
+                        Log.e("bastığım",listOfRestaurants.get(getAdapterPosition()).getRestaurant_id().toString());
+                            if (listOfRestaurants.get(getAdapterPosition()).getRestaurant_id().equals(r.getRestaurant_id())) {
+                                flag=true;
+                                Log.e("FLAG", String.valueOf(flag));
+                            }
 
-                        Log.e("yar", listOfRestaurants.get(getAdapterPosition()).getRestaurant_id());
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
                 }
             });
-
             return flag;
         }*/
+
     }
 }
 

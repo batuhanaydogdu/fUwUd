@@ -1,8 +1,5 @@
 package com.impostors.fuwud.Adapter;
 
-import android.app.Activity;
-import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +15,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.impostors.fuwud.Activity.FragmentBasket;
 import com.impostors.fuwud.Model.Product;
 import com.impostors.fuwud.R;
 
@@ -80,7 +76,7 @@ public class RVBasketAdapter extends FirebaseRecyclerAdapter<Product,RVBasketAda
             databaseReference=firebaseDatabase.getReference();
 
 
-            textViewProductPriceB = view.findViewById(R.id.textViewProductPriceB);
+            textViewProductPriceB = view.findViewById(R.id.Date1);
             textViewProductNameB = view.findViewById(R.id.textViewProductNameB);
             textViewProductNumber=view.findViewById(R.id.textViewProductNumber);
             imageButtonDeleteFromBasket =  view.findViewById(R.id.imageButtonDeleteFromBasket);

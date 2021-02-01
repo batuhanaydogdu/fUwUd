@@ -23,17 +23,17 @@ public class RVOrderAdapter extends FirebaseRecyclerAdapter<PrevOrder, RVOrderAd
 
     }
 
-    TextView Date1;
-    TextView productPrice1;
-    TextView restaurantName1;
+
 
 
     @Override
     protected void onBindViewHolder(@NonNull viewholder viewholder, int i, @NonNull PrevOrder prevOrder) {
 
-        viewholder.restaurantName1.setText("a bc");
-        viewholder.productPrice1.setText(prevOrder.getPrice()+ " ");
-        viewholder.Date1.setText(prevOrder.getDate().toString());
+
+
+        viewholder.Date1.setText(String.valueOf(prevOrder.getDate()));
+        viewholder.productPrice1.setText(String.valueOf(prevOrder.getPrice()));
+        viewholder.restaurantName1.setText(String.valueOf(prevOrder.getPrice()));
 
 
     }
@@ -51,9 +51,9 @@ public class RVOrderAdapter extends FirebaseRecyclerAdapter<PrevOrder, RVOrderAd
 
         public viewholder(@NonNull View itemView) {
             super(itemView);
-            Date1= (TextView)itemView.findViewById(R.id.Date1);
-            productPrice1 = (TextView)itemView.findViewById(R.id.productPrice1);
-            restaurantName1 = (TextView)itemView.findViewById((R.id.restaurantName1));
+            Date1= itemView.findViewById(R.id.Date1);
+            productPrice1 = itemView.findViewById(R.id.price1);
+            restaurantName1 = itemView.findViewById((R.id.restt));
 
         }
     }
