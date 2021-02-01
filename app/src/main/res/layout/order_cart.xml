@@ -53,11 +53,12 @@
                 android:id="@+id/price1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginStart="76dp"
+                android:layout_marginBottom="12dp"
                 android:fontFamily="@font/open_sans"
-                android:textColor="@color/black"
                 android:text="TL"
+                android:textColor="@color/black"
+                android:textStyle="normal|bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/Date1" />
 

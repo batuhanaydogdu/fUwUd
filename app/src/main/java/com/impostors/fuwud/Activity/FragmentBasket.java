@@ -108,6 +108,7 @@ public class FragmentBasket extends Fragment {
                     totalPrice=product.getCount()*product.getBuyPrice()+totalPrice;
                     restaurantId=product.getRestaurant_id();
 
+
                 }
                 textViewTotalPrice.setText(totalPrice+ "");
                 totalPricee=totalPrice;
