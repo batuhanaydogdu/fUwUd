@@ -38,6 +38,7 @@ import com.impostors.fuwud.R;
 public class FragmentBasket extends Fragment {
 
     RecyclerView recyclerViewBasket;
+
     private RVBasketAdapter rvBasketAdapter;
     FirebaseAuth auth;
     FirebaseUser currentUser;
@@ -52,13 +53,13 @@ public class FragmentBasket extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_basket, container, false);
         init(view);
-
         Query queryForR=databaseReference.child("users").child(currentUser.getUid()).child("currentBasket");
 
         FirebaseRecyclerOptions<Product> options = new FirebaseRecyclerOptions.Builder<Product>()
                 .setQuery(queryForR, Product.class)
                 .build();
         updateTotalPrice(queryForR);
+
 
 
 
