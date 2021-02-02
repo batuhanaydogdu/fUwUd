@@ -68,7 +68,7 @@ public class FragmentRestaurantMenu extends Fragment {
                 ad.setMessage("Name of the new product");
                 ad.setTitle("Add new product");
                 //Alert view a girilen değerleri Edittext cinsinden alma
-                final EditText InsertedProductName = editTextAlert.findViewById(R.id.editTextInsertedProductName);
+                final EditText InsertedProductName = editTextAlert.findViewById(R.id.editTextReply);
                 final EditText InsertedPrice = editTextAlert.findViewById(R.id.editTextTextPrice);
 
                 //alertview view setleme

@@ -10,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -46,6 +45,8 @@ public class FragmentBasket extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     TextView textViewTotalPrice;
+    public TextView textViewbasketEmpty;
+    ImageButton imageButtonBasketComplete;
     Button buttonBasketComplete;
     double totalPricee;
     String restaurantId;
@@ -64,6 +65,7 @@ public class FragmentBasket extends Fragment {
 
 
 
+
         rvBasketAdapter = new RVBasketAdapter(options);
 
 
@@ -71,6 +73,9 @@ public class FragmentBasket extends Fragment {
         recyclerViewBasket.setAdapter(rvBasketAdapter);
 
 
+
+
+        imageButtonBasketComplete.setOnClickListener(new View.OnClickListener() {
         buttonBasketComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

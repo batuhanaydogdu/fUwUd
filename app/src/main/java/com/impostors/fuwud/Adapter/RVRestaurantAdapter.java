@@ -109,6 +109,12 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
                     intent.putExtra("restaurant_id", listOfRestaurants.get(getLayoutPosition()).getRestaurant_id());
+                    intent.putExtra("restaurantName",listOfRestaurants.get(getLayoutPosition()).getRestaurantName());
+                    intent.putExtra("restaurantPhone",listOfRestaurants.get(getLayoutPosition()).getPhoneNumber());
+                    intent.putExtra("restaurantEmail",listOfRestaurants.get(getLayoutPosition()).getEmail());
+                    intent.putExtra("restaurantLatitude",listOfRestaurants.get(getLayoutPosition()).getLatitude());
+                    intent.putExtra("restaurantLongitude",listOfRestaurants.get(getLayoutPosition()).getLongitude());
+
                     setListOfRestaurants(null);
                     mContext.startActivity(intent);
                     activity.finish();

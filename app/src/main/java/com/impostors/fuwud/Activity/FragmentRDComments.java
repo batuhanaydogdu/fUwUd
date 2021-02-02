@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -24,14 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.impostors.fuwud.Adapter.RVCommentAdapter;
 
-import com.impostors.fuwud.Adapter.RVMenuAdapter;
 import com.impostors.fuwud.Model.Comment;
-import com.impostors.fuwud.Model.Restaurant;
 import com.impostors.fuwud.R;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 public class FragmentRDComments extends Fragment {
     FirebaseDatabase firebaseDatabase;
@@ -50,7 +43,7 @@ public class FragmentRDComments extends Fragment {
 
         context = getActivity();
         sendButton = view.findViewById(R.id.sendButton);
-        recyclerView = view.findViewById(R.id.allcomments);
+        recyclerView = view.findViewById(R.id.allcommentsrest);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         auth = FirebaseAuth.getInstance();
         User = auth.getCurrentUser();
