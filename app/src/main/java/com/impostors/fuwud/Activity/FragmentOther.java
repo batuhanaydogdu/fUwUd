@@ -26,7 +26,6 @@ public class FragmentOther extends Fragment {
         buttonPreviousOrders = view.findViewById(R.id.buttonPreviousOrders);
         buttonFavorites = view.findViewById(R.id.buttonFavorites);
         buttonAddresses = view.findViewById(R.id.buttonAddresses);
-        buttonPayments = view.findViewById(R.id.buttonPayments);
         buttonAboutApp = view.findViewById(R.id.buttonAboutApp);
         buttonSignOut = view.findViewById(R.id.buttonSignOut);
 
@@ -65,12 +64,6 @@ public class FragmentOther extends Fragment {
             }
         });
 
-        buttonPayments.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToPaymentsPage();
-            }
-        });
 
         buttonAboutApp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,11 +103,6 @@ public class FragmentOther extends Fragment {
 
     public void goToAddressesPage() {
         Intent intent = new Intent(getActivity(), OtherAddressesActivity.class);
-        startActivity(intent);
-    }
-
-    public void goToPaymentsPage() {
-        Intent intent = new Intent(getActivity(), OtherPaymentsActivity.class);
         startActivity(intent);
     }
 

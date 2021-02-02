@@ -47,6 +47,7 @@ public class FragmentBasket extends Fragment {
     TextView textViewTotalPrice;
     public TextView textViewbasketEmpty;
     ImageButton imageButtonBasketComplete;
+    Button buttonBasketComplete;
     double totalPricee;
     String restaurantId;
 
@@ -75,6 +76,7 @@ public class FragmentBasket extends Fragment {
 
 
         imageButtonBasketComplete.setOnClickListener(new View.OnClickListener() {
+        buttonBasketComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -88,7 +90,7 @@ public class FragmentBasket extends Fragment {
                 intent.putExtra("price",totalPricee);
                 intent.putExtra("restaurantId",restaurantId);
                 startActivity(intent);
-                getActivity().finish();}
+                }
                     else{
                         Toast.makeText(getContext(),"krdşm Restaurant bulunamadı",Toast.LENGTH_LONG);
 
@@ -144,7 +146,7 @@ public class FragmentBasket extends Fragment {
         recyclerViewBasket=view.findViewById(R.id.RecyclerViewBasket);
         recyclerViewBasket.setLayoutManager(new LinearLayoutManager(getContext()));
         textViewTotalPrice=view.findViewById(R.id.textViewTotalPrice);
-        imageButtonBasketComplete=view.findViewById(R.id.imageButtonBasketComplete);
+        buttonBasketComplete=view.findViewById(R.id.buttonBasketComplete);
 
 
     }

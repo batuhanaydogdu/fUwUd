@@ -33,7 +33,7 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
     private List<Restaurant> listOfRestaurants;
     private Context mContext;
     private Activity activity;
-    private boolean flag=false;
+    private boolean flag = false;
 
 
     public RVRestaurantAdapter(Context mContext, List<Restaurant> listOfRestaurants, Activity activity) {
@@ -58,8 +58,6 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
         holder.restaurantName.setText(restaurant.getRestaurantName());
         holder.cuisine.setText(restaurant.getCuisine());
         holder.phoneNumber.setText(restaurant.getPhoneNumber());
-
-
 
 
     }
@@ -97,8 +95,6 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
         DatabaseReference databaseReference;
 
 
-
-
         public ViewHolderForRestaurant(@NonNull final View itemView) {
             super(itemView);
             cuisine = itemView.findViewById(R.id.cuisineRV);
@@ -106,7 +102,6 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
             restaurantName = itemView.findViewById(R.id.restaurantNameRV);
             buttonGoToRestaurantRV = itemView.findViewById(R.id.buttonGoToRestaurantRV);
             addToFavorites = itemView.findViewById(R.id.addToFav);
-
 
 
             buttonGoToRestaurantRV.setOnClickListener(new View.OnClickListener() {
@@ -135,14 +130,18 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
                     final FirebaseUser currentUser;
                     auth = FirebaseAuth.getInstance();
                     currentUser = auth.getCurrentUser();
+                    boolean isPressed=false;
 
+                    if(isPressed){
+                        v.setBackgroundResource(R.drawable.icon_star_empty);
+                    }else{
+                        v.setBackgroundResource(R.drawable.icon_star_filled);
+                    }
+                    isPressed = !isPressed; // reverse
+                    Restaurant favoriteTemp = listOfRestaurants.get(getAdapterPosition());
+                    Toast.makeText(mContext, "Restoran favorilere eklendi", Toast.LENGTH_SHORT).show();
 
-
-
-                        Restaurant favoriteTemp = listOfRestaurants.get(getAdapterPosition());
-                        Toast.makeText(mContext, "Restoran favorilere eklendi", Toast.LENGTH_SHORT).show();
-
-                        databaseReference.child("users").child(currentUser.getUid()).child("favorites").push().setValue(favoriteTemp);
+                    databaseReference.child("users").child(currentUser.getUid()).child("favorites").push().setValue(favoriteTemp);
 
                 }
             });
