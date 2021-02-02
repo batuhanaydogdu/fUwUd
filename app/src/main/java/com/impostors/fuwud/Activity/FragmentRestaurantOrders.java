@@ -17,9 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.impostors.fuwud.Adapter.RVCommentAdapter;
 import com.impostors.fuwud.Adapter.RVRestaurantOrderAdapter;
-import com.impostors.fuwud.Model.Comment;
 import com.impostors.fuwud.Model.PrevOrder;
 import com.impostors.fuwud.R;
 

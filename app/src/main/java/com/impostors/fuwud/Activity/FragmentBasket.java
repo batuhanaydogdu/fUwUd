@@ -45,6 +45,7 @@ public class FragmentBasket extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     TextView textViewTotalPrice;
+    public TextView textViewbasketEmpty;
     ImageButton imageButtonBasketComplete;
     double totalPricee;
     String restaurantId;
@@ -63,11 +64,14 @@ public class FragmentBasket extends Fragment {
 
 
 
+
         rvBasketAdapter = new RVBasketAdapter(options);
 
 
 
         recyclerViewBasket.setAdapter(rvBasketAdapter);
+
+
 
 
         imageButtonBasketComplete.setOnClickListener(new View.OnClickListener() {
