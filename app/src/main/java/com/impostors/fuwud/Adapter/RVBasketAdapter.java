@@ -1,5 +1,6 @@
 package com.impostors.fuwud.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,6 @@ public class RVBasketAdapter extends FirebaseRecyclerAdapter<Product,RVBasketAda
             currentUser = auth.getCurrentUser();
             firebaseDatabase=FirebaseDatabase.getInstance();
             databaseReference=firebaseDatabase.getReference();
-
 
             textViewProductPriceB = view.findViewById(R.id.Date1);
             textViewProductNameB = view.findViewById(R.id.textViewProductNameB);

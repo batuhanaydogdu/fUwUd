@@ -8,4 +8,7 @@
         android:title="Search Restaurant"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
+
+
+
 </menu>
