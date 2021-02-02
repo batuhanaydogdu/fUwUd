@@ -7,11 +7,40 @@ import java.util.HashMap;
 public class PrevOrder {
 
     private boolean isCompleted;
-    private HashMap<String, Product> orders;
+    private HashMap<String, Product> products;
     private double Price;
-    private String restaurantName;
     private Date date;
+    private String ownerUid;
+    private String restaurant;
 
+
+    public String getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(String restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public PrevOrder() {
+        products=new HashMap();
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
+    }
+
+    public HashMap<String, Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(HashMap<String, Product> products) {
+        this.products = products;
+    }
 
     public double getPrice() {
         return Price;
@@ -19,14 +48,6 @@ public class PrevOrder {
 
     public void setPrice(double price) {
         Price = price;
-    }
-
-    public String getRestaurantName() {
-        return restaurantName;
-    }
-
-    public void setRestaurantName(String restaurantName) {
-        this.restaurantName = restaurantName;
     }
 
     public Date getDate() {
@@ -37,24 +58,13 @@ public class PrevOrder {
         this.date = date;
     }
 
-
-    public boolean isCompleted() {
-        return isCompleted;
+    public String getOwnerUid() {
+        return ownerUid;
     }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
+    public void setOwnerUid(String ownerUid) {
+        this.ownerUid = ownerUid;
     }
-
-    public HashMap<String, Product> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(HashMap<String, Product> orders) {
-        this.orders = orders;
-    }
-
-
 
 
 }

@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.denzcoskun.imageslider.ImageSlider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,7 +39,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.impostors.fuwud.Adapter.RVOrderAdapter;
 import com.impostors.fuwud.Model.User;
+import com.impostors.fuwud.Model.PrevOrder;
 import com.impostors.fuwud.R;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +58,12 @@ public class FragmentOrder extends Fragment implements LocationListener {
     Double currentLatitude=0.0,currentLongitude=0.0;
     private String locationProvider = "gps";
     Location loc;
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerView2;
     private ImageSlider sliderRestaurant;
 
     private FirebaseAuth auth;
     private FirebaseUser currentUser;
+
 
 
     FirebaseDatabase firebaseDatabase;
@@ -72,9 +76,15 @@ public class FragmentOrder extends Fragment implements LocationListener {
         View view= inflater.inflate(R.layout.fragment_order, container, false);
         init(view);
 
-        //FirebaseRecyclerOptions<PrevOrder> options =
-        //new FirebaseRecyclerOptions.Builder<PrevOrder>().setQuery
-        // (FirebaseDatabase.getInstance().getReference().child("PrevOrder").limitToFirst(5), PrevOrder.class).build();
+        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
+        FirebaseRecyclerOptions<PrevOrder> options = new FirebaseRecyclerOptions.Builder<PrevOrder>()
+                .setQuery(databaseReference.child("users").child(currentUser.getUid()).child("completedOrders").limitToLast(3), PrevOrder.class)
+                .build();
+            adapter = new RVOrderAdapter(options);
+            adapter.startListening();
+        recyclerView2.setAdapter(adapter);
+
+
 
 
         switchSearch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -170,18 +180,33 @@ public class FragmentOrder extends Fragment implements LocationListener {
 
         return view;
     }
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+
+    }
 
 
     private void init(View view){
         switchSearch=view.findViewById(R.id.switchSearch);
         buttonListRestaurants=view.findViewById(R.id.buttonListRestaurants);
+        recyclerView2=(RecyclerView) view.findViewById(R.id.rvOtherPrev);
         locationManager=(LocationManager)getContext().getSystemService(getContext().LOCATION_SERVICE);
         sliderRestaurant = (ImageSlider) view.findViewById(R.id.sliderRestaurant);
+
 
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
         firebaseDatabase=FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference();
+
+
     }
 
 
@@ -311,16 +336,8 @@ public class FragmentOrder extends Fragment implements LocationListener {
 
         }
     }
-     /*public void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-    @Override
-    public void onStop() {
-        super.onStop();
-        adapter.stopListening();
 
-    }*/
+
 }
 
 

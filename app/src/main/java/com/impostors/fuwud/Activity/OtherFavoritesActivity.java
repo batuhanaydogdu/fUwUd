@@ -35,7 +35,8 @@ public class OtherFavoritesActivity extends AppCompatActivity {
                 .setQuery(FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("favorites"), Restaurant.class)
                 .build();
 
-        adapter = new RVFavoriteAdapter(options);
+        adapter = new RVFavoriteAdapter(options, this, this);
+        adapter.startListening();
         recyclerView.setAdapter(adapter);
 
     }

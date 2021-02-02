@@ -22,6 +22,7 @@ import com.impostors.fuwud.R;
 public class RVBasketAdapter extends FirebaseRecyclerAdapter<Product,RVBasketAdapter.RVBasketHolder> {
     private FirebaseAuth auth;
     private FirebaseUser currentUser;
+    private double totalPrice=0;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -29,13 +30,23 @@ public class RVBasketAdapter extends FirebaseRecyclerAdapter<Product,RVBasketAda
     public RVBasketAdapter(@NonNull FirebaseRecyclerOptions<Product> options) {
 
             super(options);
+
+
             }
 
     @Override
     protected void onBindViewHolder(@NonNull RVBasketHolder rvBasketHolder, int i, @NonNull Product product) {
         rvBasketHolder.textViewProductNameB.setText(product.getName());
         rvBasketHolder.textViewProductPriceB.setText(product.getBuyPrice()+"");
+        rvBasketHolder.textViewProductNumber.setText(product.getCount()+"");
+
+
+
+
+
     }
+
+
 
     @NonNull
     @Override
@@ -52,6 +63,7 @@ public class RVBasketAdapter extends FirebaseRecyclerAdapter<Product,RVBasketAda
         public TextView textViewProductNameB;
         public TextView textViewProductPriceB;
         public ImageButton imageButtonDeleteFromBasket;
+        public TextView textViewProductNumber;
 
 
         //Constructor
@@ -64,8 +76,9 @@ public class RVBasketAdapter extends FirebaseRecyclerAdapter<Product,RVBasketAda
             databaseReference=firebaseDatabase.getReference();
 
 
-            textViewProductPriceB = view.findViewById(R.id.textViewProductPriceB);
+            textViewProductPriceB = view.findViewById(R.id.Date1);
             textViewProductNameB = view.findViewById(R.id.textViewProductNameB);
+            textViewProductNumber=view.findViewById(R.id.textViewProductNumber);
             imageButtonDeleteFromBasket =  view.findViewById(R.id.imageButtonDeleteFromBasket);
             imageButtonDeleteFromBasket.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,5 +89,6 @@ public class RVBasketAdapter extends FirebaseRecyclerAdapter<Product,RVBasketAda
             });
         }
     }
+
 }
 
