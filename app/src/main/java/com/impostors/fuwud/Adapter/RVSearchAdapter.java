@@ -57,6 +57,8 @@ public class RVSearchAdapter extends FirebaseRecyclerAdapter<Restaurant,RVSearch
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
                     intent.putExtra("restaurant_id",getItem(getAdapterPosition()).getRestaurant_id());
+
+
                     mContext.startActivity(intent);
                     
 
