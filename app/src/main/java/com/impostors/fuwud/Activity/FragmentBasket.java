@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -45,7 +46,7 @@ public class FragmentBasket extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     TextView textViewTotalPrice;
-    ImageButton imageButtonBasketComplete;
+    Button buttonBasketComplete;
     double totalPricee;
     String restaurantId;
 
@@ -70,7 +71,7 @@ public class FragmentBasket extends Fragment {
         recyclerViewBasket.setAdapter(rvBasketAdapter);
 
 
-        imageButtonBasketComplete.setOnClickListener(new View.OnClickListener() {
+        buttonBasketComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -84,7 +85,7 @@ public class FragmentBasket extends Fragment {
                 intent.putExtra("price",totalPricee);
                 intent.putExtra("restaurantId",restaurantId);
                 startActivity(intent);
-                getActivity().finish();}
+                }
                     else{
                         Toast.makeText(getContext(),"krdşm Restaurant bulunamadı",Toast.LENGTH_LONG);
 
@@ -140,7 +141,7 @@ public class FragmentBasket extends Fragment {
         recyclerViewBasket=view.findViewById(R.id.RecyclerViewBasket);
         recyclerViewBasket.setLayoutManager(new LinearLayoutManager(getContext()));
         textViewTotalPrice=view.findViewById(R.id.textViewTotalPrice);
-        imageButtonBasketComplete=view.findViewById(R.id.imageButtonBasketComplete);
+        buttonBasketComplete=view.findViewById(R.id.buttonBasketComplete);
 
 
     }

@@ -48,26 +48,6 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonProfile" />
 
     <Button
-        android:id="@+id/buttonPayments"
-        android:layout_width="412dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="1dp"
-        android:background="@drawable/button_others"
-        android:drawableLeft="@drawable/icon_payment"
-        android:drawableRight="@drawable/icon_right"
-        android:drawablePadding="8dp"
-        android:fontFamily="@font/open_sans"
-        android:padding="8dp"
-        android:text="Ödeme Yöntemlerim"
-        android:textAlignment="viewStart"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAddresses" />
-
-    <Button
         android:id="@+id/buttonAddresses"
         android:layout_width="412dp"
         android:layout_height="47dp"
@@ -142,7 +122,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonPayments" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonAddresses" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

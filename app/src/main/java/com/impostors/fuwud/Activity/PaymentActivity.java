@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -31,7 +32,7 @@ import java.util.Date;
 public class PaymentActivity extends AppCompatActivity {
     TextView textViewPaymentPrice;
     EditText editTextCartCode,editTextCartValidDate;
-    ImageButton imageButtonPaymentNext;
+    Button buttonPaymentNext;
     String restaurantId;
 
 
@@ -50,7 +51,7 @@ public class PaymentActivity extends AppCompatActivity {
         init();
         textViewPaymentPrice.setText(getIntent().getDoubleExtra("price",0)+"");
         restaurantId=getIntent().getStringExtra("restaurantId");
-        imageButtonPaymentNext.setOnClickListener(new View.OnClickListener() {
+        buttonPaymentNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!editTextCartCode.getText().toString().equals("")&&!editTextCartValidDate.getText().toString().equals("")&&getIntent().getDoubleExtra("price",0)!=0
@@ -102,9 +103,9 @@ public class PaymentActivity extends AppCompatActivity {
 
     private void init(){
         textViewPaymentPrice=findViewById(R.id.textViewPaymentPrice);
-        editTextCartCode=findViewById(R.id.editTextCartCode);
-        editTextCartValidDate=findViewById(R.id.editTextCartValidDate);
-        imageButtonPaymentNext=findViewById(R.id.imageButtonPaymentNext);
+        /*editTextCartCode=findViewById(R.id.editTextCartCode);
+        editTextCartValidDate=findViewById(R.id.editTextCartValidDate);*/
+        buttonPaymentNext=findViewById(R.id.buttonPaymentNext);
 
 
         auth = FirebaseAuth.getInstance();
