@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.impostors.fuwud.Activity.OtherFavoritesActivity;
 import com.impostors.fuwud.Activity.RestaurantDetailActivity;
 import com.impostors.fuwud.Model.Restaurant;
 import com.impostors.fuwud.R;
@@ -128,6 +129,9 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
                 public void onClick(View v) {
                     firebaseDatabase = FirebaseDatabase.getInstance();
                     databaseReference = firebaseDatabase.getReference();
+                    Restaurant favoriteTemp = listOfRestaurants.get(getAdapterPosition());
+                  //  check();
+                    Log.e("msg", String.valueOf(flag));
                     FirebaseAuth auth;
                     final FirebaseUser currentUser;
                     auth = FirebaseAuth.getInstance();
@@ -140,32 +144,34 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
                         v.setBackgroundResource(R.drawable.icon_star_filled);
                     }
                     isPressed = !isPressed; // reverse
-                    Restaurant favoriteTemp = listOfRestaurants.get(getAdapterPosition());
-                    Toast.makeText(mContext, "Restoran favorilere eklendi", Toast.LENGTH_SHORT).show();
 
+
+                  //  if(!check()) {
                     databaseReference.child("users").child(currentUser.getUid()).child("favorites").push().setValue(favoriteTemp);
-
+                    flag=false;
+                        Toast.makeText(mContext, "Restoran favorilere eklendi", Toast.LENGTH_SHORT).show();
+                    //}
+                   // else Toast.makeText(mContext,"restoran zaten ekli",Toast.LENGTH_LONG).show();
                 }
             });
 
         }
-/*        public boolean check() {
+   /*     public boolean check() {
             FirebaseAuth auth;
             final FirebaseUser currentUser;
             auth = FirebaseAuth.getInstance();
             currentUser = auth.getCurrentUser();
+            final Restaurant favoriteTemp = listOfRestaurants.get(getAdapterPosition());
             Query query =databaseReference.child("users").child(currentUser.getUid()).child("favorites");
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for(DataSnapshot d:snapshot.getChildren()){
                         Restaurant r= d.getValue(Restaurant.class);
-                        Log.e("databasedeki",r.getRestaurant_id());
-                        Log.e("bastığım",listOfRestaurants.get(getAdapterPosition()).getRestaurant_id().toString());
-                            if (listOfRestaurants.get(getAdapterPosition()).getRestaurant_id().equals(r.getRestaurant_id())) {
-                                flag=true;
-                                Log.e("FLAG", String.valueOf(flag));
-                            }
+                         if(r.getRestaurant_id().equals(favoriteTemp.getRestaurant_id())){
+                             flag=true;
+                         }
+
 
                     }
                 }
