@@ -7,9 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +38,7 @@ public class PaymentActivity extends AppCompatActivity {
     EditText editTextCartCode,editTextCartValidDate;
     Button buttonPaymentNext;
     String restaurantId;
+    Spinner spinnerDeliveryDate, spinnerPaymentMethod;
 
 
     private FirebaseAuth auth;
@@ -54,9 +59,9 @@ public class PaymentActivity extends AppCompatActivity {
         buttonPaymentNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!editTextCartCode.getText().toString().equals("")&&!editTextCartValidDate.getText().toString().equals("")&&getIntent().getDoubleExtra("price",0)!=0
+                if(!spinnerDeliveryDate.getSelectedItem().toString().equals("")&&!spinnerPaymentMethod.getSelectedItem().toString().equals("")&&getIntent().getDoubleExtra("price",0)!=0
                 &&restaurantId!=null){
-                    Toast.makeText(getApplicationContext(),"Ödeme isteğin restauranta yönlendirildi.",Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(),"Ödeme isteğin restauranta yönlendirildi.",Toast.LENGTH_LONG).show();
                     PrevOrder prevOrder=new PrevOrder();
                     prevOrder.setCompleted(false);
                     prevOrder.setOwnerUid(currentUser.getUid());
@@ -71,7 +76,53 @@ public class PaymentActivity extends AppCompatActivity {
 
             }
         });
+
+        ArrayAdapter<String> adapterDeliveryDate= new ArrayAdapter<>(
+                this,
+                R.layout.spinner_deliverydate,
+                getResources().getStringArray(R.array.teslimtarihi)
+        );
+        adapterDeliveryDate.setDropDownViewResource(R.layout.spinner_dropdown_delivery);
+        spinnerDeliveryDate.setAdapter(adapterDeliveryDate);
+
+        spinnerDeliveryDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selectedItem= spinnerDeliveryDate.getItemAtPosition(i).toString();
+                Toast.makeText(getApplicationContext(),selectedItem,Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        ArrayAdapter<String> adapterPaymentMethod= new ArrayAdapter<>(
+                this,
+                R.layout.spinner_paymentmethod,
+                getResources().getStringArray(R.array.ödemeşekli)
+        );
+        adapterPaymentMethod.setDropDownViewResource(R.layout.spinner_dropdown_payment);
+        spinnerPaymentMethod.setAdapter(adapterPaymentMethod);
+
+        spinnerPaymentMethod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selectedItem= spinnerPaymentMethod.getItemAtPosition(i).toString();
+                if(selectedItem.equals("İleri Tarihe")){
+
+                }
+                Toast.makeText(getApplicationContext(),selectedItem,Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
+
 
     private void setOrdersAndDelete(final PrevOrder prevOrder){  //TODO ABİSİ bunu silicem sonra buraya listener şeklinde olmayan productları prevOrdere EKLEYECEM
         Query query=databaseReference.child("users").child(currentUser.getUid()).child("currentBasket");
@@ -106,6 +157,9 @@ public class PaymentActivity extends AppCompatActivity {
         /*editTextCartCode=findViewById(R.id.editTextCartCode);
         editTextCartValidDate=findViewById(R.id.editTextCartValidDate);*/
         buttonPaymentNext=findViewById(R.id.buttonPaymentNext);
+        spinnerDeliveryDate=findViewById(R.id.spinnerDeliveryDate);
+        spinnerPaymentMethod=findViewById(R.id.spinnerPaymentMethod);
+
 
 
         auth = FirebaseAuth.getInstance();

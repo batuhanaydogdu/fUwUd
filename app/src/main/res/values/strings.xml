@@ -21,4 +21,17 @@
         <item>Pizza</item>
         <item>Tatlı</item>
     </string-array>
+
+    <string-array name="teslimtarihi">
+        <item>Bugün</item>
+        <item>İleri Tarihe</item>
+    </string-array>
+
+    <string-array name="ödemeşekli">
+        <item>Kapıda Kredi Kartı</item>
+        <item>Kapıda Nakit</item>
+        <item>Online Ödeme</item>
+    </string-array>
+
+
 </resources>
