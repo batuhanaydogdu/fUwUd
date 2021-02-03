@@ -27,7 +27,7 @@ public class RVCommentAdapter extends FirebaseRecyclerAdapter<Comment, RVComment
     protected void onBindViewHolder(@NonNull RVCommentAdapter.viewholder viewholder, int i, @NonNull Comment comment) {
 
         viewholder.comment.setText(comment.getComments());
-        viewholder.restaurantName.setText(comment.getRestaurantName());
+        viewholder.restaurantName.setText("Restaurant");
         viewholder.ownerName.setText(comment.getOwnerName());
         viewholder.restaurantReply.setText(comment.getReply());
 
