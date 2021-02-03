@@ -38,7 +38,6 @@ public class OtherFavoritesActivity extends AppCompatActivity {
         adapter = new RVFavoriteAdapter(options, this, this);
         adapter.startListening();
         recyclerView.setAdapter(adapter);
-
     }
 
     public void onStart() {
@@ -50,6 +49,5 @@ public class OtherFavoritesActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
-
     }
 }

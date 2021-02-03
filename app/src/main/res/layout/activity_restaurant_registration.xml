@@ -99,6 +99,7 @@
         android:hint="İşletme No. Giriniz"
         android:padding="10dp"
         android:textSize="12sp"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonSelectLocation" />
 
@@ -127,6 +128,7 @@
         android:hint="Şifre Giriniz"
         android:padding="10dp"
         android:textSize="12sp"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextRestaurantEmail" />
 
