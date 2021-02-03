@@ -60,12 +60,7 @@ public class OtherAddressesActivity extends AppCompatActivity implements Locatio
                 updateInfo.put("latitude", currentLatitude);
                 updateInfo.put("longitude",currentLongitude);
                 databaseReference.child("users").child(currentUser.getUid()).updateChildren(updateInfo);
-                Toast.makeText(getBaseContext(), "LOKASYON KAYDEDİLDİ.", Toast.LENGTH_LONG).show();
-
-
-
-
-
+                Toast.makeText(getBaseContext(), "Lokasyon Kaydedildi.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -111,15 +106,6 @@ public class OtherAddressesActivity extends AppCompatActivity implements Locatio
 
     }
 
-
-
-
-
-
-
-
-
-
     private void getLocation(){
 
         checkForPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
@@ -147,9 +133,6 @@ public class OtherAddressesActivity extends AppCompatActivity implements Locatio
 
                             if (loc != null) {
                                 onLocationChanged(loc);
-
-
-
                             }
                         }
                     } catch (SecurityException e) {
@@ -160,26 +143,14 @@ public class OtherAddressesActivity extends AppCompatActivity implements Locatio
         }
     }
 
-
-
-
-
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if(requestCode == 100){
 
             checkForPermission = ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION);
-
-
-
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-
-
                 locationManager = (LocationManager) this
                         .getSystemService(Context.LOCATION_SERVICE);
                 boolean checkGPS = locationManager
@@ -203,8 +174,7 @@ public class OtherAddressesActivity extends AppCompatActivity implements Locatio
                                     updateInfo.put("latitude", currentLatitude);
                                     updateInfo.put("longitude",currentLongitude);
                                     databaseReference.child("users").child(currentUser.getUid()).updateChildren(updateInfo);
-                                    Toast.makeText(this, "LOKASYON KAYDEDİLDİ.", Toast.LENGTH_LONG).show();
-
+                                    Toast.makeText(this, "Lokasyon Kaydedildi.", Toast.LENGTH_LONG).show();
                                 }
                             }
                         } catch (SecurityException e) {
@@ -214,7 +184,7 @@ public class OtherAddressesActivity extends AppCompatActivity implements Locatio
                 }
 
             } else {
-                Log.e("location", "izin reddedildi");
+                Log.e("location", "İzin Verilmedi");
 
             }
 

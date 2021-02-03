@@ -72,13 +72,13 @@ public class RegistrationActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(RegistrationActivity.this);
         if (TextUtils.isEmpty(surname) || TextUtils.isEmpty(name)
                 || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-            Toast.makeText(RegistrationActivity.this, "All fields are required", Toast.LENGTH_LONG).show();
+            Toast.makeText(RegistrationActivity.this, "Tüm Alanlar Gereklidir", Toast.LENGTH_LONG).show();
         } else if (password.length() < 6) {
-            Toast.makeText(RegistrationActivity.this, "Password must be at least 6 character!", Toast.LENGTH_LONG).show();
+            Toast.makeText(RegistrationActivity.this, "Şifre en az 6 karakter olmalı!", Toast.LENGTH_LONG).show();
         } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(RegistrationActivity.this, "Enter a valid email!", Toast.LENGTH_LONG).show();
+            Toast.makeText(RegistrationActivity.this, "Geçerli bir mail girmediniz!", Toast.LENGTH_LONG).show();
         } else {
-            progressDialog.setMessage("Please wait...");
+            progressDialog.setMessage("Lütfen Bekleyin...");
             progressDialog.show();
 
             auth.createUserWithEmailAndPassword(email, password)
@@ -100,7 +100,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                 finish();
                             } else {
                                 progressDialog.dismiss();
-                                Toast.makeText(RegistrationActivity.this, "You cannot register with this email or password.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(RegistrationActivity.this, "Girdiğiniz Email ve Şifre ile giriş yapılamamaktadır.", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
