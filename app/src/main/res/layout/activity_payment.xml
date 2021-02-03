@@ -19,137 +19,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/buttonGereksizPayment1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/button_background"
-        android:enabled="false"
-        android:fontFamily="@font/open_sans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDeliveryDate" />
-
-    <ImageButton
-        android:id="@+id/buttonSelectDeliveryDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="#FFD5B4"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonGereksizPayment1"
-        app:layout_constraintEnd_toEndOf="@+id/buttonGereksizPayment1"
-        app:layout_constraintTop_toTopOf="@+id/buttonGereksizPayment1"
-        app:layout_constraintVertical_bias="0.514"
-        app:srcCompat="@drawable/icon_right" />
-
-    <TextView
-        android:id="@+id/textViewDelivery"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginStart="8dp"
-        android:fontFamily="@font/open_sans"
-        android:text="Bugün"
-
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonGereksizPayment1"
-        app:layout_constraintStart_toEndOf="@+id/imageButtonDeliveryDate"
-        app:layout_constraintTop_toTopOf="@+id/buttonGereksizPayment1" />
-
-    <ImageButton
-        android:id="@+id/imageButtonDeliveryDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-
-        android:background="@drawable/background"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonGereksizPayment1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/buttonGereksizPayment1"
-        app:srcCompat="@drawable/icon_date" />
-
     <TextView
         android:id="@+id/textViewPaymentMethod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="67dp"
         android:fontFamily="@font/open_sans"
         android:text="Ödeme Şekli"
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonGereksizPayment1" />
-
-    <Button
-        android:id="@+id/buttonGereksizPayment2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/button_background"
-        android:enabled="false"
-        android:fontFamily="@font/open_sans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPaymentMethod" />
-
-    <ImageButton
-        android:id="@+id/buttonSelectPaymentMethod"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="#FFD5B4"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonGereksizPayment2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/buttonGereksizPayment2"
-        app:srcCompat="@drawable/icon_right" />
-
-    <TextView
-        android:id="@+id/textViewPayment"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginStart="8dp"
-        android:fontFamily="@font/open_sans"
-        android:text="Seçiniz"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonGereksizPayment2"
-        app:layout_constraintStart_toEndOf="@+id/imageButtonPaymentMethod"
-        app:layout_constraintTop_toTopOf="@+id/buttonGereksizPayment2" />
-
-    <ImageButton
-        android:id="@+id/imageButtonPaymentMethod"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/background"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonGereksizPayment2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/buttonGereksizPayment2"
-        app:srcCompat="@drawable/icon_payment" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerDeliveryDate" />
 
     <TextView
         android:id="@+id/textViewOrderNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="67dp"
         android:fontFamily="@font/open_sans"
         android:text="Sipariş Notu"
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonGereksizPayment2" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerPaymentMethod" />
 
     <EditText
         android:id="@+id/editTextOrderNote"
-        android:layout_width="391dp"
-        android:layout_height="87dp"
+        android:layout_width="380dp"
+        android:layout_height="100dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/open_sans"
+        android:hint="Siparişlerinizle ilgili tüm detayları belirtebilirsiniz."
         android:padding="10dp"
         android:textSize="14sp"
-        android:hint="Siparişlerinizle ilgili tüm detayları belirtebilirsiniz."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewOrderNote" />
@@ -222,5 +126,32 @@
         app:layout_constraintBottom_toBottomOf="@+id/buttonGereksizPayment3"
         app:layout_constraintStart_toEndOf="@+id/textViewPaymentPrice"
         app:layout_constraintTop_toTopOf="@+id/buttonGereksizPayment3" />
+
+    <Spinner
+        android:id="@+id/spinnerDeliveryDate"
+        android:layout_width="380dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/btn_gradient"
+        android:entries="@array/teslimtarihi"
+        android:paddingRight="10dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDeliveryDate" />
+
+    <Spinner
+        android:id="@+id/spinnerPaymentMethod"
+        android:layout_width="380dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/btn_gradient"
+        android:entries="@array/ödemeşekli"
+        android:paddingRight="10dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPaymentMethod" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
