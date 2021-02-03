@@ -43,13 +43,6 @@ public class FragmentOther extends Fragment {
             }
         });
 
-       /* buttonPreviousOrders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToPreviousOrdersPage();
-            }
-        });*/
-
         buttonFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

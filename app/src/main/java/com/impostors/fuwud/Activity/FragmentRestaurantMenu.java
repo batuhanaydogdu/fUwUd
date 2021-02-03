@@ -65,8 +65,8 @@ public class FragmentRestaurantMenu extends Fragment {
                 View editTextAlert = getLayoutInflater().inflate(R.layout.insertion_alert, null);
 
                 AlertDialog.Builder ad = new AlertDialog.Builder(context);
-                ad.setMessage("Name of the new product");
-                ad.setTitle("Add new product");
+                ad.setMessage("Yeni Ürünün İsmi");
+                ad.setTitle("Yeni Ürün Ekle");
                 //Alert view a girilen değerleri Edittext cinsinden alma
                 final EditText InsertedProductName = editTextAlert.findViewById(R.id.editTextReply);
                 final EditText InsertedPrice = editTextAlert.findViewById(R.id.editTextTextPrice);
@@ -74,7 +74,7 @@ public class FragmentRestaurantMenu extends Fragment {
                 //alertview view setleme
                 ad.setView(editTextAlert);
 
-                ad.setPositiveButton("Insert", new DialogInterface.OnClickListener() {
+                ad.setPositiveButton("Ekle", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Edittext cinsinden alınan verileri String olarak tekrar almak
@@ -84,7 +84,7 @@ public class FragmentRestaurantMenu extends Fragment {
 
                         //Boş mu kontrolü
                         if (TextUtils.isEmpty(productName) || TextUtils.isEmpty(productPriceCheck)) {
-                            Toast.makeText(context, "Enter required fields", Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, "Gerekli Alanları Doldurunuz", Toast.LENGTH_LONG).show();
                         } else {
                             //Boş değilse insert yapar
                             final Query query = databaseReference.orderByKey().equalTo(firebaseUser.getUid());
@@ -105,7 +105,7 @@ public class FragmentRestaurantMenu extends Fragment {
                             });
                         }
                     }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("İptal", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }

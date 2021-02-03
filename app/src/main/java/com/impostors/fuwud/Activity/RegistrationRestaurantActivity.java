@@ -94,13 +94,13 @@ public class RegistrationRestaurantActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(RegistrationRestaurantActivity.this);
         if (TextUtils.isEmpty(name)
                 || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-            Toast.makeText(RegistrationRestaurantActivity.this, "All fields are required", Toast.LENGTH_LONG).show();
+            Toast.makeText(RegistrationRestaurantActivity.this, "Tüm Alanlar Gereklidir", Toast.LENGTH_LONG).show();
         } else if (password.length() < 6) {
-            Toast.makeText(RegistrationRestaurantActivity.this, "Password must be at least 6 character!", Toast.LENGTH_LONG).show();
+            Toast.makeText(RegistrationRestaurantActivity.this, "Şifre en az 6 karakter olmalı!", Toast.LENGTH_LONG).show();
         } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(RegistrationRestaurantActivity.this, "Enter a valid email!", Toast.LENGTH_LONG).show();
+            Toast.makeText(RegistrationRestaurantActivity.this, "Geçerli bir mail girmediniz!", Toast.LENGTH_LONG).show();
         } else {
-            progressDialog.setMessage("Please wait...");
+            progressDialog.setMessage("Lütfen Bekleyin...");
             progressDialog.show();
 
 
@@ -123,7 +123,7 @@ public class RegistrationRestaurantActivity extends AppCompatActivity {
                                 finish();
                             } else {
                                 progressDialog.dismiss();
-                                Toast.makeText(RegistrationRestaurantActivity.this, "You cannot register with this email or password.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(RegistrationRestaurantActivity.this, "Girdiğiniz Email ve Şifre ile giriş yapılamamaktadır.", Toast.LENGTH_LONG).show();
                             }
                         }
                     });

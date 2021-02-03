@@ -68,6 +68,7 @@ public class FragmentOrder extends Fragment implements LocationListener {
     private FirebaseUser currentUser;
 
 
+
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
@@ -161,7 +162,7 @@ public class FragmentOrder extends Fragment implements LocationListener {
                                 intent_to_ListedRestaurant.putExtra("longitude", currentLongitude);
                                 startActivity(intent_to_ListedRestaurant);
                             } else {
-                                Toast.makeText(getContext(), "ADRES KAYDETMEMİŞSİN ABİ", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), "Kayıtlı Adres Bulunamadı", Toast.LENGTH_LONG).show();
                             }
 
                         }
@@ -201,7 +202,6 @@ public class FragmentOrder extends Fragment implements LocationListener {
         locationManager = (LocationManager) getContext().getSystemService(getContext().LOCATION_SERVICE);
         sliderRestaurant = (ImageSlider) view.findViewById(R.id.sliderRestaurant);
         buttonGoToPrevOrders = (android.widget.ImageButton) view.findViewById(R.id.buttonGoToPrevOrders);
-
 
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();

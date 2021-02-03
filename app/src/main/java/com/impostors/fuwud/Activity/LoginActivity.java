@@ -104,14 +104,14 @@ public class LoginActivity extends AppCompatActivity {
         String password = editTextPassword.getText().toString();
 
         if (TextUtils.isEmpty(email)) {
-            editTextEmail.setError("Email field cannot be empty!");
+            editTextEmail.setError("Email Alanı Boş Olamaz!");
             if (TextUtils.isEmpty(password)) {
-                editTextPassword.setError("Password field cannot be empty!");
+                editTextPassword.setError("Şifre Alanı Boş Olamaz!");
             }
             return;
         }
         if (TextUtils.isEmpty(password)) {
-            editTextPassword.setError("Password field cannot be empty!");
+            editTextPassword.setError("Şifre Alanı Boş Olamaz!");
             return;
         }
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     onAuthSuccess(task.getResult().getUser());
                 } else {
-                    Toast.makeText(LoginActivity.this, "Email or password is wrong!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Email veya Şifre Hatalı!", Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void onAuthSuccess(FirebaseUser user) {
         progressDialog = new ProgressDialog(LoginActivity.this);
-        progressDialog.setMessage("Logging In...");
+        progressDialog.setMessage("Giriş Yapılıyor...");
         progressDialog.setCancelable(false);
         currentUser=auth.getCurrentUser();
         Query queryForCheckRestaurant=databaseReference.child("restaurants").orderByKey().equalTo(currentUser.getUid());
