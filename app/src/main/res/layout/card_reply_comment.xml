@@ -19,53 +19,54 @@
 
             <TextView
                 android:id="@+id/ownerComment"
-                android:layout_width="158dp"
-                android:layout_height="29dp"
-                android:layout_marginStart="156dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/open_sans"
                 android:text="Comment"
                 android:textColor="@color/black"
-                android:textStyle="italic"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView15"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/restName"
-                android:layout_width="104dp"
-                android:layout_height="34dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp"
                 android:text="Restaurant Reply:"
                 android:textStyle="bold|italic"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textReply"
-                app:layout_constraintHorizontal_bias="0.166"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
             <TextView
                 android:id="@+id/textReply"
-                android:layout_width="162dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="10dp"
+                android:fontFamily="@font/open_sans"
                 android:text="Restaurant reply"
-                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/restName"
-                app:layout_constraintTop_toBottomOf="@+id/ownerComment"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toBottomOf="@+id/ownerComment" />
 
             <TextView
                 android:id="@+id/textView15"
-                android:layout_width="104dp"
-                android:layout_height="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:text="User Comment:"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
