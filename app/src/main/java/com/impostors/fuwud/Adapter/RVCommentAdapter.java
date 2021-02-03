@@ -21,16 +21,16 @@ public class RVCommentAdapter extends FirebaseRecyclerAdapter<Comment, RVComment
 
     }
 
-    TextView ownerName;
-    TextView ownerId;
-    TextView restaurantName;
-    TextView restaurantId;
+
 
     @Override
     protected void onBindViewHolder(@NonNull RVCommentAdapter.viewholder viewholder, int i, @NonNull Comment comment) {
 
         viewholder.comment.setText(comment.getComments());
-      //  viewholder.ownerName.setText(comment.getOwnerName());
+        viewholder.restaurantName.setText("Restaurant");
+        viewholder.ownerName.setText(comment.getOwnerName());
+        viewholder.restaurantReply.setText(comment.getReply());
+
 
 
 
@@ -48,15 +48,21 @@ public class RVCommentAdapter extends FirebaseRecyclerAdapter<Comment, RVComment
     }
 
     class viewholder extends RecyclerView.ViewHolder{
-        TextView ownerName, comment, restaurantName, restaurantId;
+        TextView ownerName, comment, restaurantName, restaurantReply;
 
 
         public viewholder(@NonNull View itemView) {
             super(itemView);
 
-            ownerId = (TextView)itemView.findViewById(R.id.OwnerRV);
+            ownerName = (TextView)itemView.findViewById(R.id.OwnerRV);
 
             comment = (TextView)itemView.findViewById(R.id.ownerComment);
+
+            restaurantReply = (TextView)itemView.findViewById(R.id.restaurantReply);
+
+            restaurantName = (TextView)itemView.findViewById(R.id.restaurantName);
+
+
 
 
         }

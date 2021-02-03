@@ -26,6 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.impostors.fuwud.Model.Comment;
 import com.impostors.fuwud.R;
 
+import org.w3c.dom.Text;
+
 
 public class RVReplyCommentAdapter extends FirebaseRecyclerAdapter<Comment, RVReplyCommentAdapter.viewholder> {
     public RVReplyCommentAdapter(@NonNull FirebaseRecyclerOptions<Comment> options, Context mcontext, Activity activity)
@@ -54,6 +56,7 @@ public class RVReplyCommentAdapter extends FirebaseRecyclerAdapter<Comment, RVRe
 
         viewholder.comment.setText(comment.getComments());
         viewholder.textReply.setText(comment.getReply());
+        viewholder.textViewUserNameOnR.setText(comment.getOwnerName());
 
 
 
@@ -73,6 +76,7 @@ public class RVReplyCommentAdapter extends FirebaseRecyclerAdapter<Comment, RVRe
     class viewholder extends RecyclerView.ViewHolder{
         TextView comment;
         TextView textReply;
+        TextView textViewUserNameOnR;
 
 
 
@@ -128,6 +132,7 @@ public class RVReplyCommentAdapter extends FirebaseRecyclerAdapter<Comment, RVRe
             comment = (TextView)itemView.findViewById(R.id.ownerComment);
             buttonreply=itemView.findViewById(R.id.buttonReply);
             textReply=itemView.findViewById(R.id.textReply);
+            textViewUserNameOnR=itemView.findViewById(R.id.textViewUserNameOnR);
         }
     }
 }

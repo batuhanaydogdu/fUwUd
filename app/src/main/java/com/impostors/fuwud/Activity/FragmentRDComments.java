@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,20 @@ import android.widget.ImageButton;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.impostors.fuwud.Adapter.RVCommentAdapter;
 
 import com.impostors.fuwud.Model.Comment;
+import com.impostors.fuwud.Model.Restaurant;
+import com.impostors.fuwud.Model.User;
 import com.impostors.fuwud.R;
+
+import java.util.logging.LoggingMXBean;
 
 public class FragmentRDComments extends Fragment {
     FirebaseDatabase firebaseDatabase;
@@ -33,7 +42,7 @@ public class FragmentRDComments extends Fragment {
     RecyclerView recyclerView;
     private RVCommentAdapter adapter;
     FirebaseAuth auth;
-    FirebaseUser User;
+    FirebaseUser currentUser;
     private ImageButton sendButton;
     EditText commentSection;
 
@@ -46,7 +55,7 @@ public class FragmentRDComments extends Fragment {
         recyclerView = view.findViewById(R.id.allcommentsrest);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         auth = FirebaseAuth.getInstance();
-        User = auth.getCurrentUser();
+        currentUser = auth.getCurrentUser();
         commentSection = view.findViewById(R.id.commentSec);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -57,12 +66,53 @@ public class FragmentRDComments extends Fragment {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Comment comment = new Comment();
-                comment.setOwnerId(User.getUid());
+                final Comment comment = new Comment();
+                comment.setOwnerId(currentUser.getUid());
                 comment.setComments(commentSection.getText().toString());
 
-                databaseReference.child("restaurants").child(restaurantId).child("comments").push().setValue(comment);
-                commentSection.setText(null);
+            /*    Query query=databaseReference.child("restaurants").orderByKey().equalTo(restaurantId);
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot d:snapshot.getChildren()){
+                            Restaurant a=d.getValue(Restaurant.class);
+                            comment.setRestaurantName(d.getValue().toString());
+
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });*/
+                Query queryforUser=databaseReference.child("users").orderByKey().equalTo(currentUser.getUid());
+                queryforUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot d:snapshot.getChildren()){
+
+                            User user=d.getValue(User.class);
+                            comment.setOwnerName(user.getName());
+                            databaseReference.child("restaurants").child(restaurantId).child("comments").push().setValue(comment);
+                            commentSection.setText(null);
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
+
+
             }
 
 

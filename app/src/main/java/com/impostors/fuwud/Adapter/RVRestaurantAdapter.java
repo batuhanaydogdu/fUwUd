@@ -36,6 +36,8 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
     private boolean flag = false;
 
 
+
+
     public RVRestaurantAdapter(Context mContext, List<Restaurant> listOfRestaurants, Activity activity) {
         this.mContext = mContext;
         this.listOfRestaurants = listOfRestaurants;
