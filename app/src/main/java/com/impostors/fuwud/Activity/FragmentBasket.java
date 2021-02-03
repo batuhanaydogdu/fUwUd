@@ -47,6 +47,7 @@ public class FragmentBasket extends Fragment {
     Button buttonBasketComplete;
     double totalPricee;
     String restaurantId;
+    String restaurantName;
     ConstraintLayout content_basket;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -90,6 +91,7 @@ public class FragmentBasket extends Fragment {
                         Intent intent = new Intent(getActivity(), PaymentActivity.class);
                         intent.putExtra("price", totalPricee);
                         intent.putExtra("restaurantId", restaurantId);
+                        intent.putExtra("restaurantName",restaurantName);
                         startActivity(intent);
                     } else {
                         Toast.makeText(getContext(), "Restaurant bulunamadı", Toast.LENGTH_LONG);
@@ -109,6 +111,7 @@ public class FragmentBasket extends Fragment {
                     Product product = d.getValue(Product.class);
                     totalPrice = product.getCount() * product.getBuyPrice() + totalPrice;
                     restaurantId = product.getRestaurant_id();
+                    restaurantName=product.getName();
                 }
                 textViewTotalPrice.setText(totalPrice + "");
                 totalPricee = totalPrice;
