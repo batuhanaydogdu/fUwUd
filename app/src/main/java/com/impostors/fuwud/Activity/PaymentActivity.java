@@ -5,14 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,10 +24,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.impostors.fuwud.Model.PrevOrder;
 import com.impostors.fuwud.Model.Product;
-import com.impostors.fuwud.Model.User;
 import com.impostors.fuwud.R;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class PaymentActivity extends AppCompatActivity {
@@ -43,6 +38,10 @@ public class PaymentActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private FirebaseUser currentUser;
+
+    static String USER_NAME = "fuwudapp@gmail.com";
+    static String PASSWORD = "Batuhanemremicikmert123.";
+    static String HOST = "smtp.gmail.com";
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -150,7 +149,6 @@ public class PaymentActivity extends AppCompatActivity {
         databaseReference.child("users").child(currentUser.getUid()).child("currentBasket").removeValue();
 
     }
-
 
     private void init(){
         textViewPaymentPrice=findViewById(R.id.textViewPaymentPrice);
