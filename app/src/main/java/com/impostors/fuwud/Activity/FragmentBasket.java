@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -45,15 +46,16 @@ public class FragmentBasket extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     TextView textViewTotalPrice;
-    ImageButton imageButtonBasketComplete;
+    public TextView textViewbasketEmpty;
+    Button buttonBasketComplete;
     double totalPricee;
     String restaurantId;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_basket, container, false);
+        View view = inflater.inflate(R.layout.fragment_basket, container, false);
         init(view);
-        Query queryForR=databaseReference.child("users").child(currentUser.getUid()).child("currentBasket");
+        Query queryForR = databaseReference.child("users").child(currentUser.getUid()).child("currentBasket");
 
         FirebaseRecyclerOptions<Product> options = new FirebaseRecyclerOptions.Builder<Product>()
                 .setQuery(queryForR, Product.class)
@@ -61,32 +63,27 @@ public class FragmentBasket extends Fragment {
         updateTotalPrice(queryForR);
 
 
-
-
         rvBasketAdapter = new RVBasketAdapter(options);
-
 
 
         recyclerViewBasket.setAdapter(rvBasketAdapter);
 
 
-        imageButtonBasketComplete.setOnClickListener(new View.OnClickListener() {
+        buttonBasketComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(totalPricee==0){
-                    Toast.makeText(getContext(),"krdşm 0 TL lik sepeti alamazsın",Toast.LENGTH_LONG);
-                }
-                else{
-                    if(restaurantId!=null){
+                if (totalPricee == 0) {
+                    Toast.makeText(getContext(), "krdşm 0 TL lik sepeti alamazsın", Toast.LENGTH_LONG);
+                } else {
+                    if (restaurantId != null) {
 
-                Intent intent = new Intent(getActivity(), PaymentActivity.class);
-                intent.putExtra("price",totalPricee);
-                intent.putExtra("restaurantId",restaurantId);
-                startActivity(intent);
-                getActivity().finish();}
-                    else{
-                        Toast.makeText(getContext(),"krdşm Restaurant bulunamadı",Toast.LENGTH_LONG);
+                        Intent intent = new Intent(getActivity(), PaymentActivity.class);
+                        intent.putExtra("price", totalPricee);
+                        intent.putExtra("restaurantId", restaurantId);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getContext(), "krdşm Restaurant bulunamadı", Toast.LENGTH_LONG);
 
                     }
 
@@ -98,20 +95,20 @@ public class FragmentBasket extends Fragment {
 
     }
 
-    private void updateTotalPrice(Query queryForR){
+    private void updateTotalPrice(Query queryForR) {
         queryForR.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                double totalPrice=0;
-                for(DataSnapshot d:snapshot.getChildren()){
-                    Product product=d.getValue(Product.class);
-                    totalPrice=product.getCount()*product.getBuyPrice()+totalPrice;
-                    restaurantId=product.getRestaurant_id();
+                double totalPrice = 0;
+                for (DataSnapshot d : snapshot.getChildren()) {
+                    Product product = d.getValue(Product.class);
+                    totalPrice = product.getCount() * product.getBuyPrice() + totalPrice;
+                    restaurantId = product.getRestaurant_id();
 
 
                 }
-                textViewTotalPrice.setText(totalPrice+ "");
-                totalPricee=totalPrice;
+                textViewTotalPrice.setText(totalPrice + "");
+                totalPricee = totalPrice;
             }
 
             @Override
@@ -132,15 +129,15 @@ public class FragmentBasket extends Fragment {
 
     }
 
-    private void init(View view){
+    private void init(View view) {
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
-        firebaseDatabase=FirebaseDatabase.getInstance();
-        databaseReference=firebaseDatabase.getReference();
-        recyclerViewBasket=view.findViewById(R.id.RecyclerViewBasket);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        recyclerViewBasket = view.findViewById(R.id.RecyclerViewBasket);
         recyclerViewBasket.setLayoutManager(new LinearLayoutManager(getContext()));
-        textViewTotalPrice=view.findViewById(R.id.textViewTotalPrice);
-        imageButtonBasketComplete=view.findViewById(R.id.imageButtonBasketComplete);
+        textViewTotalPrice = view.findViewById(R.id.textViewTotalPrice);
+        buttonBasketComplete = view.findViewById(R.id.buttonBasketComplete);
 
 
     }
@@ -150,10 +147,7 @@ public class FragmentBasket extends Fragment {
         rvBasketAdapter.startListening();
 
 
-
-
     }
-
 
 
     @Override

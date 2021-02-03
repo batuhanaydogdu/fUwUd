@@ -1,6 +1,5 @@
 package com.impostors.fuwud.Adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.impostors.fuwud.Model.Comment;
-import com.impostors.fuwud.Model.PrevOrder;
 import com.impostors.fuwud.R;
-
-import java.util.List;
 
 
 public class RVCommentAdapter extends FirebaseRecyclerAdapter<Comment, RVCommentAdapter.viewholder> {
@@ -25,24 +21,16 @@ public class RVCommentAdapter extends FirebaseRecyclerAdapter<Comment, RVComment
 
     }
 
-
     TextView ownerName;
     TextView ownerId;
     TextView restaurantName;
     TextView restaurantId;
 
-
-
-
-
-
-
-
     @Override
     protected void onBindViewHolder(@NonNull RVCommentAdapter.viewholder viewholder, int i, @NonNull Comment comment) {
 
         viewholder.comment.setText(comment.getComments());
-        //viewholder.ownerName.setText(comment.getOwnerName());
+      //  viewholder.ownerName.setText(comment.getOwnerName());
 
 
 
@@ -66,7 +54,7 @@ public class RVCommentAdapter extends FirebaseRecyclerAdapter<Comment, RVComment
         public viewholder(@NonNull View itemView) {
             super(itemView);
 
-            //ownerId = (TextView)itemView.findViewById(R.id.OwnerRV);
+            ownerId = (TextView)itemView.findViewById(R.id.OwnerRV);
 
             comment = (TextView)itemView.findViewById(R.id.ownerComment);
 

@@ -10,6 +10,24 @@ public class Comment {
     private String comments;
     private String restaurantName;
     private String restaurantId;
+    private String reply;
+    private String ownerName;
+
+    public String getReply() {
+        return reply;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
+    }
 
     public String getRestaurantName() {
         return restaurantName;

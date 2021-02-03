@@ -1,7 +1,10 @@
 package com.impostors.fuwud.Activity;
 
+import android.app.SearchManager;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.SearchRecentSuggestions;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -154,6 +157,10 @@ public class FragmentSearch extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+
+
+
     }
     private void cuisineSearch(Button button){
         FirebaseDatabase firebaseDatabase;

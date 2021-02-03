@@ -28,7 +28,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.denzcoskun.imageslider.ImageSlider;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -55,15 +57,15 @@ public class FragmentOrder extends Fragment implements LocationListener {
     Button buttonListRestaurants;
     private LocationManager locationManager;
     private int checkForPermission;
-    Double currentLatitude=0.0,currentLongitude=0.0;
+    Double currentLatitude = 0.0, currentLongitude = 0.0;
     private String locationProvider = "gps";
     Location loc;
     private RecyclerView recyclerView2;
     private ImageSlider sliderRestaurant;
+    private android.widget.ImageButton buttonGoToPrevOrders;
 
     private FirebaseAuth auth;
     private FirebaseUser currentUser;
-
 
 
     FirebaseDatabase firebaseDatabase;
@@ -73,50 +75,55 @@ public class FragmentOrder extends Fragment implements LocationListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_order, container, false);
+        View view = inflater.inflate(R.layout.fragment_order, container, false);
         init(view);
 
         recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
         FirebaseRecyclerOptions<PrevOrder> options = new FirebaseRecyclerOptions.Builder<PrevOrder>()
                 .setQuery(databaseReference.child("users").child(currentUser.getUid()).child("completedOrders").limitToLast(3), PrevOrder.class)
                 .build();
-            adapter = new RVOrderAdapter(options);
-            adapter.startListening();
+        adapter = new RVOrderAdapter(options);
+        adapter.startListening();
         recyclerView2.setAdapter(adapter);
 
 
-
+        buttonGoToPrevOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), OtherPreviousOrdersActivity.class);
+                startActivity(intent);
+            }
+        });
 
         switchSearch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     switchSearch.setText("Listelerken güncel adresimi al");
-                }
-                else{
+                } else {
                     switchSearch.setText("Listelerken kayıtlı adresimi al");
                 }
             }
         });
 
         List<SlideModel> slideModels = new ArrayList<>();
-        slideModels.add(new SlideModel("https://cdn.yemeksepeti.com/adm/Web-529r77.jpg","Fırsat 1"));
-        slideModels.add(new SlideModel("https://cdn.yemeksepeti.com/adm/Web-0n7dwf.jpg","Fırsat 2"));
-        slideModels.add(new SlideModel("https://cdn.yemeksepeti.com/adm/Web-brm2a7.jpg","Fırsat 3"));
-        slideModels.add(new SlideModel("https://cdn.yemeksepeti.com/adm/Web-gn77x4.jpg","Fırsat 4"));
-        sliderRestaurant.setImageList(slideModels,true);
+        slideModels.add(new SlideModel("https://cdn.yemeksepeti.com/adm/Web-529r77.jpg", "Fırsat 1"));
+        slideModels.add(new SlideModel("https://cdn.yemeksepeti.com/adm/Web-0n7dwf.jpg", "Fırsat 2"));
+        slideModels.add(new SlideModel("https://cdn.yemeksepeti.com/adm/Web-brm2a7.jpg", "Fırsat 3"));
+        slideModels.add(new SlideModel("https://cdn.yemeksepeti.com/adm/Web-gn77x4.jpg", "Fırsat 4"));
+        sliderRestaurant.setImageList(slideModels, true);
 
         buttonListRestaurants.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(switchSearch.isChecked()){
+                if (switchSearch.isChecked()) {
                     getLocation();
 
 
                     checkForPermission = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION);
 
-                    if(checkForPermission == PackageManager.PERMISSION_GRANTED && currentLatitude!=0.0&&currentLongitude!=0.0) {
+                    if (checkForPermission == PackageManager.PERMISSION_GRANTED && currentLatitude != 0.0 && currentLongitude != 0.0) {
 
                         Intent intent_to_ListedRestaurant = new Intent(getActivity().getApplication(), ListedRestaurantActivity.class);
                         intent_to_ListedRestaurant.putExtra("latitude", currentLatitude);
@@ -126,15 +133,9 @@ public class FragmentOrder extends Fragment implements LocationListener {
                     }
 
 
+                } else {
 
-
-                }
-
-                else{
-
-                    Query queryForLoc=databaseReference.child("users").child(currentUser.getUid()).orderByKey();
-
-
+                    Query queryForLoc = databaseReference.child("users").child(currentUser.getUid()).orderByKey();
 
 
                     queryForLoc.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -143,25 +144,24 @@ public class FragmentOrder extends Fragment implements LocationListener {
 
                             if (snapshot.exists()) {
                                 for (DataSnapshot issue : snapshot.getChildren()) {
-                                    if(issue.getKey().equals("longitude")){
-                                        currentLongitude= Double.parseDouble(issue.getValue().toString());
+                                    if (issue.getKey().equals("longitude")) {
+                                        currentLongitude = Double.parseDouble(issue.getValue().toString());
                                     }
-                                    if(issue.getKey().equals("latitude")){
-                                        currentLatitude=Double.parseDouble(issue.getValue().toString());
+                                    if (issue.getKey().equals("latitude")) {
+                                        currentLatitude = Double.parseDouble(issue.getValue().toString());
                                     }
-
 
 
                                 }
                             }
 
-                            if(currentLatitude!=0.0&&currentLongitude!=0.0){
+                            if (currentLatitude != 0.0 && currentLongitude != 0.0) {
                                 Intent intent_to_ListedRestaurant = new Intent(getActivity().getApplication(), ListedRestaurantActivity.class);
                                 intent_to_ListedRestaurant.putExtra("latitude", currentLatitude);
                                 intent_to_ListedRestaurant.putExtra("longitude", currentLongitude);
-                                startActivity(intent_to_ListedRestaurant);}
-                            else{
-                                Toast.makeText(getContext(),"ADRES KAYDETMEMİŞSİN ABİ",Toast.LENGTH_LONG).show();
+                                startActivity(intent_to_ListedRestaurant);
+                            } else {
+                                Toast.makeText(getContext(), "ADRES KAYDETMEMİŞSİN ABİ", Toast.LENGTH_LONG).show();
                             }
 
                         }
@@ -180,6 +180,7 @@ public class FragmentOrder extends Fragment implements LocationListener {
 
         return view;
     }
+
     public void onStart() {
         super.onStart();
         adapter.startListening();
@@ -193,38 +194,37 @@ public class FragmentOrder extends Fragment implements LocationListener {
     }
 
 
-    private void init(View view){
-        switchSearch=view.findViewById(R.id.switchSearch);
-        buttonListRestaurants=view.findViewById(R.id.buttonListRestaurants);
-        recyclerView2=(RecyclerView) view.findViewById(R.id.rvOtherPrev);
-        locationManager=(LocationManager)getContext().getSystemService(getContext().LOCATION_SERVICE);
+    private void init(View view) {
+        switchSearch = view.findViewById(R.id.switchSearch);
+        buttonListRestaurants = view.findViewById(R.id.buttonListRestaurants);
+        recyclerView2 = (RecyclerView) view.findViewById(R.id.rvOtherPrev);
+        locationManager = (LocationManager) getContext().getSystemService(getContext().LOCATION_SERVICE);
         sliderRestaurant = (ImageSlider) view.findViewById(R.id.sliderRestaurant);
+        buttonGoToPrevOrders = (android.widget.ImageButton) view.findViewById(R.id.buttonGoToPrevOrders);
 
 
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
-        firebaseDatabase=FirebaseDatabase.getInstance();
-        databaseReference=firebaseDatabase.getReference();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
 
 
     }
 
 
-    private void listCloseRestaurants(){
-
+    private void listCloseRestaurants() {
 
 
     }
 
 
-    private void getLocation(){
+    private void getLocation() {
 
         checkForPermission = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION);
 
-        if(checkForPermission != PackageManager.PERMISSION_GRANTED){
+        if (checkForPermission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
-        }else
-        {
+        } else {
             locationManager = (LocationManager) getContext()
                     .getSystemService(Context.LOCATION_SERVICE);
             boolean checkGPS = locationManager
@@ -281,11 +281,10 @@ public class FragmentOrder extends Fragment implements LocationListener {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == 100){
+        if (requestCode == 100) {
 
             checkForPermission = ContextCompat.checkSelfPermission(getContext(),
                     Manifest.permission.ACCESS_FINE_LOCATION);
-
 
 
             if (grantResults.length > 0
@@ -312,7 +311,7 @@ public class FragmentOrder extends Fragment implements LocationListener {
 
                                 if (loc != null) {
                                     onLocationChanged(loc);
-                                    if(checkForPermission == PackageManager.PERMISSION_GRANTED && currentLatitude!=0.0&&currentLongitude!=0.0) {
+                                    if (checkForPermission == PackageManager.PERMISSION_GRANTED && currentLatitude != 0.0 && currentLongitude != 0.0) {
 
                                         Intent intent_to_ListedRestaurant = new Intent(getActivity().getApplication(), ListedRestaurantActivity.class);
                                         intent_to_ListedRestaurant.putExtra("latitude", currentLatitude);

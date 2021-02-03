@@ -33,7 +33,7 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
     private List<Restaurant> listOfRestaurants;
     private Context mContext;
     private Activity activity;
-    private boolean flag=false;
+    private boolean flag = false;
 
 
 
@@ -60,8 +60,6 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
         holder.restaurantName.setText(restaurant.getRestaurantName());
         holder.cuisine.setText(restaurant.getCuisine());
         holder.phoneNumber.setText(restaurant.getPhoneNumber());
-
-
 
 
     }
@@ -99,8 +97,6 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
         DatabaseReference databaseReference;
 
 
-
-
         public ViewHolderForRestaurant(@NonNull final View itemView) {
             super(itemView);
             cuisine = itemView.findViewById(R.id.cuisineRV);
@@ -110,12 +106,17 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
             addToFavorites = itemView.findViewById(R.id.addToFav);
 
 
-
             buttonGoToRestaurantRV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
                     intent.putExtra("restaurant_id", listOfRestaurants.get(getLayoutPosition()).getRestaurant_id());
+                    intent.putExtra("restaurantName",listOfRestaurants.get(getLayoutPosition()).getRestaurantName());
+                    intent.putExtra("restaurantPhone",listOfRestaurants.get(getLayoutPosition()).getPhoneNumber());
+                    intent.putExtra("restaurantEmail",listOfRestaurants.get(getLayoutPosition()).getEmail());
+                    intent.putExtra("restaurantLatitude",listOfRestaurants.get(getLayoutPosition()).getLatitude());
+                    intent.putExtra("restaurantLongitude",listOfRestaurants.get(getLayoutPosition()).getLongitude());
+
                     setListOfRestaurants(null);
                     mContext.startActivity(intent);
                     activity.finish();
@@ -131,14 +132,18 @@ public class RVRestaurantAdapter extends RecyclerView.Adapter<RVRestaurantAdapte
                     final FirebaseUser currentUser;
                     auth = FirebaseAuth.getInstance();
                     currentUser = auth.getCurrentUser();
+                    boolean isPressed=false;
 
+                    if(isPressed){
+                        v.setBackgroundResource(R.drawable.icon_star_empty);
+                    }else{
+                        v.setBackgroundResource(R.drawable.icon_star_filled);
+                    }
+                    isPressed = !isPressed; // reverse
+                    Restaurant favoriteTemp = listOfRestaurants.get(getAdapterPosition());
+                    Toast.makeText(mContext, "Restoran favorilere eklendi", Toast.LENGTH_SHORT).show();
 
-
-
-                        Restaurant favoriteTemp = listOfRestaurants.get(getAdapterPosition());
-                        Toast.makeText(mContext, "Restoran favorilere eklendi", Toast.LENGTH_SHORT).show();
-
-                        databaseReference.child("users").child(currentUser.getUid()).child("favorites").push().setValue(favoriteTemp);
+                    databaseReference.child("users").child(currentUser.getUid()).child("favorites").push().setValue(favoriteTemp);
 
                 }
             });
