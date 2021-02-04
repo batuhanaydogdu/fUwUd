@@ -28,6 +28,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.impostors.fuwud.Model.PrevOrder;
 import com.impostors.fuwud.Model.Product;
+import com.impostors.fuwud.Model.Restaurant;
 import com.impostors.fuwud.Model.User;
 import com.impostors.fuwud.R;
 
@@ -132,7 +133,6 @@ public class RVRestaurantOrderAdapter extends FirebaseRecyclerAdapter<PrevOrder,
                     PrevOrder a=getItem(getAdapterPosition());
 
                     databaseReference.child("users").child(getItem(getAdapterPosition()).getOwnerUid()).child("completedOrders").push().setValue(a);
-
                     getRef(getAdapterPosition()).removeValue();
                     
 
